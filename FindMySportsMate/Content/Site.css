@@ -73,3 +73,13 @@ textarea
 {
     display: none;
 }
+
+.menu
+{
+    float: right;
+}
+
+#title
+{
+    font-size: 16px;
+}
