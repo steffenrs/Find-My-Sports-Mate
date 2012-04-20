@@ -89,4 +89,10 @@ textarea
 #body
 {
     float: left;
+    width: 100%;
+}
+
+#header
+{
+    width: 100%;
 }
