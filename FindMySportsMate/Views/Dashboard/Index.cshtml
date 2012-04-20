@@ -1,6 +1,14 @@
 ﻿
+@model PresentationLayer.DashboardViewModel
 @{
     ViewBag.Title = "Dashboard";
 }
 
-asd
+<div class="big_link">
+    <a href="#">Create a new suggestion</a>
+
+    @foreach (Domain.AddressBook address in Model.Addresses)
+    {
+        @address.FirstName
+    }
+</div>

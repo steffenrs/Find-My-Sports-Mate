@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BusinessLayer;
 
-namespace FindMySportsMate.Controllers
+namespace PresentationLayer
 {
     public class DashboardController : Controller
     {
@@ -13,7 +14,11 @@ namespace FindMySportsMate.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var addresses = AddressBusiness.GetAllAddresses();
+
+            var viewModel = new DashboardViewModel() { Addresses = addresses };
+
+            return View(viewModel);
         }
 
     }

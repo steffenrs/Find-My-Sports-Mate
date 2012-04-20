@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace FindMySportsMate.Controllers
+namespace PresentationLayer
 {
     public class HomeController : Controller
     {
