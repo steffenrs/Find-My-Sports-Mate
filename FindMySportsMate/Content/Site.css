@@ -81,5 +81,12 @@ textarea
 
 #title
 {
+    float: left;
     font-size: 16px;
+    font-weight: bold;
+}
+
+#body
+{
+    float: left;
 }
