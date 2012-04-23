@@ -5,9 +5,10 @@ using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
 
-namespace PresentationLayer.ViewModels
+namespace PresentationLayer
 {
     public class CreateSuggestionViewModel
     {
+        public Domain.Suggestion suggestion { get; set; }
     }
 }

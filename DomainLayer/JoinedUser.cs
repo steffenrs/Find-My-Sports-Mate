@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain
 {
-    class JoinedUser
+    public class JoinedUser
     {
         public User user { get; set; }
         public List<DateTime> joinedDates { get; set; }

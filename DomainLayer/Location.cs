@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain
 {
-    class Location
+    public class Location
     {
         public string name { get; set; }
         public double latitude { get; set; }

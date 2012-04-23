@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain
 {
-    class Suggestion
+    public class Suggestion
     {
         public string id { get; set; }
         public Sport sport { get; set; }
