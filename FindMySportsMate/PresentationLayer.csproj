@@ -72,6 +72,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\SuggestionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -193,6 +194,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\User\ChangePasswordSuccess.cshtml" />
+    <Content Include="Views\Suggestion\Create.cshtml" />
     <Content Include="Views\User\LogOn.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
   </ItemGroup>
