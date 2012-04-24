@@ -55,6 +55,10 @@
       <Project>{0B8B2C7C-D351-4D25-80E7-D680669846D8}</Project>
       <Name>Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FindMySportsMate\PresentationLayer.csproj">
+      <Project>{325A2D83-4C8E-4849-8E2C-7CF3E6EC5FDF}</Project>
+      <Name>PresentationLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
