@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 
 
-namespace PresentationLayer.ViewModels
+namespace PresentationLayer
 {
     public class RegisterViewModel
     {

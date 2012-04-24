@@ -1,4 +1,4 @@
-﻿@model PresentationLayer.ViewModels.RegisterViewModel
+﻿@model PresentationLayer.RegisterViewModel
 
 @{
     ViewBag.Title = "Register";
@@ -22,73 +22,73 @@
             <legend>Please Provide Your Information</legend>
             <div style="float:left">
             <div class="editor-label">
-                @Html.LabelFor(m => m.UserName)
+                @Html.LabelFor(m => m.RegisterModel.UserName)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.RegisterModel.UserName)
+                @Html.ValidationMessageFor(m => m.RegisterModel.UserName)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(m => m.Email)
+                @Html.LabelFor(m => m.RegisterModel.Email)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.Email)
-                @Html.ValidationMessageFor(m => m.Email)
+                @Html.TextBoxFor(m => m.RegisterModel.Email)
+                @Html.ValidationMessageFor(m => m.RegisterModel.Email)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(m => m.Password)
+                @Html.LabelFor(m => m.RegisterModel.Password)
             </div>
             <div class="editor-field">
-                @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
+                @Html.PasswordFor(m => m.RegisterModel.Password)
+                @Html.ValidationMessageFor(m => m.RegisterModel.Password)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(m => m.ConfirmPassword)
+                @Html.LabelFor(m => m.RegisterModel.ConfirmPassword)
             </div>
             <div class="editor-field">
-                @Html.PasswordFor(m => m.ConfirmPassword)
-                @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                @Html.PasswordFor(m => m.RegisterModel.ConfirmPassword)
+                @Html.ValidationMessageFor(m => m.RegisterModel.ConfirmPassword)
             </div>
             </div>
                         <div style="float:left">
             <div class="editor-label">
-                @Html.LabelFor(m => m.Gender)
+                @Html.LabelFor(m => m.RegisterModel.Gender)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.Gender)
+                @Html.TextBoxFor(m => m.RegisterModel.Gender)
                 @*@Html.ValidationMessageFor(m => m.UserName)*@
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(m => m.Height)
+                @Html.LabelFor(m => m.RegisterModel.Height)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.Height)
+                @Html.TextBoxFor(m => m.RegisterModel.Height)
                 @*Html.ValidationMessageFor(m => m.Email)*@
             </div>
             <div class="editor-label">
-                @Html.LabelFor(m => m.StreetAddress)
+                @Html.LabelFor(m => m.RegisterModel.StreetAddress)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.StreetAddress)
+                @Html.TextBoxFor(m => m.RegisterModel.StreetAddress)
                 @*Html.ValidationMessageFor(m => m.Email)*@
             </div>
             <div class="editor-label">
-                @Html.LabelFor(m => m.Area)
+                @Html.LabelFor(m => m.RegisterModel.Area)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.Area)
+                @Html.TextBoxFor(m => m.RegisterModel.Area)
                 @*Html.ValidationMessageFor(m => m.Email)*@
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(m => m.State)
+                @Html.LabelFor(m => m.RegisterModel.State)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.State)
+                @Html.TextBoxFor(m => m.RegisterModel.State)
                 @*Html.ValidationMessageFor(m => m.Email)*@
             </div>
 
