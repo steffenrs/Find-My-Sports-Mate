@@ -108,7 +108,29 @@ textarea
     width: 100%;
 }
 
-.big_link
+.big-link
 {
     font-size: 16px;
+}
+
+#suggestions-tabs
+{
+    margin-top: 20px;
+    width: 80%;
+}
+
+#all-suggestions-table
+{
+    width: 100%;
+    text-align: center;
+}
+
+#all-suggestions-table tr:nth-child(odd)
+{
+    background-color: #E8E3E5;
+}
+
+#all-suggestions-table th
+{
+    background-color: #C9C9C9;
 }
