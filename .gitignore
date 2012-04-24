@@ -6,5 +6,9 @@
 *.dll.config
 *.cache
 *.suo
-FindMySportsMate/Bin/
-FindMySportsMate/obj/
+Bin/
+obj/
+*.ncrunchsolution
+*.ncrunchsolution.user
+*.orig
+*/Properties

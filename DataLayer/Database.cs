@@ -12,7 +12,7 @@ namespace PresentationLayer
         private static DataContext db;
         static Database()
         {
-             db = new DataContext("Data Source=localhost;Initial Catalog=AddressDB;Integrated Security=True");
+            db = new DataContext(Properties.Settings.Default.Database);
         }
 
         public static List<Domain.AddressBook> Get()

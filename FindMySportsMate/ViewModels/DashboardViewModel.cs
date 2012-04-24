@@ -9,6 +9,5 @@ namespace PresentationLayer
     public class DashboardViewModel
     {
         public List<AddressBook> Addresses { get; set; }
-
     }
 }
