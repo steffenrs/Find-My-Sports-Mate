@@ -119,18 +119,18 @@ textarea
     width: 80%;
 }
 
-#all-suggestions-table
+#suggestions-table
 {
     width: 100%;
     text-align: center;
 }
 
-#all-suggestions-table tr:nth-child(odd)
+#suggestions-table tr:nth-child(odd)
 {
     background-color: #E8E3E5;
 }
 
-#all-suggestions-table th
+#suggestions-table th
 {
     background-color: #C9C9C9;
 }
