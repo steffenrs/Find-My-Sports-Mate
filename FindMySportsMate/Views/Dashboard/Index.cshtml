@@ -5,10 +5,6 @@
 }
 
 <div class="big_link">
-    <a href="#">Create a new suggestion</a>
+    @Html.ActionLink("Create a new suggestion", "");
 
-    @foreach (Domain.AddressBook address in Model.Addresses)
-    {
-        @address.FirstName
-    }
 </div>
