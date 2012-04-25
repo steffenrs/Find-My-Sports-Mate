@@ -6,6 +6,12 @@ C:\workspace\QUT Web app dev\Find-My-Sports-Mate\DomainLayer\bin\Debug\EntityFra
 C:\workspace\QUT Web app dev\Find-My-Sports-Mate\DomainLayer\obj\Debug\ResolveAssemblyReference.cache
 C:\workspace\QUT Web app dev\Find-My-Sports-Mate\DomainLayer\obj\Debug\Domain.dll
 C:\workspace\QUT Web app dev\Find-My-Sports-Mate\DomainLayer\obj\Debug\Domain.pdb
+C:\Users\Hans\Documents\QUT\Find-My-Sports-Mate\DomainLayer\bin\Debug\Domain.dll.config
+C:\Users\Hans\Documents\QUT\Find-My-Sports-Mate\DomainLayer\bin\Debug\Domain.dll
+C:\Users\Hans\Documents\QUT\Find-My-Sports-Mate\DomainLayer\bin\Debug\Domain.pdb
+C:\Users\Hans\Documents\QUT\Find-My-Sports-Mate\DomainLayer\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Hans\Documents\QUT\Find-My-Sports-Mate\DomainLayer\obj\Debug\Domain.dll
+C:\Users\Hans\Documents\QUT\Find-My-Sports-Mate\DomainLayer\obj\Debug\Domain.pdb
 C:\temp\Find-My-Sports-Mate\DomainLayer\bin\Debug\Domain.dll.config
 C:\temp\Find-My-Sports-Mate\DomainLayer\bin\Debug\Domain.dll
 C:\temp\Find-My-Sports-Mate\DomainLayer\bin\Debug\Domain.pdb

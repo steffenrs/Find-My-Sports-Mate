@@ -1,10 +1,76 @@
-﻿
-@model PresentationLayer.DashboardViewModel
+﻿@model PresentationLayer.DashboardViewModel
 @{
     ViewBag.Title = "Dashboard";
 }
 
-<div class="big_link">
-    @Html.ActionLink("Create a new suggestion", "");
+<script src="@Url.Content("~/Scripts/Dashboard.js")" type="text/javascript"></script>
 
+@Html.ActionLink("Create a new suggestion", "Create", "Suggestion", new { }, new { @class = "big-link" })
+
+<div id="suggestions-tabs">
+    <ul>
+        <li><a href="#tabs-1">All Suggestions</a></li>
+        <li><a href="#tabs-2">Joined Suggestions</a></li>
+    </ul>
+    <div id="tabs-1">
+        <table id="suggestions-table" cellspacing="0">
+            <tr>
+                <th>Name</th>
+                <th>Sport</th>
+                <th>Time Period</th>
+                <th>No</th>
+            </tr>
+            <tr>
+                <td>Volley in winter?</td>
+                <td>Volleyball</td>
+                <td>13.02.12 - 18.02.12</td>
+                <td>3/10</td>
+            </tr>
+            <tr>
+                <td>Wanna play soccer?</td>
+                <td>Soccer</td>
+                <td>13.02.12 - 18.02.12</td>
+                <td>5/10</td>
+            </tr>
+            <tr>
+                <td>WeTennis!</td>
+                <td>Tennis</td>
+                <td>13.02.12 - 18.02.12</td>
+                <td>10/10</td>
+            </tr>
+
+        </table>
+    </div>
+    <div id="tabs-2">
+                <table id="suggestions-table" cellspacing="0">
+            <tr>
+                <th>Name</th>
+                <th>Sport</th>
+                <th>Time Period</th>
+                <th>No</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>Volley in winter?</td>
+                <td>Volleyball</td>
+                <td>13.02.12 - 18.02.12</td>
+                <td>3/10</td>
+                <td>Open</td>
+            </tr>
+            <tr>
+                <td>Wanna play soccer?</td>
+                <td>Soccer</td>
+                <td>13.02.12 - 18.02.12</td>
+                <td>10/10</td>
+                <td>Closed</td>
+            </tr>
+            <tr>
+                <td>WeTennis!</td>
+                <td>Tennis</td>
+                <td>13.02.12 - 18.02.12</td>
+                <td>10/10</td>
+                <td>Closed</td>
+            </tr>
+        </table>
+    </div>
 </div>

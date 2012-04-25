@@ -7,6 +7,20 @@ using System.Web.Security;
 
 namespace Domain
 {
+    public class User
+    {
+        public string id { get; set; }
+        public string username { get; set; }
+        public string email { get; set; }
+        public string firstname { get; set; }
+        public string lastname { get; set; }
+        public DateTime birthDate { get; set; }
+        public string height { get; set; }
+        public string homeAddress { get; set; }
+        public string phoneNumber { get; set; }
+        public List<Sport> favoriteSports { get; set; }
+    }
+
     public class ChangePasswordModel
     {
         [Required]

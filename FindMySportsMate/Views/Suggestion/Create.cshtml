@@ -1,6 +1,27 @@
-﻿@{
+﻿@model PresentationLayer.CreateSuggestionViewModel
+
+@{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Create a suggstion</h2>
+
+@using (Html.BeginForm("CreateSuggestion", "Suggestion", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td><p>Name</p></td>
+            <td>@Html.TextBox("suggestionName")</td>
+        </tr>
+        <tr>
+            <td><p>Sport</p></td>
+            <td>@Html.TextBox("suggestionSport")</td>
+        </tr>
+
+        <tr>
+            <td><input type="reset" value="Clear" /></td>
+            <td><input type="submit" id="createSuggestion" value="Create" /></td>
+        </tr>
+    </table>
+}
