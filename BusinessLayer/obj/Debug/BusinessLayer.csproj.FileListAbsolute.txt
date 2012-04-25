@@ -7,3 +7,12 @@ C:\workspace\QUT Web app dev\Find-My-Sports-Mate\BusinessLayer\bin\Debug\Domain.
 C:\workspace\QUT Web app dev\Find-My-Sports-Mate\BusinessLayer\obj\Debug\ResolveAssemblyReference.cache
 C:\workspace\QUT Web app dev\Find-My-Sports-Mate\BusinessLayer\obj\Debug\BusinessLayer.dll
 C:\workspace\QUT Web app dev\Find-My-Sports-Mate\BusinessLayer\obj\Debug\BusinessLayer.pdb
+C:\temp\Find-My-Sports-Mate\BusinessLayer\bin\Debug\BusinessLayer.dll
+C:\temp\Find-My-Sports-Mate\BusinessLayer\bin\Debug\BusinessLayer.pdb
+C:\temp\Find-My-Sports-Mate\BusinessLayer\bin\Debug\DataLayer.dll
+C:\temp\Find-My-Sports-Mate\BusinessLayer\bin\Debug\Domain.dll
+C:\temp\Find-My-Sports-Mate\BusinessLayer\bin\Debug\DataLayer.pdb
+C:\temp\Find-My-Sports-Mate\BusinessLayer\bin\Debug\Domain.pdb
+C:\temp\Find-My-Sports-Mate\BusinessLayer\obj\Debug\ResolveAssemblyReference.cache
+C:\temp\Find-My-Sports-Mate\BusinessLayer\obj\Debug\BusinessLayer.dll
+C:\temp\Find-My-Sports-Mate\BusinessLayer\obj\Debug\BusinessLayer.pdb

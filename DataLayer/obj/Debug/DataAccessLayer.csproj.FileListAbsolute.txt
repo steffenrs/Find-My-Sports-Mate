@@ -6,3 +6,11 @@ C:\workspace\QUT Web app dev\Find-My-Sports-Mate\DataLayer\bin\Debug\Domain.pdb
 C:\workspace\QUT Web app dev\Find-My-Sports-Mate\DataLayer\obj\Debug\ResolveAssemblyReference.cache
 C:\workspace\QUT Web app dev\Find-My-Sports-Mate\DataLayer\obj\Debug\DataLayer.dll
 C:\workspace\QUT Web app dev\Find-My-Sports-Mate\DataLayer\obj\Debug\DataLayer.pdb
+C:\temp\Find-My-Sports-Mate\DataLayer\bin\Debug\DataLayer.dll.config
+C:\temp\Find-My-Sports-Mate\DataLayer\bin\Debug\DataLayer.dll
+C:\temp\Find-My-Sports-Mate\DataLayer\bin\Debug\DataLayer.pdb
+C:\temp\Find-My-Sports-Mate\DataLayer\bin\Debug\Domain.dll
+C:\temp\Find-My-Sports-Mate\DataLayer\bin\Debug\Domain.pdb
+C:\temp\Find-My-Sports-Mate\DataLayer\obj\Debug\ResolveAssemblyReference.cache
+C:\temp\Find-My-Sports-Mate\DataLayer\obj\Debug\DataLayer.dll
+C:\temp\Find-My-Sports-Mate\DataLayer\obj\Debug\DataLayer.pdb
