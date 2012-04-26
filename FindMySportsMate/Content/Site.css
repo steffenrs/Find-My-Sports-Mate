@@ -143,6 +143,7 @@ textarea
     background-color: #C9C9C9;
 }
 
+<<<<<<< HEAD
 
 /* Spesific Create Suggestion styles
 -----------------------------------------------------------*/
@@ -160,4 +161,9 @@ textarea
     margin-right: 10px;
     width: 100px;
     height: 23px;
+=======
+#suggestions-details 
+{
+    margin-top: 30px;
+>>>>>>> 23aa730d96b6fb1b825b57ec2eb79f90ae3989ba
 }
