@@ -14,9 +14,9 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateSuggestion()
+        public ActionResult Create(CreateSuggestionViewModel model)
         {
-            Response.Write("Gotcha");
+            
             return View();
         }
 

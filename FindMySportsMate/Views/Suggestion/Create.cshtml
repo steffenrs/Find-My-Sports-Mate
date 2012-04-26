@@ -1,27 +1,62 @@
 ﻿@model PresentationLayer.CreateSuggestionViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create a suggestion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create a suggstion</h2>
-
-@using (Html.BeginForm("CreateSuggestion", "Suggestion", FormMethod.Post))
+@using (Html.BeginForm())
 {
-    <table>
-        <tr>
-            <td><p>Name</p></td>
-            <td>@Html.TextBox("suggestionName")</td>
-        </tr>
-        <tr>
-            <td><p>Sport</p></td>
-            <td>@Html.TextBox("suggestionSport")</td>
-        </tr>
+     <div>
+        <fieldset>
+            <legend>Create Suggestion</legend>
 
-        <tr>
-            <td><input type="reset" value="Clear" /></td>
-            <td><input type="submit" id="createSuggestion" value="Create" /></td>
-        </tr>
-    </table>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.title)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.title)
+                @Html.ValidationMessageFor(m => m.title)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.sport)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.sport)
+                @Html.ValidationMessageFor(m => m.sport)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.startDate)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.startDate)
+                @Html.ValidationMessageFor(m => m.startDate)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.endDate)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.endDate)
+                @Html.ValidationMessageFor(m => m.endDate)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.description)
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(m => m.description)
+                @Html.ValidationMessageFor(m => m.description)
+            </div>
+
+            <p>
+                <input type="reset" value="Clear" />
+                <input type="submit" value="Create" />
+            </p>
+        </fieldset>
+    </div>
 }
+
+@Html.ValidationSummary(true, "Creating suggestion was unsuccessful. Please correct the errors and try again.")
