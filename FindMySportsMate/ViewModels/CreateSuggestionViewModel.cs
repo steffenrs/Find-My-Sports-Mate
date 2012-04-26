@@ -46,13 +46,13 @@ namespace PresentationLayer
         public bool Sunday { get; set; }
 
         [Required]
-        [Display(Name = "Minimum Joined People")]
+        [Display(Name = "Minimum Joined People: ")]
         [DataType(DataType.Text)]
         [RegularExpression("[1-9][0-9]*")]
         public int MinPeople { get; set; }
 
         [Required]
-        [Display(Name = "Maximum Joined People")]
+        [Display(Name = "Maximum Joined People: ")]
         [DataType(DataType.Text)]
         [RegularExpression("[1-9][0-9]*")]
         public int MaxPeople { get; set; }

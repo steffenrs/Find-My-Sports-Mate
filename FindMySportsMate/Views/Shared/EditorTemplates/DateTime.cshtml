@@ -2,11 +2,11 @@
 
 @if ( Model.HasValue )
 {
-   @Html.TextBox("", String.Format("{0:dd-MM-yyyy}", Model.Value), new { @class = "textbox", @style = "width:250px;" })
+   @Html.TextBox("", String.Format("{0:dd-MM-yyyy}", Model.Value), new { @class = "textbox", @style = "width:200px;" })
 }
 else
 {
-   @Html.TextBox("", String.Format("{0:dd-MM-yyyy}", DateTime.Now), new { @class = "textbox", @style = "width:250px;" })
+   @Html.TextBox("", String.Format("{0:dd-MM-yyyy}", DateTime.Now), new { @class = "textbox", @style = "width:200px;" })
 }
 
 @{

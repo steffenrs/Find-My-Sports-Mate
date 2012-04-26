@@ -1,3 +1,9 @@
+* 
+{
+    padding: 0;
+    margin: 0;
+}
+
 body
 {
     font-size: .85em;
@@ -18,6 +24,8 @@ nav,
 section {
     display: block;
 }
+
+.clear { clear: both; }
 
 /* Styles for basic forms
 -----------------------------------------------------------*/
@@ -133,4 +141,23 @@ textarea
 #suggestions-table th
 {
     background-color: #C9C9C9;
+}
+
+
+/* Spesific Create Suggestion styles
+-----------------------------------------------------------*/
+.suggestion-input-field { width: 200px; }
+.suggestion-input-number-field { width: 30px; }
+.suggestion-day-box 
+{
+    width: 25px;
+    display: inline;
+    float: left;
+    margin-right: 7px;
+}
+#suggestion-submit-container { margin: 20px 0; }
+#suggestion-submit-container input {
+    margin-right: 10px;
+    width: 100px;
+    height: 23px;
 }
