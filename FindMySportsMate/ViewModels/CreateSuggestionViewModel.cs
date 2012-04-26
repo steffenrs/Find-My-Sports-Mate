@@ -13,29 +13,48 @@ namespace PresentationLayer
         [Display(Name = "Title")]
         [DataType(DataType.Text)]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
-        public string title { get; set; }
+        public string Title { get; set; }
 
         [Required]
         [Display(Name = "Sport")]
         [DataType(DataType.Text)]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
-        public string sport { get; set; }
+        public string Sport { get; set; }
 
         [Required]
         [Display(Name = "Start date")]
         [DataType(DataType.DateTime)]
-        public DateTime startDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         [Required]
         [Display(Name = "End date")]
         [DataType(DataType.DateTime)]
-        public DateTime endDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         [Required]
         [Display(Name = "Description")]
         [DataType(DataType.MultilineText)]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 5)]
-        public string description { get; set; }
-        
+        public string Description { get; set; }
+
+        public bool Monday { get; set; }
+        public bool Tuesday { get; set; }
+        public bool Wednesday { get; set; }
+        public bool Thursday { get; set; }
+        public bool Friday { get; set; }
+        public bool Saturday { get; set; }
+        public bool Sunday { get; set; }
+
+        [Required]
+        [Display(Name = "Minimum Joined People")]
+        [DataType(DataType.Text)]
+        [RegularExpression("[1-9][0-9]*")]
+        public int MinPeople { get; set; }
+
+        [Required]
+        [Display(Name = "Maximum Joined People")]
+        [DataType(DataType.Text)]
+        [RegularExpression("[1-9][0-9]*")]
+        public int MaxPeople { get; set; }
     }
 }
