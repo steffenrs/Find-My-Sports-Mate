@@ -1,7 +1,12 @@
 ﻿@model PresentationLayer.DashboardViewModel
 
 <div id="suggestions-details">
-    <title>@Model.SelectedSuggestion</title>
-    @Html.LabelFor(m => Model.SelectedSuggestion.creator)
+    @if (@Model.SelectedSuggestion != null)
+    {
+        <div class="sub-title">@Model.SelectedSuggestion.Title</div> 
+        <text>
+        Keen på å spille volleyball eller?
+        </text>        
+    }
 
-</div>
+</div>  

@@ -8,7 +8,6 @@ namespace PresentationLayer
 {
     public class DashboardViewModel
     {
-        public List<AddressBook> Addresses { get; set; }
         public Suggestion SelectedSuggestion { get; set; }
     }
 }
