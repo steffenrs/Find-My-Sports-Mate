@@ -7,6 +7,18 @@ using System.Web.Security;
 
 namespace Domain
 {
+    public class User : RegisterModel
+    {
+        public string id { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public bool gender { get; set; } // true = male, false = female
+        public DateTime birthDate { get; set; }
+        public double height { get; set; }
+        public string phoneNumber { get; set; }
+        public List<Sport> favoriteSports { get; set; }
+    }
+
     public class ChangePasswordModel
     {
         [Required]
@@ -56,14 +68,6 @@ namespace Domain
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [Display(Name = "Gender")]
-        public string Gender { get; set; }
-
-        [Required]
-        [Display(Name = "Height")]
-        public string Height { get; set; }
-
-        [Required]
         [Display(Name = "Street Address")]
         public string StreetAddress { get; set; }
 
@@ -77,8 +81,4 @@ namespace Domain
 
     }
 
-    public class UserModel : RegisterModel
-    {
-
-    }
 }

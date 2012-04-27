@@ -8,16 +8,15 @@ namespace PresentationLayer.Controllers
 {
     public class SuggestionController : Controller
     {
-        //
-        // GET: /Suggestion/
-
-        public ActionResult Index()
+        public ActionResult Create()
         {
             return View();
         }
 
-        public ActionResult Create()
+        [HttpPost]
+        public ActionResult CreateSuggestion()
         {
+            Response.Write("Gotcha");
             return View();
         }
 

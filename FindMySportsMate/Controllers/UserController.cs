@@ -76,7 +76,7 @@ namespace PresentationLayer
         // POST: /Account/Register
 
         [HttpPost]
-        public ActionResult Register(UserModel model)
+        public ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
