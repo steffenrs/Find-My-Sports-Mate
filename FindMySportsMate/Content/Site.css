@@ -139,3 +139,10 @@ textarea
 {
     margin-top: 30px;
 }
+
+.sub-title
+{
+    width: 30%;
+    font-weight: bold;
+    border-bottom: 1px dotted;
+}
