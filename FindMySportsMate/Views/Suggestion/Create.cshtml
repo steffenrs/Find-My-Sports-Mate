@@ -15,7 +15,7 @@
                 @Html.LabelFor(m => m.Title)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.Title)
+                @Html.TextBoxFor(m => m.Title, new { @class = "suggestion-input-field" })
                 @Html.ValidationMessageFor(m => m.Title)
             </div>
 
@@ -23,7 +23,7 @@
                 @Html.LabelFor(m => m.Sport)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.Sport)
+                @Html.TextBoxFor(m => m.Sport, new { @class = "suggestion-input-field" })
                 @Html.ValidationMessageFor(m => m.Sport)
             </div>
 
@@ -47,7 +47,7 @@
                 @Html.LabelFor(m => m.Description)
             </div>
             <div class="editor-field">
-                @Html.TextAreaFor(m => m.Description)
+                @Html.TextAreaFor(m => m.Description, new { @class = "suggestion-input-field" })
                 @Html.ValidationMessageFor(m => m.Description)
             </div>
 
@@ -55,38 +55,53 @@
                 <label >Your weekly schedule</label>
             </div>
             <div class="editor-field">
-                @Html.CheckBoxFor(m => m.Monday)
-                @Html.CheckBoxFor(m => m.Tuesday)
-                @Html.CheckBoxFor(m => m.Wednesday)
-                @Html.CheckBoxFor(m => m.Thursday)
-                @Html.CheckBoxFor(m => m.Friday)
-                @Html.CheckBoxFor(m => m.Saturday)
-                @Html.CheckBoxFor(m => m.Sunday)
+                <div class="suggestion-day-box">
+                    @Html.CheckBoxFor(m => m.Monday)
+                    <p>Mo</p>
+                </div>
+                <div class="suggestion-day-box">
+                    @Html.CheckBoxFor(m => m.Tuesday)
+                    <p>Tu</p>
+                </div>
+                <div class="suggestion-day-box">
+                    @Html.CheckBoxFor(m => m.Wednesday)
+                    <p>We</p>
+                </div>
+                <div class="suggestion-day-box">
+                    @Html.CheckBoxFor(m => m.Thursday)
+                    <p>Th</p>
+                </div>
+                <div class="suggestion-day-box">
+                    @Html.CheckBoxFor(m => m.Friday)
+                    <p>Fr</p>
+                </div>
+                <div class="suggestion-day-box">
+                    @Html.CheckBoxFor(m => m.Saturday)
+                    <p>Sa</p>
+                </div>
+                <div class="suggestion-day-box">
+                    @Html.CheckBoxFor(m => m.Sunday)
+                    <p>Su</p>
+                </div>
             </div>
-            <div class="editor-field">
-                <p>Mo Tu We Th Fr Sa Su</p>
-            </div>
+            <div style="clear: both"></div>
 
             <div class="editor-label">
                 @Html.LabelFor(m => m.MinPeople)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.MinPeople)
+                @Html.TextBoxFor(m => m.MinPeople, new { @class = "suggestion-input-number-field" })
                 @Html.ValidationMessageFor(m => m.MinPeople)
             </div>
 
             <div class="editor-label">
                 @Html.LabelFor(m => m.MaxPeople)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.MaxPeople)
+                @Html.TextBoxFor(m => m.MaxPeople, new { @class = "suggestion-input-number-field" })
                 @Html.ValidationMessageFor(m => m.MaxPeople)
             </div>
 
-            <p>
+            <div id="suggestion-submit-container">
                 <input type="reset" value="Clear" />
                 <input type="submit" value="Create" />
-            </p>
+            </div>
         </fieldset>
     </div>
 }

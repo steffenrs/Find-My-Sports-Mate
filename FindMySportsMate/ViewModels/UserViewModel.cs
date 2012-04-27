@@ -7,8 +7,9 @@ using System.Web.Security;
 
 namespace PresentationLayer
 {
-    public class UserViewModel
+    public class UserViewModel : RegisterViewModel
     {
+        
     }
 
 

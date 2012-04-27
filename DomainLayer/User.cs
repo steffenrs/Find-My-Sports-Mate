@@ -3,82 +3,43 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Web.Mvc;
+using System.Data.Linq;
+using System.Data.Linq.Mapping;
 using System.Web.Security;
 
 namespace Domain
 {
-    public class User : RegisterModel
+    public class User
     {
-        public string id { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public bool gender { get; set; } // true = male, false = female
-        public DateTime birthDate { get; set; }
-        public double height { get; set; }
-        public string phoneNumber { get; set; }
-        public List<Sport> favoriteSports { get; set; }
-    }
-
-    public class ChangePasswordModel
-    {
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
-        public string OldPassword { get; set; }
-
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "New password")]
-        public string NewPassword { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
-    }
-
-    public class LogOnModel
-    {
-        [Required]
-        [Display(Name = "User name")]
+        // TODO add tables and add column attributes
+        [Column(IsPrimaryKey=true, IsDbGenerated=true)]
+        public int Id { get; set; }
+        [Column(CanBeNull=false)]
         public string UserName { get; set; }
-
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
-
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
-    }
-
-    public class RegisterModel : LogOnModel
-    {
-
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        [Display(Name = "Email address")]
+        [Column(CanBeNull = false)]
         public string Email { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
-
-        [Required]
-        [Display(Name = "Street Address")]
+        [Column(CanBeNull = false)]
+        public string Password { get; set; }
+        [Column]
         public string StreetAddress { get; set; }
-
-        [Required]
-        [Display(Name = "Area")]
+        [Column]
         public string Area { get; set; }
-
-        [Required]
-        [Display(Name = "State")]
+        [Column]
         public string State { get; set; }
-
+        [Column]
+        public string FirstName { get; set; }
+        [Column]
+        public string LastName { get; set; }
+        [Column]
+        public bool Gender { get; set; } // true = male, false = female
+        [Column]
+        public DateTime BirthDate { get; set; }
+        [Column]
+        public double Height { get; set; }
+        [Column]
+        public string PhoneNumber { get; set; }
+        [Column] // NHibernate can figure out this itself, but are you able to do it in LINQ - List as a column?
+        public List<Sport> FavoriteSports { get; set; }
     }
 
 }

@@ -22,7 +22,7 @@ namespace PresentationLayer
         // POST: /Account/LogOn
 
         [HttpPost]
-        public ActionResult LogOn(LogOnModel model, string returnUrl)
+        public ActionResult LogOn(LogOnViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -76,11 +76,11 @@ namespace PresentationLayer
         // POST: /Account/Register
 
         [HttpPost]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-
+                
                 
                 //// MODIFY FOR DATABASE USE!
 
@@ -117,7 +117,7 @@ namespace PresentationLayer
 
         [Authorize]
         [HttpPost]
-        public ActionResult ChangePassword(ChangePasswordModel model)
+        public ActionResult ChangePassword(ChangePasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
