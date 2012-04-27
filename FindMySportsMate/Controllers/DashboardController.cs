@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BusinessLayer;
+using Domain;
 
 namespace PresentationLayer
 {
@@ -14,9 +15,11 @@ namespace PresentationLayer
 
         public ActionResult Index()
         {
-            var addresses = AddressBusiness.GetAllAddresses();
+            BusinessLayer.AddressBusiness.GetAllAddresses();
 
-            var viewModel = new DashboardViewModel() { Addresses = addresses };
+            var suggestion = new Suggestion { Title = "Volleyball?" };
+
+            var viewModel = new DashboardViewModel() { SelectedSuggestion = suggestion };
 
             return View(viewModel);
         }
