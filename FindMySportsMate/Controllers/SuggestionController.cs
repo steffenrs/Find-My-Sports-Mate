@@ -31,7 +31,7 @@ namespace PresentationLayer.Controllers
             {
                 BusinessLayer.SuggestionBusiness.WriteSuggestionToDatabase(suggestion);
             }
-            catch (Exception e)
+            catch (DomainException e)
             {
                 // TODO: implement exception handling
             }
