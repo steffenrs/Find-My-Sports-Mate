@@ -15,3 +15,4 @@ obj/
 DomainLayer/obj/Debug/Domain.csproj.FileListAbsolute.txt
 DataLayer/obj/Debug/DataAccessLayer.csproj.FileListAbsolute.txt
 BusinessLayer/obj/Debug/BusinessLayer.csproj.FileListAbsolute.txt
+DataLayer/App.Config
