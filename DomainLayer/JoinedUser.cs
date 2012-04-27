@@ -7,7 +7,7 @@ namespace Domain
 {
     public class JoinedUser
     {
-        public User user { get; set; }
-        public List<DateTime> joinedDates { get; set; }
+        public User User { get; set; }
+        public String Weekdays { get; set; }
     }
 }
