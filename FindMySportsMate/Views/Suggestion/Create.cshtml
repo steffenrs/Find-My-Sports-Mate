@@ -1,27 +1,94 @@
 ﻿@model PresentationLayer.CreateSuggestionViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create a suggestion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create a suggstion</h2>
-
-@using (Html.BeginForm("CreateSuggestion", "Suggestion", FormMethod.Post))
+@using (Html.BeginForm())
 {
-    <table>
-        <tr>
-            <td><p>Name</p></td>
-            <td>@Html.TextBox("suggestionName")</td>
-        </tr>
-        <tr>
-            <td><p>Sport</p></td>
-            <td>@Html.TextBox("suggestionSport")</td>
-        </tr>
+     <div>
+        <fieldset>
+            <legend>Create Suggestion</legend>
 
-        <tr>
-            <td><input type="reset" value="Clear" /></td>
-            <td><input type="submit" id="createSuggestion" value="Create" /></td>
-        </tr>
-    </table>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Title)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Title)
+                @Html.ValidationMessageFor(m => m.Title)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Sport)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Sport)
+                @Html.ValidationMessageFor(m => m.Sport)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.StartDate)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.StartDate)
+                @Html.ValidationMessageFor(m => m.StartDate)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.EndDate)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.EndDate)
+                @Html.ValidationMessageFor(m => m.EndDate)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Description)
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(m => m.Description)
+                @Html.ValidationMessageFor(m => m.Description)
+            </div>
+
+            <div class="editor-label">
+                <label >Your weekly schedule</label>
+            </div>
+            <div class="editor-field">
+                @Html.CheckBoxFor(m => m.Monday)
+                @Html.CheckBoxFor(m => m.Tuesday)
+                @Html.CheckBoxFor(m => m.Wednesday)
+                @Html.CheckBoxFor(m => m.Thursday)
+                @Html.CheckBoxFor(m => m.Friday)
+                @Html.CheckBoxFor(m => m.Saturday)
+                @Html.CheckBoxFor(m => m.Sunday)
+            </div>
+            <div class="editor-field">
+                <p>Mo Tu We Th Fr Sa Su</p>
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.MinPeople)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.MinPeople)
+                @Html.ValidationMessageFor(m => m.MinPeople)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.MaxPeople)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.MaxPeople)
+                @Html.ValidationMessageFor(m => m.MaxPeople)
+            </div>
+
+            <p>
+                <input type="reset" value="Clear" />
+                <input type="submit" value="Create" />
+            </p>
+        </fieldset>
+    </div>
 }
+
+@Html.ValidationSummary(true, "Creating suggestion was unsuccessful. Please correct the errors and try again.")

@@ -7,16 +7,17 @@ namespace Domain
 {
     public class Suggestion
     {
-        public string id { get; set; }
-        public Sport sport { get; set; }
-        public string description { get; set; }
-        public DateTime startDate { get; set; }
-        public DateTime endDate { get; set; }
-        public Location location { get; set; }
-        public List<JoinedUser> joinedUsers { get; set; }
-        public User creator { get; set; }
-        public Boolean open { get; set; }
-        public int minimumUsers { get; set; }
-        public int maximumUsers { get; set; }
+        public string Id { get; set; }
+        public string Title { get; set; }
+        public Sport Sport { get; set; }
+        public string Description { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public Location Location { get; set; }
+        public List<JoinedUser> JoinedUsers { get; set; }
+        public User Creator { get; set; }
+        public Boolean Open { get; set; }
+        public int MinimumUsers { get; set; }
+        public int MaximumUsers { get; set; }
     }
 }
