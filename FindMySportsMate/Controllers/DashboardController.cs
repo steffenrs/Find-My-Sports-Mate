@@ -26,7 +26,6 @@ namespace PresentationLayer
                 MaximumUsers = 10,
                 StartDate = new DateTime(2012, 5, 5),
                 EndDate = new DateTime(2012, 5, 15),
-                Open = true,
                 JoinedUsers = new List<JoinedUser> { new JoinedUser { User = new User { FirstName="PETAH", UserName="PetterPan" } } }
             };
 

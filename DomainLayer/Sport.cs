@@ -6,10 +6,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain
 {
+    [Table(name: "Sport")]
     public class Sport
     {
         [Key]
-        public string Id { get; set; }
+        [DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         public string Name { get; set; }
     }
 }
