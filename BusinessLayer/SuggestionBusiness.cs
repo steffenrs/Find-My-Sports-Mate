@@ -11,7 +11,6 @@ namespace BusinessLayer
     {
         public static void New(Suggestion suggestion)
         {
-            throw new DomainException("Database not implemented for 'Suggestion'");
             SuggestionAccess.CreateSuggestion(suggestion);
         }
 

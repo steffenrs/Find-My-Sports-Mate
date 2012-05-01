@@ -36,14 +36,13 @@ namespace PresentationLayer.Controllers
                 try
                 {
                     BusinessLayer.SuggestionBusiness.New(suggestion);
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 catch (DomainException e)
                 {
                     ViewBag.ExceptionMessage = e.Message;
                     return View(model);
                 }
-
-                return RedirectToAction("Index", "Dashboard");
             }
             else
             {
