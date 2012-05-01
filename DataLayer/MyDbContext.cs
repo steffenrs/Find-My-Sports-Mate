@@ -5,7 +5,7 @@ using System.Text;
 using System.Data.Entity;
 using Domain;
 
-namespace PresentationLayer
+namespace DataAccessLayer
 {
     public class MyDbContext : DbContext
     {

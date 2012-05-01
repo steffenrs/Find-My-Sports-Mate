@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using Domain;
+using BusinessLayer;
 
 namespace PresentationLayer
 {
@@ -29,8 +30,8 @@ namespace PresentationLayer
                 //// MODIFY FOR DATABASE USE!
                 
                 
-                //if (Membership.ValidateUser(model.UserName, model.Password))
-                //{
+                if (Membership.ValidateUser(model.UserName, model.Password))
+                {
                 //    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                 //    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                 //        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
@@ -45,7 +46,7 @@ namespace PresentationLayer
                 //else
                 //{
                 //    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                //}
+                }
 
                 
             }
@@ -78,25 +79,31 @@ namespace PresentationLayer
         [HttpPost]
         public ActionResult Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                
-                
-                //// MODIFY FOR DATABASE USE!
+            if (ModelState.IsValid) 
+            { 
+                User user = new User();
+                user.UserName = model.UserName;
+                user.Email = model.Email;
+                user.Password = model.Password;
+                user.StreetAddress = model.StreetAddress;
+                user.Area = model.Area;
+                user.State = model.State;
+                //... osv.
+                /// CAST/CONVERT TO RegisterViewModel
+                /// 
 
-                //// Attempt to register the user
-                //MembershipCreateStatus createStatus;
-                //Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
+                try
+                {
+                    UserBusiness.RegisterUser(user);
+                    Session["UserId"] = user.Id;
+                    return RedirectToAction("Index", "Home");
+                }
+                catch(Exception e)
+                {
 
-                //if (createStatus == MembershipCreateStatus.Success)
-                //{
-                //    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                //    return RedirectToAction("Index", "Home");
-                //}
-                //else
-                //{
-                //    ModelState.AddModelError("", ErrorCodeToString(createStatus));
-                //}
+                    //WRITE OUT MODEL REGISTRATION ERROR
+                    //ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                }
             }
 
             // If we got this far, something failed, redisplay form
@@ -121,25 +128,20 @@ namespace PresentationLayer
         {
             if (ModelState.IsValid)
             {
-
+                Domain.User newUser = new User();
+                newUser.Password = model.NewPassword;
                 // ChangePassword will throw an exception rather
                 // than return false in certain failure scenarios.
-                bool changePasswordSucceeded;
                 try
                 {
-                    MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
-                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
+                    User currentUser = UserBusiness.GetUserById((int)Session["UserId"]);
+                    if (model.OldPassword == currentUser.Password)
+                    {
+                        UserBusiness.UpdateUser(currentUser, newUser);
+                        return RedirectToAction("ChangePasswordSuccess");
+                    }
                 }
-                catch (Exception)
-                {
-                    changePasswordSucceeded = false;
-                }
-
-                if (changePasswordSucceeded)
-                {
-                    return RedirectToAction("ChangePasswordSuccess");
-                }
-                else
+                catch (Exception e)
                 {
                     ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
                 }
