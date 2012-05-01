@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Domain;
+using System.Text;
 
 namespace PresentationLayer.Controllers
 {
@@ -20,25 +21,55 @@ namespace PresentationLayer.Controllers
             // TODO: validate div fields
 
 
-            // TODO: map from viewModel to suggestion
-            Suggestion suggestion = new Suggestion();
-            suggestion.Title = model.Title;
-            suggestion.StartDate = model.StartDate;
-            suggestion.EndDate = model.EndDate;
+            Sport suggestionSport = new Sport { Name = model.Sport };
 
-            // TODO: write to database via Business layer
+            Suggestion suggestion = new Suggestion {    Title = model.Title, 
+                                                        StartDate = model.StartDate,
+                                                        EndDate = model.EndDate, 
+                                                        Description = model.Description, 
+                                                        MinimumUsers = model.MinPeople, 
+                                                        MaximumUsers = model.MaxPeople, 
+                                                        Open = true, 
+                                                        Sport = suggestionSport };
             try
             {
                 BusinessLayer.SuggestionBusiness.WriteSuggestionToDatabase(suggestion);
             }
             catch (DomainException e)
             {
-                // TODO: implement exception handling
+                ViewBag.ExceptionMessage = e.Message;
+                return View();
             }
 
-            // TODO: redirect with right view
-            return View();
+            return RedirectToAction("Index", "Dashboard");
         }
+
+        private String getWeeklyParticipation(CreateSuggestionViewModel model)
+        {
+            StringBuilder weeklyActivity = new StringBuilder();
+
+            if (model.Monday == true)
+                weeklyActivity.Append("Mo,");
+            if (model.Tuesday == true)
+                weeklyActivity.Append("Tu,");
+            if (model.Wednesday == true)
+                weeklyActivity.Append("We,");
+            if (model.Thursday == true)
+                weeklyActivity.Append("Th,");
+            if (model.Friday == true)
+                weeklyActivity.Append("Fr,");
+            if (model.Saturday == true)
+                weeklyActivity.Append("Sa,");
+            if (model.Sunday == true)
+                weeklyActivity.Append("Su,");
+
+            // Remove last comma character
+            if (weeklyActivity.Length > 0)
+                weeklyActivity.Remove(weeklyActivity.Length - 1, 1);
+
+            return weeklyActivity.ToString();
+        }
+
 
     }
 }

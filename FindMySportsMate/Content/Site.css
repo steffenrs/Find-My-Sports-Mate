@@ -27,6 +27,11 @@ section {
 
 .clear { clear: both; }
 
+.exception-message  
+{
+    font-weight: bold;
+    color: #ff0000; }
+
 /* Styles for basic forms
 -----------------------------------------------------------*/
 
