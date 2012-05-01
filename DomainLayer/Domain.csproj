@@ -48,7 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddressBook.cs" />
     <Compile Include="DomainException.cs" />
     <Compile Include="JoinedUser.cs" />
     <Compile Include="Location.cs" />

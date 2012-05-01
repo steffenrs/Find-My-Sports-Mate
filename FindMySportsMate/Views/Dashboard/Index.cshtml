@@ -20,25 +20,16 @@
                 <th>Time Period</th>
                 <th>No</th>
             </tr>
-            <tr>
-                <td><a href="#suggestions-details" onclick="getSuggestion(1)">Volley in winter?</a></td>
-                <td>Volleyball</td>
-                <td>13.02.12 - 18.02.12</td>
-                <td>3/10</td>
-            </tr>
-            <tr>
-                <td>Wanna play soccer?</td>
-                <td>Soccer</td>
-                <td>13.02.12 - 18.02.12</td>
-                <td>5/10</td>
-            </tr>
-            <tr>
-                <td>WeTennis!</td>
-                <td>Tennis</td>
-                <td>13.02.12 - 18.02.12</td>
-                <td>10/10</td>
-            </tr>
-
+            
+           @foreach(Domain.Suggestion suggestion in Model.AllSuggestions)
+            {
+                <tr>
+                   <td><a href="#suggestions-details" onclick="getSuggestion(@suggestion.Id)">@suggestion.Title</a></td>
+                   <td>@suggestion.Sport.Name</td>
+                   <td>@suggestion.StartDate.ToString("dd.MM.yy") - @suggestion.EndDate.ToString("dd.MM.yy")</td>
+                   <td>@suggestion.JoinedUsers.Count    /@suggestion.MaximumUsers</td>
+               </tr>
+            }
         </table>
     </div>
     <div id="tabs-2">
@@ -50,27 +41,15 @@
                 <th>No</th>
                 <th>Status</th>
             </tr>
-            <tr>
-                <td>Volley in winter?</td>
-                <td>Volleyball</td>
-                <td>13.02.12 - 18.02.12</td>
-                <td>3/10</td>
-                <td>Open</td>
-            </tr>
-            <tr>
-                <td>Wanna play soccer?</td>
-                <td>Soccer</td>
-                <td>13.02.12 - 18.02.12</td>
-                <td>10/10</td>
-                <td>Closed</td>
-            </tr>
-            <tr>
-                <td>WeTennis!</td>
-                <td>Tennis</td>
-                <td>13.02.12 - 18.02.12</td>
-                <td>10/10</td>
-                <td>Closed</td>
-            </tr>
+             @foreach(Domain.Suggestion suggestion in Model.JoinedSuggestions)
+            {
+                <tr>
+                   <td><a href="#suggestions-details" onclick="getSuggestion(@suggestion.Id)">@suggestion.Title</a></td>
+                   <td>@suggestion.Sport.Name</td>
+                   <td>@suggestion.StartDate.ToString("dd.MM.yy") - @suggestion.EndDate.ToString("dd.MM.yy")</td>
+                   <td>@suggestion.JoinedUsers.Count    /@suggestion.MaximumUsers</td>
+               </tr>
+            }
         </table>
 
     </div>
