@@ -26,7 +26,7 @@ namespace PresentationLayer
                 MaximumUsers = 10,
                 StartDate = new DateTime(2012, 5, 5),
                 EndDate = new DateTime(2012, 5, 15),
-                JoinedUsers = new List<JoinedUser> { new JoinedUser { User = new User { FirstName="PETAH", UserName="PetterPan" } } }
+                JoinedUsers = new List<JoinedUser> { new JoinedUser { User = new User { FirstName="PETAH" } } }
             };
 
             var viewModel = new DashboardViewModel() { SelectedSuggestion = suggestion };

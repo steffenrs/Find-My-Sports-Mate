@@ -18,29 +18,37 @@ namespace PresentationLayer.Controllers
         [HttpPost]
         public ActionResult Create(CreateSuggestionViewModel model)
         {
-            // TODO: validate div fields
-
-
-            Sport suggestionSport = new Sport { Name = model.Sport };
-
-            Suggestion suggestion = new Suggestion {    Title = model.Title, 
-                                                        StartDate = model.StartDate,
-                                                        EndDate = model.EndDate, 
-                                                        Description = model.Description, 
-                                                        MinimumUsers = model.MinPeople, 
-                                                        MaximumUsers = model.MaxPeople,  
-                                                        Sport = suggestionSport };
-            try
+            if (ModelState.IsValid)
             {
-                BusinessLayer.SuggestionBusiness.HandleNewSuggestion(suggestion);
-            }
-            catch (DomainException e)
-            {
-                ViewBag.ExceptionMessage = e.Message;
-                return View();
-            }
+                Sport suggestionSport = new Sport { Name = model.Sport };
 
-            return RedirectToAction("Index", "Dashboard");
+                Suggestion suggestion = new Suggestion
+                {
+                    Title = model.Title,
+                    StartDate = model.StartDate,
+                    EndDate = model.EndDate,
+                    Description = model.Description,
+                    MinimumUsers = model.MinPeople,
+                    MaximumUsers = model.MaxPeople,
+                    Sport = suggestionSport
+                };
+
+                try
+                {
+                    BusinessLayer.SuggestionBusiness.HandleNewSuggestion(suggestion);
+                }
+                catch (DomainException e)
+                {
+                    ViewBag.ExceptionMessage = e.Message;
+                    return View(model);
+                }
+
+                return RedirectToAction("Index", "Dashboard");
+            }
+            else
+            {
+                return View(model);
+            }
         }
 
         private String getWeeklyParticipation(CreateSuggestionViewModel model)
