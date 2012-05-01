@@ -13,7 +13,7 @@
         <li><a href="#tabs-2">Joined Suggestions</a></li>
     </ul>
     <div id="tabs-1">
-        <table id="suggestions-table" cellspacing="0">
+        <table class="suggestions-table" cellspacing="0">
             <tr>
                 <th>Name</th>
                 <th>Sport</th>
@@ -21,7 +21,7 @@
                 <th>No</th>
             </tr>
             <tr>
-                <td>Volley in winter?</td>
+                <td><a href="#suggestions-details" onclick="getSuggestion(1)">Volley in winter?</a></td>
                 <td>Volleyball</td>
                 <td>13.02.12 - 18.02.12</td>
                 <td>3/10</td>
@@ -42,7 +42,7 @@
         </table>
     </div>
     <div id="tabs-2">
-                <table id="suggestions-table" cellspacing="0">
+                <table class="suggestions-table" cellspacing="0">
             <tr>
                 <th>Name</th>
                 <th>Sport</th>
@@ -73,9 +73,8 @@
             </tr>
         </table>
 
-        
-    @Html.Partial("_SuggestionDetails")
     </div>
-
+    @Html.Partial("_SuggestionDetails")
+    
 
 </div>

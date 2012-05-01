@@ -110,14 +110,27 @@ namespace PresentationLayer
             return View(model);
         }
 
+        /// <summary>
+        /// Get Edit user
+        /// </summary>
+        /// <returns>Edit view</returns>
+        public ActionResult Edit()
+        {
+            if (Session["UserId"] == null)
+                return View(LogOn());
+            return View();
+        }
+
+
+
         //
         // GET: /Account/ChangePassword
 
-        //[Authorize]
-        public ActionResult ChangePassword()
-        {
-            return View();
-        }
+        ////[Authorize]
+        //public ActionResult ChangePassword()
+        //{
+        //    return View();
+        //}
 
         //
         // POST: /Account/ChangePassword
@@ -154,10 +167,10 @@ namespace PresentationLayer
         //
         // GET: /Account/ChangePasswordSuccess
 
-        public ActionResult ChangePasswordSuccess()
-        {
-            return View();
-        }
+        //public ActionResult ChangePasswordSuccess()
+        //{
+        //    return View();
+        //}
 
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)

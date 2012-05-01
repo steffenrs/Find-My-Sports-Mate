@@ -127,26 +127,16 @@ textarea
     font-size: 16px;
 }
 
-#suggestions-tabs
+li
 {
-    margin-top: 20px;
-    width: 80%;
+    margin-left: 25px;
 }
 
-#suggestions-table
+.sub-title
 {
-    width: 100%;
-    text-align: center;
-}
-
-#suggestions-table tr:nth-child(odd)
-{
-    background-color: #E8E3E5;
-}
-
-#suggestions-table th
-{
-    background-color: #C9C9C9;
+    width: 30%;
+    font-weight: bold;
+    border-bottom: 1px dotted;
 }
 
 /* Spesific Create Suggestion styles
@@ -172,14 +162,24 @@ textarea
     margin-top: 30px;
 }
 
-li
+#suggestions-tabs
 {
-    margin-left: 25px;
+    margin-top: 20px;
+    width: 80%;
 }
 
-.sub-title
+.suggestions-table
 {
-    width: 30%;
-    font-weight: bold;
-    border-bottom: 1px dotted;
+    width: 100%;
+    text-align: center;
+}
+
+.suggestions-table tr:nth-child(odd)
+{
+    background-color: #E8E3E5;
+}
+
+.suggestions-table th
+{
+    background-color: #C9C9C9;
 }
