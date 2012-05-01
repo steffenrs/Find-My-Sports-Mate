@@ -14,6 +14,6 @@ namespace PresentationLayer
         }
 
         public DbSet<AddressBook> Test { get; set; }
-        public DbSet<User> User { get; set; }
+ //       public DbSet<User> User { get; set; }
     }
 }
