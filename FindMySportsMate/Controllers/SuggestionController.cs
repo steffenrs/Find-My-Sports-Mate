@@ -70,6 +70,22 @@ namespace PresentationLayer.Controllers
             return weeklyActivity.ToString();
         }
 
+        public JsonResult GetSuggestion(int id)
+        {
+            var suggestion = new Suggestion
+            {
+                Title = "WeTennis!?",
+                Description = "TenSing",
+                Sport = new Sport { Name = "Tennis" },
+                MinimumUsers = 2,
+                MaximumUsers = 8,
+                StartDate = new DateTime(2012, 5, 6),
+                EndDate = new DateTime(2012, 5, 16),
+                Open = true,
+                JoinedUsers = new List<JoinedUser> { new JoinedUser { User = new User { FirstName = "HerreGud", UserName = "PetterPan" } } }
+            };
 
+            return Json(suggestion, JsonRequestBehavior.AllowGet);
+        }
     }
 }
