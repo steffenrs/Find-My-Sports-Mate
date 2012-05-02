@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using System.Web.Mvc;
+using System.Linq;
+using System.Web;
 using System.Data.Linq;
-using System.Data.Linq.Mapping;
-using System.Web.Security;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain
 {
+    [Table(name: "User")]
     public class User
     {
         //// TODO add tables and add column attributes
         [Key]
+        [DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }

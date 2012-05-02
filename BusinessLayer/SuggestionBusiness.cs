@@ -10,7 +10,7 @@ namespace BusinessLayer
     {
         public static void WriteSuggestionToDatabase(Suggestion suggestion)
         {
-            // TODO: Implement exception handling
+            throw new DomainException("Database not implemented with suggestions.");
         }
     }
 }
