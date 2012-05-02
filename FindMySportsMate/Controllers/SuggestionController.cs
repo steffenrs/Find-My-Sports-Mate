@@ -79,20 +79,7 @@ namespace PresentationLayer.Controllers
 
         public JsonResult GetSuggestion(int id)
         {
-            var suggestion = new Suggestion
-            {
-                Title = "WeTennis!?",
-                Description = "TenSing",
-                Creator = new Domain.User { FirstName = "Ikke bra" },
-                Sport = new Sport { Name = "Tennis" },
-                MinimumUsers = 2,
-                MaximumUsers = 8,
-                StartDate = new DateTime(2012, 5, 6),
-                EndDate = new DateTime(2012, 5, 16),
-                IsClosed = false,
-                Location = new Location { Name="Fredag" },
-                JoinedUsers = new List<JoinedUser> { new JoinedUser { User = new User { FirstName = "HerreGud" } } }
-            };
+            Suggestion suggestion = BusinessLayer.SuggestionBusiness.Get(id);
 
             return Json(suggestion, JsonRequestBehavior.AllowGet);
         }
