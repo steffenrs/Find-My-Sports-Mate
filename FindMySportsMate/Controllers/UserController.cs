@@ -94,7 +94,7 @@ namespace PresentationLayer
                 {
                     UserBusiness.Register(user);
                     Session["UserId"] = user.Id;
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 catch(Exception e)
                 {
@@ -112,12 +112,12 @@ namespace PresentationLayer
         /// Get Edit user
         /// </summary>
         /// <returns>Edit view</returns>
-        public ActionResult Edit(UserViewModel model)
+        public ActionResult Edit()
         {
             if (Session["UserId"] == null)
                 return RedirectToAction("LogOn");
-
             User user = UserBusiness.GetUserById((int)Session["UserId"]);
+            UserViewModel model = new UserViewModel();
             model.Area = user.Area;
             model.BirthDate = user.BirthDate;
             model.Email = user.Email;
@@ -128,9 +128,35 @@ namespace PresentationLayer
             model.PhoneNumber = user.PhoneNumber;
             model.State = user.State;
             model.StreetAddress = user.StreetAddress;
-            
 
             return View(model);
+        }
+
+        /// <summary>
+        /// POST Edit user
+        /// </summary>
+        /// <returns>Edit view</returns>
+        [HttpPost]
+        public ActionResult Edit(UserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User currentUser = BusinessLayer.UserBusiness.GetUserByEmail(model.Email);
+                User newUser = new User();
+                newUser.Area = model.Area;
+                newUser.BirthDate = model.BirthDate;
+                newUser.Email = model.Email;
+                newUser.FirstName = model.FirstName;
+                newUser.Gender = model.Gender;
+                newUser.LastName = model.LastName;
+                newUser.Password = model.Password;
+                newUser.PhoneNumber = model.PhoneNumber;
+                newUser.State = model.State;
+                newUser.StreetAddress = model.StreetAddress;
+                BusinessLayer.UserBusiness.Update(currentUser, newUser);
+                return View();
+            }
+            return View();
         }
 
 
