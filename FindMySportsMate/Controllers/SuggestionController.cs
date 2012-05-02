@@ -35,7 +35,7 @@ namespace PresentationLayer.Controllers
 
                 try
                 {
-                    BusinessLayer.SuggestionBusiness.HandleNewSuggestion(suggestion);
+                    BusinessLayer.SuggestionBusiness.New(suggestion);
                 }
                 catch (DomainException e)
                 {
