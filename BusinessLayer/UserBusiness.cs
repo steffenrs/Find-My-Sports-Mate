@@ -24,14 +24,25 @@ namespace BusinessLayer
             }
         }
 
-        public static User GetUser(User user)
+        public static User GetUserByEmail(string userEmail)
         {
+            var user = new User();
+            using (var db = new MyDbContext())
+            {
+                var dbUser = db.User.Where(u => u.Email == userEmail).FirstOrDefault();
+                user = (User)dbUser;
+            }
+
             return user;
         }
 
         public static User GetUserById(int userId)
         {
             User user = new User();
+            using (var db = new MyDbContext())
+            {
+                user = db.User.Find(userId);
+            }
             return user;
         }
 
@@ -42,6 +53,10 @@ namespace BusinessLayer
 
         public static void DeleteUser(User user)
         {
+            using (var db = new MyDbContext())
+            {
+                user = db.User.Remove(user);
+            }
         }
     }
 }

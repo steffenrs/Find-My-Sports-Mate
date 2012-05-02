@@ -1,7 +1,7 @@
 USE [FindMySportsMate]
 GO
 
-/****** Object:  Table [dbo].[User]    Script Date: 05/02/2012 03:22:06 ******/
+/****** Object:  Table [dbo].[User]    Script Date: 05/02/2012 04:54:34 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -13,7 +13,6 @@ GO
 
 CREATE TABLE [dbo].[User](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[UserName] [varchar](50) NOT NULL,
 	[Email] [varchar](50) NOT NULL,
 	[Password] [varchar](50) NOT NULL,
 	[StreetAddress] [varchar](50) NULL,
@@ -23,7 +22,6 @@ CREATE TABLE [dbo].[User](
 	[LastName] [varchar](50) NULL,
 	[Gender] [bit] NULL,
 	[BirthDate] [date] NULL,
-	[Height] [int] NULL,
 	[PhoneNumber] [varchar](50) NULL,
 	[FavoriteSports] [int] NULL,
  CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 

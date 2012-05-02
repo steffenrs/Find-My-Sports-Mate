@@ -11,11 +11,6 @@ namespace PresentationLayer
     public class RegisterViewModel : LogOnViewModel
     {
 
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        [Display(Name = "Email address")]
-        public string Email { get; set; }
-
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "</br>The password and confirmation password do not match.")]
