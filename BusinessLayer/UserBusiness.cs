@@ -9,13 +9,13 @@ namespace BusinessLayer
 {
     public static class UserBusiness
     {
-        public static void UpdateUser(User currentUser, User newUser)
+        public static void Update(User currentUser, User newUser)
         {
             User user = ExtensionMethods.CopyTo<User>(currentUser,newUser);
             //database stuff
         }
 
-        public static void RegisterUser(User user) 
+        public static void Register(User user) 
         {
             using (var db = new MyDbContext())
             {
@@ -51,7 +51,7 @@ namespace BusinessLayer
         //    //
         //}
 
-        public static void DeleteUser(User user)
+        public static void Delete(User user)
         {
             using (var db = new MyDbContext())
             {
