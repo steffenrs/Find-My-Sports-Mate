@@ -92,18 +92,18 @@ namespace PresentationLayer
                 /// CAST/CONVERT TO RegisterViewModel
                 /// 
 
-                try
-                {
+                //try
+                //{
                     UserBusiness.RegisterUser(user);
                     Session["UserId"] = user.Id;
                     return RedirectToAction("Index", "Home");
-                }
-                catch(Exception e)
-                {
+                //}
+                //catch(Exception e)
+                //{
 
-                    //WRITE OUT MODEL REGISTRATION ERROR
-                    //ModelState.AddModelError("", ErrorCodeToString(createStatus));
-                }
+                //    //WRITE OUT MODEL REGISTRATION ERROR
+                //    //ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                //}
             }
 
             // If we got this far, something failed, redisplay form

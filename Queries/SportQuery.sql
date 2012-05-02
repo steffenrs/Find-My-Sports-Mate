@@ -1,0 +1,22 @@
+USE [FindMySportsMate]
+GO
+
+/****** Object:  Table [dbo].[Sport]    Script Date: 05/02/2012 03:21:54 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Sport](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nchar](10) NULL,
+ CONSTRAINT [PK_Sport] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
