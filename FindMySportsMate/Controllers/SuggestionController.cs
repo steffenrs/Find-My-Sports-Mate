@@ -28,12 +28,11 @@ namespace PresentationLayer.Controllers
                                                         EndDate = model.EndDate, 
                                                         Description = model.Description, 
                                                         MinimumUsers = model.MinPeople, 
-                                                        MaximumUsers = model.MaxPeople, 
-                                                        Open = true, 
+                                                        MaximumUsers = model.MaxPeople,  
                                                         Sport = suggestionSport };
             try
             {
-                BusinessLayer.SuggestionBusiness.WriteSuggestionToDatabase(suggestion);
+                BusinessLayer.SuggestionBusiness.HandleNewSuggestion(suggestion);
             }
             catch (DomainException e)
             {
