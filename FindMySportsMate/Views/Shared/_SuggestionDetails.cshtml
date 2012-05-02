@@ -8,10 +8,10 @@
         <p id="creator">Creator: Steffen</p>
         <p id="time-period">Time period: @Model.SelectedSuggestion.StartDate.Day.@Model.SelectedSuggestion.StartDate.Month.@Model.SelectedSuggestion.StartDate.Year - @Model.SelectedSuggestion.EndDate.Day.@Model.SelectedSuggestion.EndDate.Month.@Model.SelectedSuggestion.EndDate.Year</p>
         <p id="users">Users: @Model.SelectedSuggestion.JoinedUsers.Count / @Model.SelectedSuggestion.MaximumUsers</p>                                                
-        <p id="status">Status: @if(Model.SelectedSuggestion.Open)
-                   { <text>Open</text> }
+        <p id="status">Status: @if(Model.SelectedSuggestion.IsClosed)
+                   { <text>Closed</text> }
                    else
-                   { <text>Closed</text> } 
+                   { <text>Open</text> } 
         </p>
         <p id="location">Location: @if (@Model.SelectedSuggestion.Location == null) { <text>Location will be generated after the minimum number of users has joined</text> } else { @Model.SelectedSuggestion.Location.Name }</p>
 

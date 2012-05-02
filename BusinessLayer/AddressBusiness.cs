@@ -13,11 +13,10 @@ namespace BusinessLayer
         {
             using (var db = new MyDbContext())
             {
-                db.Test.Add(new AddressBook { SurName = "sd", Address = "asd", FirstName = "asdgk" });
-                db.SaveChanges(); 
+            //    db.Test.Add(new AddressBook { SurName = "sd", Address = "asd", FirstName = "asdgk" });
+            //    db.SaveChanges(); 
             }
 
         }
-
     }
 }

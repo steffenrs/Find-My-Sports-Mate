@@ -13,6 +13,7 @@ namespace DataAccessLayer
             using (var db = new MyDbContext())
             {
                 db.Suggestion.Add(suggestion);
+
                 db.SaveChanges();
             }
         }

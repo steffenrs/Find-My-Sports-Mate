@@ -80,7 +80,7 @@ namespace PresentationLayer.Controllers
                 MaximumUsers = 8,
                 StartDate = new DateTime(2012, 5, 6),
                 EndDate = new DateTime(2012, 5, 16),
-                Open = true,
+                IsClosed = false,
                 JoinedUsers = new List<JoinedUser> { new JoinedUser { User = new User { FirstName = "HerreGud", UserName = "PetterPan" } } }
             };
 
