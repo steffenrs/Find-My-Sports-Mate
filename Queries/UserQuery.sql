@@ -1,7 +1,7 @@
 USE [FindMySportsMate]
 GO
 
-/****** Object:  Table [dbo].[User]    Script Date: 05/02/2012 04:54:34 ******/
+/****** Object:  Table [dbo].[User]    Script Date: 05/02/2012 06:01:53 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -23,7 +23,6 @@ CREATE TABLE [dbo].[User](
 	[Gender] [bit] NULL,
 	[BirthDate] [date] NULL,
 	[PhoneNumber] [varchar](50) NULL,
-	[FavoriteSports] [int] NULL,
  CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -33,13 +32,6 @@ CREATE TABLE [dbo].[User](
 GO
 
 SET ANSI_PADDING OFF
-GO
-
-ALTER TABLE [dbo].[User]  WITH CHECK ADD  CONSTRAINT [FK_User_Sport] FOREIGN KEY([FavoriteSports])
-REFERENCES [dbo].[Sport] ([Id])
-GO
-
-ALTER TABLE [dbo].[User] CHECK CONSTRAINT [FK_User_Sport]
 GO
 
 
