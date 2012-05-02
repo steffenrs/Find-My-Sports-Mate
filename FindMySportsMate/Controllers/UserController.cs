@@ -27,25 +27,26 @@ namespace PresentationLayer
         {
             if (ModelState.IsValid)
             {
+                User user = UserBusiness.GetUserByEmail(model.Email);
                 //// MODIFY FOR DATABASE USE!
                 
                 
-                if (Membership.ValidateUser(model.UserName, model.Password))
+                if (user.Password == model.Password)
                 {
-                //    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-                //    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                //        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                //    {
-                //        return Redirect(returnUrl);
-                //    }
-                //    else
-                //    {
-                //        return RedirectToAction("Index", "Home");
-                //    }
-                //}
-                //else
-                //{
-                //    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    Session["UserId"] = user.Id;
+                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
                 }
 
                 
@@ -82,7 +83,6 @@ namespace PresentationLayer
             if (ModelState.IsValid) 
             { 
                 User user = new User();
-                user.UserName = model.UserName;
                 user.Email = model.Email;
                 user.Password = model.Password;
                 user.StreetAddress = model.StreetAddress;
@@ -113,7 +113,7 @@ namespace PresentationLayer
         //
         // GET: /Account/ChangePassword
 
-        [Authorize]
+        //[Authorize]
         public ActionResult ChangePassword()
         {
             return View();
