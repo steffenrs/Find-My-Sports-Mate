@@ -92,7 +92,7 @@ namespace PresentationLayer
   
                 try
                 {
-                    UserBusiness.RegisterUser(user);
+                    UserBusiness.Register(user);
                     Session["UserId"] = user.Id;
                     return RedirectToAction("Index", "Home");
                 }
@@ -162,7 +162,7 @@ namespace PresentationLayer
                     User currentUser = UserBusiness.GetUserById((int)Session["UserId"]);
                     if (model.OldPassword == currentUser.Password)
                     {
-                        UserBusiness.UpdateUser(currentUser, newUser);
+                        UserBusiness.Update(currentUser, newUser);
                         return RedirectToAction("ChangePasswordSuccess");
                     }
                 }
