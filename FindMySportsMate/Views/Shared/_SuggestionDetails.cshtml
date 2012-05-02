@@ -20,7 +20,7 @@
             <ul>
                 @foreach(var currentUser in Model.SelectedSuggestion.JoinedUsers)
                 {
-                    <li>@Html.ActionLink(currentUser.User.FirstName, "View", "User", new { Id = currentUser.User.UserName }, new { })</li>
+                    <li>@Html.ActionLink(currentUser.User.FirstName, "View", "User", new { Id = currentUser.User.Id }, new { })</li>
                 }
             </ul>
         </div>    
