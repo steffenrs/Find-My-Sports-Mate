@@ -75,13 +75,15 @@ namespace PresentationLayer.Controllers
             {
                 Title = "WeTennis!?",
                 Description = "TenSing",
+                Creator = new Domain.User { FirstName = "Ikke bra" },
                 Sport = new Sport { Name = "Tennis" },
                 MinimumUsers = 2,
                 MaximumUsers = 8,
                 StartDate = new DateTime(2012, 5, 6),
                 EndDate = new DateTime(2012, 5, 16),
                 IsClosed = false,
-                JoinedUsers = new List<JoinedUser> { new JoinedUser { User = new User { FirstName = "HerreGud", UserName = "PetterPan" } } }
+                Location = new Location { Name="Fredag" },
+                JoinedUsers = new List<JoinedUser> { new JoinedUser { User = new User { FirstName = "HerreGud" } } }
             };
 
             return Json(suggestion, JsonRequestBehavior.AllowGet);
