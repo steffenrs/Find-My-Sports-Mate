@@ -8,6 +8,8 @@ namespace PresentationLayer
 {
     public class DashboardViewModel
     {
+        public List<Suggestion> AllSuggestions {get; set;}
+        public List<Suggestion> JoinedSuggestions { get; set; }
         public Suggestion SelectedSuggestion { get; set; }
     }
 }

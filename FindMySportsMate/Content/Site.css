@@ -173,12 +173,12 @@ li
     text-align: center;
 }
 
-#suggestions-table tr:nth-child(odd)
+.suggestions-table tr:nth-child(odd)
 {
     background-color: #E8E3E5;
 }
 
-#suggestions-table th
+.suggestions-table th
 {
     background-color: #C9C9C9;
 }

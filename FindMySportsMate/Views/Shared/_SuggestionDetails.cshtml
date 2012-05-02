@@ -1,6 +1,6 @@
 ﻿@model PresentationLayer.DashboardViewModel
 
-<div id="suggestions-details" data-update-url="@Url.Action("GetSuggestion", "Suggestion")">
+<div id="suggestions-details" data-update-url="@Url.Action("GetSuggestion", "Suggestion")" data-view-user="@Url.Action("View", "User")">
     @if (@Model.SelectedSuggestion != null)
     {
         <div class="sub-title">@Model.SelectedSuggestion.Title</div> 
