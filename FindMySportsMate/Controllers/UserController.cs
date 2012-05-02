@@ -41,7 +41,7 @@ namespace PresentationLayer
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Dashboard");
                     }
                 }
                 else
@@ -62,6 +62,7 @@ namespace PresentationLayer
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
+            Session.Remove("UserId");
 
             return RedirectToAction("Index", "Home");
         }
@@ -88,22 +89,19 @@ namespace PresentationLayer
                 user.StreetAddress = model.StreetAddress;
                 user.Area = model.Area;
                 user.State = model.State;
-                //... osv.
-                /// CAST/CONVERT TO RegisterViewModel
-                /// 
-
-                //try
-                //{
+  
+                try
+                {
                     UserBusiness.RegisterUser(user);
                     Session["UserId"] = user.Id;
                     return RedirectToAction("Index", "Home");
-                //}
-                //catch(Exception e)
-                //{
+                }
+                catch(Exception e)
+                {
 
-                //    //WRITE OUT MODEL REGISTRATION ERROR
-                //    //ModelState.AddModelError("", ErrorCodeToString(createStatus));
-                //}
+                    //WRITE OUT MODEL REGISTRATION ERROR
+                    //ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                }
             }
 
             // If we got this far, something failed, redisplay form
@@ -114,11 +112,25 @@ namespace PresentationLayer
         /// Get Edit user
         /// </summary>
         /// <returns>Edit view</returns>
-        public ActionResult Edit()
+        public ActionResult Edit(UserViewModel model)
         {
             if (Session["UserId"] == null)
-                return View(LogOn());
-            return View();
+                return RedirectToAction("LogOn");
+
+            User user = UserBusiness.GetUserById((int)Session["UserId"]);
+            model.Area = user.Area;
+            model.BirthDate = user.BirthDate;
+            model.Email = user.Email;
+            model.FirstName = user.FirstName;
+            model.Gender = user.Gender;
+            model.LastName = user.LastName;
+            model.Password = user.Password;
+            model.PhoneNumber = user.PhoneNumber;
+            model.State = user.State;
+            model.StreetAddress = user.StreetAddress;
+            
+
+            return View(model);
         }
 
 
