@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Domain;
+using DataAccessLayer;
 
 namespace BusinessLayer
 {
@@ -16,6 +17,11 @@ namespace BusinessLayer
 
         public static void RegisterUser(User user) 
         {
+            using (var db = new MyDbContext())
+            {
+                db.User.Add(user);
+                db.SaveChanges();
+            }
         }
 
         public static User GetUser(User user)

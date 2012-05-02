@@ -79,10 +79,15 @@ namespace PresentationLayer
         [HttpPost]
         public ActionResult Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) 
             { 
                 User user = new User();
                 user.UserName = model.UserName;
+                user.Email = model.Email;
+                user.Password = model.Password;
+                user.StreetAddress = model.StreetAddress;
+                user.Area = model.Area;
+                user.State = model.State;
                 //... osv.
                 /// CAST/CONVERT TO RegisterViewModel
                 /// 
