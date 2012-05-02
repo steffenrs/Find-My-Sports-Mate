@@ -15,8 +15,6 @@ namespace PresentationLayer
 
         public ActionResult Index()
         {
-            BusinessLayer.AddressBusiness.GetAllAddresses();
-
             var suggestion = new Suggestion
             {
                 Title = "Volley in winter?",
