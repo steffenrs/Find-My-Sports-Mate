@@ -17,7 +17,18 @@ namespace PresentationLayer
         {
             BusinessLayer.AddressBusiness.GetAllAddresses();
 
-            var suggestion = new Suggestion { Title = "Volleyball?" };
+            var suggestion = new Suggestion
+            {
+                Title = "Volley in winter?",
+                Description = "Keen på å spille volleyball eller?",
+                Sport = new Sport { Name = "Volleyball" },
+                MinimumUsers = 5,
+                MaximumUsers = 10,
+                StartDate = new DateTime(2012, 5, 5),
+                EndDate = new DateTime(2012, 5, 15),
+                Open = true,
+                JoinedUsers = new List<JoinedUser> { new JoinedUser { User = new User { FirstName="PETAH", UserName="PetterPan" } } }
+            };
 
             var viewModel = new DashboardViewModel() { SelectedSuggestion = suggestion };
 
