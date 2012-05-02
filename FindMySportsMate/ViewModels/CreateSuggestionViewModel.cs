@@ -29,6 +29,7 @@ namespace PresentationLayer
         [Required]
         [Display(Name = "End date")]
         [DataType(DataType.DateTime)]
+        [DateIsEarlier("StartDate")]
         public DateTime EndDate { get; set; }
 
         [Required]
@@ -48,13 +49,14 @@ namespace PresentationLayer
         [Required]
         [Display(Name = "Minimum Joined People: ")]
         [DataType(DataType.Text)]
-        [RegularExpression("[1-9][0-9]*")]
+        [RegularExpression("[1-9][0-9]*", ErrorMessage = "Must be a number above 0")]
         public int MinPeople { get; set; }
 
         [Required]
         [Display(Name = "Maximum Joined People: ")]
         [DataType(DataType.Text)]
-        [RegularExpression("[1-9][0-9]*")]
+        [RegularExpression("[1-9][0-9]*", ErrorMessage = "Must be a number above 0")]
+        [IntegerIsLessThanAttribute("MinPeople")]
         public int MaxPeople { get; set; }
     }
 }
