@@ -4,9 +4,26 @@
     @if (@Model.SelectedSuggestion != null)
     {
         <div class="sub-title">@Model.SelectedSuggestion.Title</div> 
-        <text>
-        Keen på å spille volleyball eller?
-        </text>        
+        <p>@Model.SelectedSuggestion.Description</p>
+        <p>Creator: Steffen</p>
+        <p>Time period: @Model.SelectedSuggestion.StartDate.Day.@Model.SelectedSuggestion.StartDate.Month.@Model.SelectedSuggestion.StartDate.Year - @Model.SelectedSuggestion.EndDate.Day.@Model.SelectedSuggestion.EndDate.Month.@Model.SelectedSuggestion.EndDate.Year</p>
+        <p>Users: @Model.SelectedSuggestion.JoinedUsers.Count / @Model.SelectedSuggestion.MaximumUsers</p>                                                
+        <p>Status: @if(Model.SelectedSuggestion.Open)
+                   { <text>Open</text> }
+                   else
+                   { <text>Closed</text> } 
+        </p>
+        <p>Location: @if (@Model.SelectedSuggestion.Location == null) { <text>Location will be generated after the minimum number of users has joined</text> } else { @Model.SelectedSuggestion.Location.Name }</p>
+
+        <div id="suggestions-user-list">
+            <p><br />Joined Users:</p>
+            <ul>
+                @foreach(var currentUser in Model.SelectedSuggestion.JoinedUsers)
+                {
+                    <li>@Html.ActionLink(currentUser.User.FirstName, "View", "User", new { Id = currentUser.User.UserName }, new { })</li>
+                }
+            </ul>
+        </div>    
     }
 
 </div>  

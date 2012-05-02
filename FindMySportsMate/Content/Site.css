@@ -171,6 +171,11 @@ textarea
     margin-top: 30px;
 }
 
+li
+{
+    margin-left: 25px;
+}
+
 .sub-title
 {
     width: 30%;

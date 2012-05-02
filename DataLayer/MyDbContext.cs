@@ -15,5 +15,8 @@ namespace DataAccessLayer
 
         public DbSet<AddressBook> Test { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<Suggestion> Suggestion { get; set; }
+        public DbSet<Sport> Sport { get; set; }
+        public DbSet<Location> Location { get; set; }
     }
 }
