@@ -1,6 +1,25 @@
 ﻿$(function () {
     $("#suggestions-tabs").tabs();
+    loadScript();
+   // initializeMap();
 });
+
+function loadScript() {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyACZEsTgnDXNAuphz0jeO_jT-bZsQLa5ho&sensor=false&callback=initializeMap";
+    document.body.appendChild(script);
+}
+
+function initializeMap() {
+    var myOptions = {
+        center: new google.maps.LatLng(-34.397, 150.644),
+        zoom: 8,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("suggestions-right-div"),
+            myOptions);
+}
 
 function getSuggestion(id) {
     var suggestionDetails = $("#suggestions-details");
@@ -28,5 +47,4 @@ function updateSuggestionDetails(data) {
     });
 
     suggestionsDetails.find("ul").html(listHtml);
-    console.log(data);
 }
