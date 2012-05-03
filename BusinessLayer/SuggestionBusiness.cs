@@ -66,7 +66,7 @@ namespace BusinessLayer
 
         public static void New(Suggestion suggestion)
         {
-            SuggestionAccess.CreateSuggestion(suggestion);
+            SuggestionAccess.Create(suggestion);
         }
 
         public static Suggestion Get(int id)
