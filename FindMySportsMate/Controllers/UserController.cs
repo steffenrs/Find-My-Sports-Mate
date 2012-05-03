@@ -70,7 +70,6 @@ namespace PresentationLayer
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-            Session.Remove("UserId");
 
             return RedirectToAction("Index", "Home");
         }
@@ -100,10 +99,15 @@ namespace PresentationLayer
   
                 try
                 {
+
                     UserBusiness.Register(user);
-                    
-                    FormsAuthentication.SetAuthCookie(user.Email, true);
-                    Session["UserId"] = user.Id;
+                    FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddDays(1), true, user.Id.ToString());
+
+                    // Encrypt the ticket.
+                    string encTicket = FormsAuthentication.Encrypt(ticket);
+
+                    // Create the cookie.
+                    Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
                     return RedirectToAction("Index", "Dashboard");
                 }
                 catch(Exception e)
