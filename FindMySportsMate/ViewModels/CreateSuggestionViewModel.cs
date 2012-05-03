@@ -38,14 +38,6 @@ namespace PresentationLayer
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 5)]
         public string Description { get; set; }
 
-        public bool Monday { get; set; }
-        public bool Tuesday { get; set; }
-        public bool Wednesday { get; set; }
-        public bool Thursday { get; set; }
-        public bool Friday { get; set; }
-        public bool Saturday { get; set; }
-        public bool Sunday { get; set; }
-
         [Required]
         [Display(Name = "Minimum Joined People: ")]
         [DataType(DataType.Text)]

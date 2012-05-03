@@ -10,6 +10,7 @@ namespace PresentationLayer.Controllers
 {
     public class SuggestionController : Controller
     {
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -25,7 +26,6 @@ namespace PresentationLayer.Controllers
                 catch (DomainException e) { suggestionSport = new Sport { Name = model.Sport }; }
 
                 User currentUser = new User { Id = 1 };
-                JoinedUser joinedUser = new JoinedUser { UserId = currentUser.Id, Weekdays = getWeeklyParticipation(model) };
        
                 Suggestion suggestion = new Suggestion
                 {
@@ -37,7 +37,6 @@ namespace PresentationLayer.Controllers
                     MaximumUsers = model.MaxPeople,
                     SportId = suggestionSport.Name,
                     CreatorId = currentUser.Id,
-                    JoinedUsers = new List<JoinedUser> { joinedUser }
                 };
                 
                 try
@@ -57,32 +56,6 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        private String getWeeklyParticipation(CreateSuggestionViewModel model)
-        {
-            StringBuilder weeklyActivity = new StringBuilder();
-
-            if (model.Monday == true)
-                weeklyActivity.Append("Mo,");
-            if (model.Tuesday == true)
-                weeklyActivity.Append("Tu,");
-            if (model.Wednesday == true)
-                weeklyActivity.Append("We,");
-            if (model.Thursday == true)
-                weeklyActivity.Append("Th,");
-            if (model.Friday == true)
-                weeklyActivity.Append("Fr,");
-            if (model.Saturday == true)
-                weeklyActivity.Append("Sa,");
-            if (model.Sunday == true)
-                weeklyActivity.Append("Su,");
-
-            // Remove last comma character
-            if (weeklyActivity.Length > 0)
-                weeklyActivity.Remove(weeklyActivity.Length - 1, 1);
-
-            return weeklyActivity.ToString();
-        }
-
         public JsonResult GetSuggestion(int id)
         {
             Suggestion suggestion = BusinessLayer.SuggestionBusiness.Get(id);
@@ -95,25 +68,24 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public ActionResult Edit(int Id)
         {
-            Suggestion suggestion = BusinessLayer.SuggestionBusiness.Get(Id);
+            Suggestion suggestion;
+            try { suggestion = BusinessLayer.SuggestionBusiness.Get(Id); }
+            catch (DomainException e) { return null; }
+            
+            CreateSuggestionViewModel viewModel = new CreateSuggestionViewModel {   Title = suggestion.Title, 
+                                                                                    Sport = suggestion.Sport.Name, 
+                                                                                    StartDate = suggestion.StartDate, 
+                                                                                    EndDate = suggestion.EndDate, 
+                                                                                    Description = suggestion.Description, 
+                                                                                    MinPeople = suggestion.MinimumUsers, 
+                                                                                    MaxPeople = suggestion.MaximumUsers };
+            return View("Create", viewModel);
+        }
 
-            if (suggestion == null)
-            {
-                //TODO return 404 view with message
-                return null;
-            }
-            else
-            {
-                CreateSuggestionViewModel viewModel = new CreateSuggestionViewModel {   Title = suggestion.Title, 
-                                                                                        Sport = suggestion.Sport.Name, 
-                                                                                        StartDate = suggestion.StartDate, 
-                                                                                        EndDate = suggestion.EndDate, 
-                                                                                        Description = suggestion.Description, 
-                                                                                        MinPeople = suggestion.MinimumUsers, 
-                                                                                        MaxPeople = suggestion.MaximumUsers };
-
-                return View("Create", viewModel);
-            }
+        [HttpPost]
+        public ActionResult Edit(CreateSuggestionViewModel model)
+        {
+            return null;
         }
     }
 }

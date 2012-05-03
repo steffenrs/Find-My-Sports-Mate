@@ -52,41 +52,6 @@
             </div>
 
             <div class="editor-label">
-                <label >Your weekly schedule</label>
-            </div>
-            <div class="editor-field">
-                <div class="suggestion-day-box">
-                    @Html.CheckBoxFor(m => m.Monday)
-                    <p>Mo</p>
-                </div>
-                <div class="suggestion-day-box">
-                    @Html.CheckBoxFor(m => m.Tuesday)
-                    <p>Tu</p>
-                </div>
-                <div class="suggestion-day-box">
-                    @Html.CheckBoxFor(m => m.Wednesday)
-                    <p>We</p>
-                </div>
-                <div class="suggestion-day-box">
-                    @Html.CheckBoxFor(m => m.Thursday)
-                    <p>Th</p>
-                </div>
-                <div class="suggestion-day-box">
-                    @Html.CheckBoxFor(m => m.Friday)
-                    <p>Fr</p>
-                </div>
-                <div class="suggestion-day-box">
-                    @Html.CheckBoxFor(m => m.Saturday)
-                    <p>Sa</p>
-                </div>
-                <div class="suggestion-day-box">
-                    @Html.CheckBoxFor(m => m.Sunday)
-                    <p>Su</p>
-                </div>
-            </div>
-            <div style="clear: both"></div>
-
-            <div class="editor-label">
                 @Html.LabelFor(m => m.MinPeople)
                 @Html.TextBoxFor(m => m.MinPeople, new { @class = "suggestion-input-number-field" })
                 @Html.ValidationMessageFor(m => m.MinPeople)
@@ -99,8 +64,7 @@
             </div>
 
             <div id="suggestion-submit-container">
-                <input type="reset" value="Clear" />
-                <input type="submit" value="Create" />
+                <input type="submit" value="Save Suggestion" />
             </div>
         </fieldset>
     </div>

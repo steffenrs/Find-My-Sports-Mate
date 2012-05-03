@@ -160,8 +160,7 @@ li
 }
 #suggestion-submit-container { margin: 20px 0; }
 #suggestion-submit-container input {
-    margin-right: 10px;
-    width: 100px;
+    width: 200px;
     height: 23px;
 }
 
