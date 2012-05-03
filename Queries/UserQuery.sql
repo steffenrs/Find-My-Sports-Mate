@@ -1,7 +1,7 @@
 USE [FindMySportsMate]
 GO
 
-/****** Object:  Table [dbo].[User]    Script Date: 05/02/2012 06:01:53 ******/
+/****** Object:  Table [dbo].[User]    Script Date: 05/04/2012 03:35:26 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -33,5 +33,4 @@ GO
 
 SET ANSI_PADDING OFF
 GO
-
 

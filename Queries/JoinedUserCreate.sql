@@ -1,7 +1,7 @@
 USE [FindMySportsMate]
 GO
 
-/****** Object:  Table [dbo].[JoinedUser]    Script Date: 05/02/2012 13:55:48 ******/
+/****** Object:  Table [dbo].[JoinedUser]    Script Date: 05/04/2012 03:34:37 ******/
 SET ANSI_NULLS ON
 GO
 

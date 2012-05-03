@@ -1,7 +1,7 @@
 USE [FindMySportsMate]
 GO
 
-/****** Object:  Table [dbo].[Suggestion]    Script Date: 05/02/2012 13:56:29 ******/
+/****** Object:  Table [dbo].[Suggestion]    Script Date: 05/04/2012 03:35:15 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -13,7 +13,7 @@ GO
 
 CREATE TABLE [dbo].[Suggestion](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[SportId] [int] NOT NULL,
+	[SportId] [varchar](50) NOT NULL,
 	[LocationId] [int] NOT NULL,
 	[CreatorId] [int] NOT NULL,
 	[Description] [varchar](1000) NOT NULL,
