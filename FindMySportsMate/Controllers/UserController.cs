@@ -31,7 +31,7 @@ namespace PresentationLayer
                 //// MODIFY FOR DATABASE USE!
                 
                 
-                if (user.Password == model.Password)
+                if (user != null && user.Password == model.Password)
                 {
 
                     FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddDays(1), true, user.Id.ToString());
@@ -126,11 +126,10 @@ namespace PresentationLayer
         /// Get Edit user
         /// </summary>
         /// <returns>Edit view</returns>
+        [CustomAuthorize]
         public ActionResult Edit()
         {
-            if (Session["UserId"] == null)
-                return RedirectToAction("LogOn");
-            User user = UserBusiness.GetUserById((int)Session["UserId"]);
+            User user = UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name);
             UserViewModel model = new UserViewModel();
             model.Area = user.Area;
             model.BirthDate = user.BirthDate;
@@ -150,6 +149,7 @@ namespace PresentationLayer
         /// POST Edit user
         /// </summary>
         /// <returns>Edit view</returns>
+        [CustomAuthorize]
         [HttpPost]
         public ActionResult Edit(UserViewModel model)
         {
@@ -187,7 +187,7 @@ namespace PresentationLayer
         //
         // POST: /Account/ChangePassword
 
-        [Authorize]
+        [CustomAuthorize]
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordViewModel model)
         {

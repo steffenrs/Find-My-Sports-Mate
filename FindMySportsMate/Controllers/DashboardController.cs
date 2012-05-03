@@ -12,7 +12,7 @@ namespace PresentationLayer
     {
         //
         // GET: /Dashboard/
-
+        [CustomAuthorize]
         public ActionResult Index()
         {
             var allSuggestions = SuggestionBusiness.GetAll();

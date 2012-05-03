@@ -118,7 +118,8 @@ namespace PresentationLayer.Controllers
 
             return suggestion;
         }
-
+        
+        [CustomAuthorizeAttribute]
         public JsonResult GetSuggestion(int id)
         {
             Suggestion suggestion = BusinessLayer.SuggestionBusiness.Get(id);
