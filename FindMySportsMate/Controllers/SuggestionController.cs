@@ -96,6 +96,7 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public ActionResult Edit(int Id)
         {
+            var care = User.Identity;
             Suggestion suggestion = BusinessLayer.SuggestionBusiness.Get(Id);
 
             if (suggestion == null)
