@@ -15,6 +15,7 @@ namespace PresentationLayer
 
         public ActionResult Index()
         {
+            var username = User.Identity.Name;
             var allSuggestions = SuggestionBusiness.GetAll();
 
             var viewModel = new DashboardViewModel() 
