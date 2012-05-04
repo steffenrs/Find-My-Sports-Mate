@@ -70,6 +70,7 @@ namespace PresentationLayer.Controllers
         public ActionResult Edit(int Id)
         {
             var care = User.Identity;
+            Suggestion suggestion;
             try { suggestion = BusinessLayer.SuggestionBusiness.Get(Id); }
             catch (DomainException e) { return null; }
             
