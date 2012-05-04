@@ -1,5 +1,6 @@
 ﻿$(function () {
     $("#suggestions-tabs").tabs();
+    $("#suggestions-join").button();
     showMap();
 });
 
