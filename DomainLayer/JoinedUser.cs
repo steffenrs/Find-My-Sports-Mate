@@ -9,13 +9,13 @@ namespace Domain
     [Table("JoinedUser")]
     public class JoinedUser
     {
-        [Key, Column(Order=1)]
+        [Key, Column(Order=0)]
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.None)]
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
 
-        [Key, Column(Order=0)]
+        [Key, Column(Order=1)]
         public int SuggestionId { get; set; }
 
         public String Weekdays { get; set; }

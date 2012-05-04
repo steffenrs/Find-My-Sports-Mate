@@ -26,7 +26,6 @@ namespace Domain
         [ForeignKey("CreatorId")]
         public virtual User Creator { get; set; }
 
-        [ForeignKey("UserId")]
         public List<JoinedUser> JoinedUsers { get; set; }
 
         public string Description { get; set; }
