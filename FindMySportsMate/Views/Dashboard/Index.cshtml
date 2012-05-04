@@ -4,6 +4,7 @@
 }
 
 <script src="@Url.Content("~/Scripts/Dashboard.js")" type="text/javascript"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyACZEsTgnDXNAuphz0jeO_jT-bZsQLa5ho&sensor=false" type="text/javascript"></script>
 @Html.ActionLink("Create a new suggestion", "Create", "Suggestion", new { }, new { @class = "big-link" })
 
 <div id="suggestions-tabs">
@@ -46,7 +47,7 @@
                    <td><a href="#suggestions-details" onclick="getSuggestion(@suggestion.Id)">@suggestion.Title</a></td>
                    <td>@suggestion.Sport.Name</td>
                    <td>@suggestion.StartDate.ToString("dd.MM.yy") - @suggestion.EndDate.ToString("dd.MM.yy")</td>
-                   <td>@suggestion.JoinedUsers.Count    /@suggestion.MaximumUsers</td>
+                   <td>@suggestion.JoinedUsers.Count/@suggestion.MaximumUsers</td>
                </tr>
             }
         </table>

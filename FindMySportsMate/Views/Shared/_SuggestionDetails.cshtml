@@ -26,5 +26,14 @@
             </ul>
         </div>
     </div>
-    <div id="suggestions-right-div" style="width: 300px; height:300px"></div>
+    <div id="suggestions-right-div" style="width: 300px; height:300px">
+        @if (Model.SelectedSuggestion.Location != null)
+        {
+            <script>showMap(0, 0);</script>
+        }
+        else
+        {
+            <text>A map will be generated when the minimum users have joined.</text> 
+        }
+    </div>
 </div>  

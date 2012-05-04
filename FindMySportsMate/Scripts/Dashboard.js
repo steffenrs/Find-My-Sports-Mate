@@ -1,29 +1,22 @@
 ﻿$(function () {
     $("#suggestions-tabs").tabs();
-    loadScript();
-   // initializeMap();
+    showMap();
 });
 
-function loadScript() {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyACZEsTgnDXNAuphz0jeO_jT-bZsQLa5ho&sensor=false&callback=initializeMap";
-    document.body.appendChild(script);
-}
-
-function initializeMap() {
+function showMap() {
     var myOptions = {
         center: new google.maps.LatLng(-34.397, 150.644),
         zoom: 8,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    var map = new google.maps.Map(document.getElementById("suggestions-right-div"),
-            myOptions);
-}
+    var map = new google.maps.Map(document.getElementById("suggestions-right-div"), myOptions);
+};
 
 function getSuggestion(id) {
-    var suggestionDetails = $("#suggestions-details");
- 
+    console.log("lol");
+    var suggestionDetails = $("#suggestions-content");
+    console.log(suggestionDetails.data('update-url'));
+
     $.ajax({
         url: suggestionDetails.data('update-url')+"/"+id,
         type: "POST",
@@ -32,7 +25,7 @@ function getSuggestion(id) {
 };
 
 function updateSuggestionDetails(data) {
-    var suggestionsDetails = $("#suggestions-details");
+    var suggestionsDetails = $("#suggestions-left-div");
     suggestionsDetails.find("#description").html(data.Description);
     suggestionsDetails.find("#creator").html("Creator:" + data.Creator.FirstName);
     suggestionsDetails.find("#time-period").html("Time period:" + data.Description);
