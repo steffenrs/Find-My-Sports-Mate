@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
+using System.Security.Principal;
+using System.Threading;
 
 namespace PresentationLayer
 {
@@ -27,6 +30,23 @@ namespace PresentationLayer
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
 
+        }
+
+        protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
+        {
+            HttpCookie formsCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+
+            if (formsCookie != null)
+            {
+                FormsAuthenticationTicket auth = FormsAuthentication.Decrypt(formsCookie.Value);
+
+                string userId = auth.UserData;
+                //Guid userID = new Guid(auth.UserData);
+
+                var principal = new CustomPrincipal(Roles.Provider.Name, new GenericIdentity(auth.Name), userId);
+
+                Context.User = Thread.CurrentPrincipal = principal;
+            }
         }
 
         protected void Application_Start()

@@ -73,6 +73,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\SuggestionController.cs" />
+    <Compile Include="Roles\CustomPrincipal.cs" />
     <Compile Include="Validation\DateIsEarlierAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

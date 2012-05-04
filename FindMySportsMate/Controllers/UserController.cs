@@ -33,7 +33,15 @@ namespace PresentationLayer
                 
                 if (user.Password == model.Password)
                 {
-                    Session["UserId"] = user.Id;
+
+                    FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddDays(1), true, user.Id.ToString());
+
+                    // Encrypt the ticket.
+                    string encTicket = FormsAuthentication.Encrypt(ticket);
+
+                    // Create the cookie.
+                    Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {
@@ -93,6 +101,8 @@ namespace PresentationLayer
                 try
                 {
                     UserBusiness.Register(user);
+                    
+                    FormsAuthentication.SetAuthCookie(user.Email, true);
                     Session["UserId"] = user.Id;
                     return RedirectToAction("Index", "Dashboard");
                 }

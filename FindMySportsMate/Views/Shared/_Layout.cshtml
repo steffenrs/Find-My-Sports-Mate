@@ -11,10 +11,11 @@
     <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
 </head>
-@if(Session["UserId"]!=null){
-    ViewBag.Email = BusinessLayer.UserBusiness.GetUserById((int)Session["UserId"]).Email;}
+@if (HttpContext.Current.Request.IsAuthenticated){
+    ViewBag.Email = ((PresentationLayer.CustomPrincipal)HttpContext.Current.User).Identity.Name;
+}
    else {
-    ViewBag.Email = "Log On!";}
+    ViewBag.Email = "...";}
     
 <body>
 <div id="header">
