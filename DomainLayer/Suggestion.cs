@@ -14,7 +14,7 @@ namespace Domain
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int SportId { get; set; }
+        public string SportId { get; set; }
         [ForeignKey("SportId")]
         public virtual Sport Sport { get; set; }
 

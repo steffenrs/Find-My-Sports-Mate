@@ -5,11 +5,11 @@ using System.Security.Principal;
 namespace PresentationLayer
 {
 
-    class CustomPrincipal : RolePrincipal
+    public class CustomPrincipal : RolePrincipal
     {
-        public Guid UserID { get; set; }
+        public string UserID { get; set; }
 
-        public CustomPrincipal(String name, IIdentity provider, Guid userID)
+        public CustomPrincipal(String name, IIdentity provider, string userID)
             : base(name, provider)
         {
             UserID = userID;

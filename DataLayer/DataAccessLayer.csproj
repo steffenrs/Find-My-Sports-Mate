@@ -58,6 +58,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SportAccess.cs" />
     <Compile Include="SuggestionAccess.cs" />
   </ItemGroup>
   <ItemGroup>

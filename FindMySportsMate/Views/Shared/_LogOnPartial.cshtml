@@ -1,4 +1,5 @@
-﻿@if(Session["UserId"]!=null) {
+﻿@if (HttpContext.Current.Request.IsAuthenticated)
+{
     <text>
     [ @Html.ActionLink("Log Off", "LogOff", "User") ]</text>
 }

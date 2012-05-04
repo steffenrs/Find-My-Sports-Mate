@@ -20,11 +20,12 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Check if sport exists
-                Sport suggestionSport = new Sport { Name = model.Sport };
+                Sport suggestionSport;
+                try { suggestionSport = BusinessLayer.SportBusiness.GetByName(model.Sport); }
+                catch (DomainException e) { suggestionSport = new Sport { Name = model.Sport }; }
 
-                // Fetch current user
                 User currentUser = new User { Id = 1 };
+                JoinedUser joinedUser = new JoinedUser { UserId = currentUser.Id, Weekdays = getWeeklyParticipation(model) };
        
                 Suggestion suggestion = new Suggestion
                 {
@@ -34,14 +35,11 @@ namespace PresentationLayer.Controllers
                     Description = model.Description,
                     MinimumUsers = model.MinPeople,
                     MaximumUsers = model.MaxPeople,
-                    Sport = suggestionSport,
+                    SportId = suggestionSport.Name,
                     CreatorId = currentUser.Id,
-//                    JoinedUsers = new List<JoinedUser> { joinedUser }
+                    JoinedUsers = new List<JoinedUser> { joinedUser }
                 };
-                JoinedUser joinedUser = new JoinedUser { UserId = currentUser.Id, Weekdays = getWeeklyParticipation(model) };
-
-                suggestion.JoinedUsers = new List<JoinedUser>() { joinedUser };
-
+                
                 try
                 {
                     BusinessLayer.SuggestionBusiness.New(suggestion);

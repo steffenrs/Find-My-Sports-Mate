@@ -10,8 +10,6 @@ namespace Domain
     public class Sport
     {
         [Key]
-        [DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         public string Name { get; set; }
     }
 }
