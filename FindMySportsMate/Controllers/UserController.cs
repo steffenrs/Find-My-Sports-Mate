@@ -31,7 +31,7 @@ namespace PresentationLayer
                 //// MODIFY FOR DATABASE USE!
                 
                 
-                if (user.Password == model.Password)
+                if (user != null && user.Password == model.Password)
                 {
 
                     FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddDays(1), true, user.Id.ToString());

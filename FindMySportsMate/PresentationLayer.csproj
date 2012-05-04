@@ -73,6 +73,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\SuggestionController.cs" />
+    <Compile Include="Roles\CustomAuthorizeAttribute.cs" />
     <Compile Include="Roles\CustomPrincipal.cs" />
     <Compile Include="Validation\DateIsEarlierAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -155,7 +156,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

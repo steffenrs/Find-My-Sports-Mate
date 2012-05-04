@@ -83,7 +83,7 @@ namespace PresentationLayer.Controllers
             return weeklyActivity.ToString();
         }
 
-        
+        [CustomAuthorizeAttribute]
         public JsonResult GetSuggestion(int id)
         {
             Suggestion suggestion = BusinessLayer.SuggestionBusiness.Get(id);
