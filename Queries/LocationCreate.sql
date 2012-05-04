@@ -1,7 +1,7 @@
 USE [FindMySportsMate]
 GO
 
-/****** Object:  Table [dbo].[Sport]    Script Date: 05/04/2012 03:35:06 ******/
+/****** Object:  Table [dbo].[Location]    Script Date: 05/04/2012 04:22:13 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -11,11 +11,14 @@ GO
 SET ANSI_PADDING ON
 GO
 
-CREATE TABLE [dbo].[Sport](
-	[Name] [varchar](50) NOT NULL,
- CONSTRAINT [PK_Sport] PRIMARY KEY CLUSTERED 
+CREATE TABLE [dbo].[Location](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](250) NOT NULL,
+	[Latitude] [float] NOT NULL,
+	[Longitude] [float] NOT NULL,
+ CONSTRAINT [PK_Location] PRIMARY KEY CLUSTERED 
 (
-	[Name] ASC
+	[Id] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
