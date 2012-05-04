@@ -14,7 +14,7 @@
 @if(Session["UserId"]!=null){
     ViewBag.Email = BusinessLayer.UserBusiness.GetUserById((int)Session["UserId"]).Email;}
    else {
-    ViewBag.Email = "Register!";}
+    ViewBag.Email = "Log On!";}
     
 <body>
 <div id="header">

@@ -20,8 +20,12 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Check if sport exists
                 Sport suggestionSport = new Sport { Name = model.Sport };
 
+                // Fetch current user
+                User currentUser = new User { Id = 1 };
+       
                 Suggestion suggestion = new Suggestion
                 {
                     Title = model.Title,
@@ -30,20 +34,24 @@ namespace PresentationLayer.Controllers
                     Description = model.Description,
                     MinimumUsers = model.MinPeople,
                     MaximumUsers = model.MaxPeople,
-                    Sport = suggestionSport
+                    Sport = suggestionSport,
+                    CreatorId = currentUser.Id,
+//                    JoinedUsers = new List<JoinedUser> { joinedUser }
                 };
+                JoinedUser joinedUser = new JoinedUser { UserId = currentUser.Id, Weekdays = getWeeklyParticipation(model) };
+
+                suggestion.JoinedUsers = new List<JoinedUser>() { joinedUser };
 
                 try
                 {
                     BusinessLayer.SuggestionBusiness.New(suggestion);
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 catch (DomainException e)
                 {
                     ViewBag.ExceptionMessage = e.Message;
                     return View(model);
                 }
-
-                return RedirectToAction("Index", "Dashboard");
             }
             else
             {
@@ -82,6 +90,32 @@ namespace PresentationLayer.Controllers
             Suggestion suggestion = BusinessLayer.SuggestionBusiness.Get(id);
 
             return Json(suggestion, JsonRequestBehavior.AllowGet);
+        }
+
+     
+
+        [HttpGet]
+        public ActionResult Edit(int Id)
+        {
+            Suggestion suggestion = BusinessLayer.SuggestionBusiness.Get(Id);
+
+            if (suggestion == null)
+            {
+                //TODO return 404 view with message
+                return null;
+            }
+            else
+            {
+                CreateSuggestionViewModel viewModel = new CreateSuggestionViewModel {   Title = suggestion.Title, 
+                                                                                        Sport = suggestion.Sport.Name, 
+                                                                                        StartDate = suggestion.StartDate, 
+                                                                                        EndDate = suggestion.EndDate, 
+                                                                                        Description = suggestion.Description, 
+                                                                                        MinPeople = suggestion.MinimumUsers, 
+                                                                                        MaxPeople = suggestion.MaximumUsers };
+
+                return View("Create", viewModel);
+            }
         }
     }
 }

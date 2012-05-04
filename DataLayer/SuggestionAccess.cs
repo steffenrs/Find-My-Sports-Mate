@@ -6,13 +6,14 @@ using Domain;
 
 namespace DataAccessLayer
 {
-    public class SuggestionAccess
+    public static class SuggestionAccess
     {
-        public static void CreateSuggestion(Suggestion suggestion)
+        public static void Create(Suggestion suggestion)
         {
             using (var db = new MyDbContext())
             {
                 db.Suggestion.Add(suggestion);
+                db.JoinedUser.Add(suggestion.JoinedUsers[0]);
 
                 db.SaveChanges();
             }

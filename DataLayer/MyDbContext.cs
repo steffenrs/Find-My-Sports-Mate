@@ -18,5 +18,6 @@ namespace DataAccessLayer
         public DbSet<Suggestion> Suggestion { get; set; }
         public DbSet<Sport> Sport { get; set; }
         public DbSet<Location> Location { get; set; }
+        public DbSet<JoinedUser> JoinedUser { get; set; }
     }
 }
