@@ -17,7 +17,7 @@ namespace DataAccessLayer
             }
         }
 
-        public static Suggestion Get(int id)
+        public static Suggestion Read(int id)
         {
             validateId(id);
 

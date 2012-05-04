@@ -9,6 +9,25 @@ namespace BusinessLayer
 {
     public static class SuggestionBusiness
     {
+        public static void Create(Suggestion suggestion)
+        {
+            DataAccessLayer.SuggestionAccess.Create(suggestion);
+        }
+        public static Suggestion Read(int suggestionId)
+        {
+            return DataAccessLayer.SuggestionAccess.Read(suggestionId);
+        }
+        public static void Update(Suggestion suggestion)
+        {
+            DataAccessLayer.SuggestionAccess.Update(suggestion);
+        }
+        public static void Delete(int suggestionId)
+        {
+            DataAccessLayer.SuggestionAccess.Delete(suggestionId);
+        }
+
+
+
         static Suggestion suggestion = new Suggestion
         {
             Title = "Volley in winter?",
@@ -64,10 +83,7 @@ namespace BusinessLayer
             suggestion3
         };
 
-        public static void New(Suggestion suggestion)
-        {
-            SuggestionAccess.Create(suggestion);
-        }
+        
 
         public static Suggestion Get(int id)
         {
