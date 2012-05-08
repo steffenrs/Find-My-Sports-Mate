@@ -25,6 +25,11 @@ namespace PresentationLayer.Controllers
 
                 try
                 {
+                    // Add creator id
+                    User currentUser = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name);
+                    suggestion.CreatorId = currentUser.Id;
+
+                    // Create suggestion
                     BusinessLayer.SuggestionBusiness.Create(suggestion);
                     return RedirectToAction("Index", "Dashboard");
                 }
@@ -45,7 +50,7 @@ namespace PresentationLayer.Controllers
         {
             try
             {
-                Suggestion suggestion = BusinessLayer.SuggestionBusiness.Read(Id);
+                Suggestion suggestion = BusinessLayer.SuggestionBusiness.GetById(Id);
                 EditSuggestionViewModel viewModel = new EditSuggestionViewModel
                 {
                     Title = suggestion.Title,
@@ -71,42 +76,41 @@ namespace PresentationLayer.Controllers
                 Suggestion suggestion = GetDomainFromViewModel(model);
                 suggestion.Id = model.OriginalId;
 
-                canChangeSuggestion(model.OriginalId, 1);
-
                 try
                 {
+                    // Validate suggestion with user
+                    User currentUser = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name);
+                    if (!BusinessLayer.SuggestionBusiness.UserCanEditSuggestion(currentUser.Id, suggestion.Id))
+                    {
+                        ViewBag.ExceptionMessage = "You are not authorized to edit this suggestion.";
+                        return View(model);
+                    }
+
+                    // Update suggestion
                     BusinessLayer.SuggestionBusiness.Update(suggestion);
                     return RedirectToAction("Index", "Dashboard");
                 }
                 catch (DomainException e)
                 {
                     ViewBag.ExceptionMessage = e.Message;
-                    return View("Create", model);
+                    return View(model);
                 }
             }
             else
             {
-                return View("Create", model);
+                return View(model);
             }
-        }
-
-        public bool canChangeSuggestion(int suggestionId, int userId)
-        {
-            return true;
         }
 
         private Suggestion GetDomainFromViewModel(CreateSuggestionViewModel model)
         {
-            //Fetch user info
-            User currentUser = new User { Id = 1 };
-
-            // Fetch sport
+            // Get or create sport
             Sport suggestionSport;
             try { suggestionSport = BusinessLayer.SportBusiness.GetByName(model.Sport); }
             catch (DomainException e)
             {
                 suggestionSport = new Sport { Name = model.Sport };
-                BusinessLayer.SportBusiness.Save(suggestionSport);
+                BusinessLayer.SportBusiness.Create(suggestionSport);
             }
 
             Suggestion suggestion = new Suggestion
@@ -118,7 +122,6 @@ namespace PresentationLayer.Controllers
                 MinimumUsers = model.MinPeople,
                 MaximumUsers = model.MaxPeople,
                 SportId = suggestionSport.Name,
-                CreatorId = currentUser.Id,
             };
 
             return suggestion;
@@ -127,7 +130,7 @@ namespace PresentationLayer.Controllers
         [CustomAuthorizeAttribute]
         public JsonResult GetSuggestion(int id)
         {
-            Suggestion suggestion = BusinessLayer.SuggestionBusiness.Get(id);
+            Suggestion suggestion = BusinessLayer.SuggestionBusiness.GetById(id);
 
             //Manually specify properties to prevent circual reference error.
             return Json(
