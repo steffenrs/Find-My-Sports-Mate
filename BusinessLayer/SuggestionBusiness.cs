@@ -32,6 +32,12 @@ namespace BusinessLayer
             return DataAccessLayer.SuggestionAccess.GetAll();
         }
 
+        public static void OpenCloseSuggestion(int suggestionId, int userId)
+        {
+            ValidateSuggestionAccess(suggestionId, userId);
+            DataAccessLayer.SuggestionAccess.OpenClose(suggestionId);
+        }
+
         public static void ValidateSuggestionAccess(int suggestionId, int userId)
         {
             Suggestion suggestion = DataAccessLayer.SuggestionAccess.Get(suggestionId);
@@ -41,14 +47,10 @@ namespace BusinessLayer
             }
         }
 
-        public static Suggestion Get(int id)
-        {
-            return DataAccessLayer.SuggestionAccess.Get(id);
-        }
 
-        public static List<Suggestion> GetByUser(int userId)
+        public static List<Suggestion> GetSuggestionsByUserId(int userId)
         {
-            return new List<Suggestion>();
+            return DataAccessLayer.SuggestionAccess.GetAllByCreatorId(userId);
         }
     }
 }
