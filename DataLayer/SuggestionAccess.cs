@@ -49,6 +49,18 @@ namespace DataAccessLayer
 
         }
 
+        public static List<Suggestion> GetAll()
+        {
+            List<Suggestion> allSuggestions = new List<Suggestion>();
+
+            using (var db = new MyDbContext())
+            {
+                allSuggestions = db.Suggestion.ToList();
+            }
+
+            return allSuggestions;
+        }
+
         private static void validateId(int id)
         {
             if (id < 1)

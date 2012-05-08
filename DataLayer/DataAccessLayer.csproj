@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="SportAccess.cs" />
     <Compile Include="SuggestionAccess.cs" />
+    <Compile Include="UserAccess.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DomainLayer\Domain.csproj">

@@ -26,6 +26,11 @@ namespace BusinessLayer
             DataAccessLayer.SuggestionAccess.Delete(suggestionId);
         }
 
+        public static List<Suggestion> GetAll()
+        {
+            return DataAccessLayer.SuggestionAccess.GetAll();
+        }
+
 
 
         static Suggestion suggestion = new Suggestion
@@ -90,10 +95,7 @@ namespace BusinessLayer
             return temp.Single(t => t.Id == id);
         }
 
-        public static List<Suggestion> GetAll()
-        {
-            return temp;
-        }
+        
 
         public static List<Suggestion> GetByUser(int userId)
         {

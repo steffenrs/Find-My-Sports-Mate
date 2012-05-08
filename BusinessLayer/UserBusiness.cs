@@ -9,41 +9,24 @@ namespace BusinessLayer
 {
     public static class UserBusiness
     {
-        public static void Update(User currentUser, User newUser)
+        public static void Update(User newUser)
         {
-            User user = ExtensionMethods.CopyTo<User>(currentUser,newUser);
-            //database stuff
+            DataAccessLayer.UserAccess.Update(newUser);
         }
 
         public static void Register(User user) 
         {
-            using (var db = new MyDbContext())
-            {
-                db.User.Add(user);
-                db.SaveChanges();
-            }
+            DataAccessLayer.UserAccess.Register(user);
         }
 
         public static User GetUserByEmail(string userEmail)
         {
-            var user = new User();
-            using (var db = new MyDbContext())
-            {
-                var dbUser = db.User.Where(u => u.Email == userEmail).FirstOrDefault();
-                user = (User)dbUser;
-            }
-
-            return user;
+            return DataAccessLayer.UserAccess.GetUserByEmail(userEmail);
         }
 
         public static User GetUserById(int userId)
         {
-            User user = new User();
-            using (var db = new MyDbContext())
-            {
-                user = db.User.Find(userId);
-            }
-            return user;
+            return DataAccessLayer.UserAccess.GetUserById(userId);
         }
 
         //public static List<User> GetAllUsers()
@@ -53,10 +36,7 @@ namespace BusinessLayer
 
         public static void Delete(User user)
         {
-            using (var db = new MyDbContext())
-            {
-                user = db.User.Remove(user);
-            }
+            DataAccessLayer.UserAccess.Delete(user);
         }
     }
 }
