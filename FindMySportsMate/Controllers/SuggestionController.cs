@@ -79,12 +79,12 @@ namespace PresentationLayer.Controllers
                 catch (DomainException e)
                 {
                     ViewBag.ExceptionMessage = e.Message;
-                    return View(model);
+                    return View("Create", model);
                 }
             }
             else
             {
-                return View(model);
+                return View("Create", model);
             }
         }
 

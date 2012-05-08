@@ -17,14 +17,14 @@ namespace DataAccessLayer
             }
         }
 
-        public static Suggestion Read(int id)
+        public static Suggestion Get(int id)
         {
             validateId(id);
 
             Suggestion suggestion;
             using (var db = new MyDbContext())
             {
-                suggestion = db.Suggestion.Find(id);
+                suggestion = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers") select s).First();
             }
 
             if (suggestion == null)
@@ -80,18 +80,6 @@ namespace DataAccessLayer
         {
             if (id < 1)
                 throw new DomainException("Suggestion id cannot be less than 1");
-        }
-
-
-        public static Suggestion Get(int id)
-        {
-            using (var db = new MyDbContext())
-            {
-                var suggestion = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers") select s).First();
-                return suggestion;
-            }
-
-            //TODO: throw exception
         }
     }
 }
