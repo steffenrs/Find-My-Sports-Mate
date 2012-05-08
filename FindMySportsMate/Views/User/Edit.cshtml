@@ -37,8 +37,8 @@
                 @Html.LabelFor(m => m.Gender)
             </div>
             <div class="editor-field">
-                @Html.RadioButtonFor(x => x.Gender,true)
-                @Html.RadioButtonFor(x => x.Gender, false)
+                @Html.DropDownListFor(model => model.Gender,new List<SelectListItem>()
+                    { new SelectListItem(){ Text = "Male", Value="True"}, new SelectListItem(){ Text = "Female", Value="False"}})
             </div>
             <div class="editor-label">
                 @Html.LabelFor(m => m.BirthDate)
@@ -101,8 +101,10 @@
                             
             </div>
             <p style="clear:both">
-                <input type="submit" value="Register" />
+                <input type="submit" value="Update Account" />
             </p>
+                
         </fieldset>
+        <input id="DeleteButton" type="button" value="Delete Account" />
     </div>
 }
