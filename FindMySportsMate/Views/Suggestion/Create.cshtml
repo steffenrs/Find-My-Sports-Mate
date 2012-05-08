@@ -10,6 +10,9 @@
      <div>
         <fieldset>
             <legend>Create Suggestion</legend>
+            
+            @Html.TextBoxFor(m => m.OriginalId, new { @class = "hidden" })
+            @Html.ValidationMessageFor(m => m.OriginalId)
 
             <div class="editor-label">
                 @Html.LabelFor(m => m.Title)

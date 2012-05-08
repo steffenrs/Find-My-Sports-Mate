@@ -46,7 +46,7 @@ namespace PresentationLayer.Controllers
             try
             {
                 Suggestion suggestion = BusinessLayer.SuggestionBusiness.Read(Id);
-                EditSuggestionViewModel viewModel = new EditSuggestionViewModel
+                CreateSuggestionViewModel viewModel = new CreateSuggestionViewModel
                 {
                     Title = suggestion.Title,
                     Sport = suggestion.Sport.Name,
@@ -64,7 +64,7 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(EditSuggestionViewModel model)
+        public ActionResult Edit(CreateSuggestionViewModel model)
         {
             if (ModelState.IsValid)
             {

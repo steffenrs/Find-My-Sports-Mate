@@ -10,6 +10,10 @@ namespace PresentationLayer
     public class CreateSuggestionViewModel
     {
         [Required]
+        [RegularExpression("[1-9][0-9]*", ErrorMessage = "Don't mess with the hidden id man!")]
+        public int OriginalId { get; set; }
+
+        [Required]
         [Display(Name = "Title")]
         [DataType(DataType.Text)]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
