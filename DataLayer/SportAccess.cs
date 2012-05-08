@@ -10,7 +10,7 @@ namespace DataAccessLayer
     {
         public static Sport GetByName(string name)
         {
-            validateName(name);
+            ValidateName(name);
 
             Sport sport;
             using (var db = new MyDbContext())
@@ -24,10 +24,19 @@ namespace DataAccessLayer
                 return sport;
         }
 
-        private static void validateName(string name)
+        private static void ValidateName(string name)
         {
             if (name == null || name.Equals(""))
                 throw new DomainException("Name cannot be null or empty");
+        }
+
+        public static void Save(Sport suggestionSport)
+        {
+            using (var db = new MyDbContext())
+            {
+                db.Sport.Add(suggestionSport);
+                db.SaveChanges();
+            }
         }
     }
 }

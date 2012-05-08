@@ -16,15 +16,15 @@ namespace Domain
 
         public string SportId { get; set; }
         [ForeignKey("SportId")]
-        public virtual Sport Sport { get; set; }
+        public Sport Sport { get; set; }
 
         public int LocationId { get; set; }
         [ForeignKey("LocationId")]
-        public virtual Location Location { get; set; }
+        public Location Location { get; set; }
 
         public int CreatorId { get; set; }
         [ForeignKey("CreatorId")]
-        public virtual User Creator { get; set; }
+        public User Creator { get; set; }
 
         public List<JoinedUser> JoinedUsers { get; set; }
 

@@ -12,5 +12,10 @@ namespace BusinessLayer
         {
             return DataAccessLayer.SportAccess.GetByName(name);
         }
+
+        public static void Save(Sport suggestionSport)
+        {
+            DataAccessLayer.SportAccess.Save(suggestionSport);
+        }
     }
 }

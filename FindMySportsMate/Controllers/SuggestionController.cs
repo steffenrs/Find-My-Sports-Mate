@@ -21,7 +21,7 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                Suggestion suggestion = getDomainFromViewModel(model);
+                Suggestion suggestion = GetDomainFromViewModel(model);
                 
                 try
                 {
@@ -68,7 +68,7 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                Suggestion suggestion = getDomainFromViewModel(model);
+                Suggestion suggestion = GetDomainFromViewModel(model);
                 suggestion.Id = model.OriginalSuggestion.Id;
                 suggestion.Location = model.OriginalSuggestion.Location;
                 suggestion.JoinedUsers = model.OriginalSuggestion.JoinedUsers;
@@ -94,7 +94,7 @@ namespace PresentationLayer.Controllers
 
 
 
-        private Suggestion getDomainFromViewModel(CreateSuggestionViewModel model)
+        private Suggestion GetDomainFromViewModel(CreateSuggestionViewModel model)
         {
             //Fetch user info
             User currentUser = new User { Id = 1 };
@@ -102,7 +102,11 @@ namespace PresentationLayer.Controllers
             // Fetch sport
             Sport suggestionSport;
             try { suggestionSport = BusinessLayer.SportBusiness.GetByName(model.Sport); }
-            catch (DomainException e) { suggestionSport = new Sport { Name = model.Sport }; }
+            catch (DomainException e) 
+            { 
+                suggestionSport = new Sport { Name = model.Sport };
+                BusinessLayer.SportBusiness.Save(suggestionSport);
+            }
 
             Suggestion suggestion = new Suggestion
             {
