@@ -52,5 +52,18 @@ namespace BusinessLayer
         {
             return DataAccessLayer.SuggestionAccess.GetAllByCreatorId(userId);
         }
+
+        public static bool JoinSuggestion(JoinedUser joinedUser) 
+        {
+            Suggestion suggestion = SuggestionBusiness.GetById(joinedUser.SuggestionId);
+            if (!suggestion.IsClosed && suggestion.JoinedUsers.Count < suggestion.MaximumUsers)
+            {
+                DataAccessLayer.JoinedUserAccess.AddJoinedUser(joinedUser);
+                return true;
+            }
+            else return false;
+
+
+        }
     }
 }
