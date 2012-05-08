@@ -33,10 +33,24 @@ namespace DataAccessLayer
                 return suggestion;
         }
 
-        public static void Update(Suggestion suggestion)
+        public static void Update(Suggestion updatedSuggestion)
         {
-            validateId(suggestion.Id);
+            validateId(updatedSuggestion.Id);
 
+            using (var db = new MyDbContext())
+            {
+                Suggestion suggestion = db.Suggestion.Single((i => i.Id == updatedSuggestion.Id));
+
+                suggestion.Title = updatedSuggestion.Title;
+                suggestion.Sport = updatedSuggestion.Sport;
+                suggestion.StartDate = updatedSuggestion.StartDate;
+                suggestion.EndDate = updatedSuggestion.EndDate;
+                suggestion.Description = updatedSuggestion.Description;
+                suggestion.MinimumUsers = updatedSuggestion.MinimumUsers;
+                suggestion.MaximumUsers = updatedSuggestion.MaximumUsers;
+
+                db.SaveChanges();
+            }
 
 
         }

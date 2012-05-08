@@ -4,6 +4,6 @@ namespace PresentationLayer
 {
     public class EditSuggestionViewModel : CreateSuggestionViewModel
     {
-        public Suggestion OriginalSuggestion { get; set; }
+        public int OriginalId { get; set; }
     }
 }

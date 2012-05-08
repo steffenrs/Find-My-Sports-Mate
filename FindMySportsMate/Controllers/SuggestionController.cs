@@ -55,7 +55,7 @@ namespace PresentationLayer.Controllers
                     Description = suggestion.Description,
                     MinPeople = suggestion.MinimumUsers,
                     MaxPeople = suggestion.MaximumUsers,
-                    OriginalSuggestion = suggestion
+                    OriginalId = suggestion.Id
                 };
 
                 return View("Create", viewModel);
@@ -69,10 +69,7 @@ namespace PresentationLayer.Controllers
             if (ModelState.IsValid)
             {
                 Suggestion suggestion = GetDomainFromViewModel(model);
-                suggestion.Id = model.OriginalSuggestion.Id;
-                suggestion.Location = model.OriginalSuggestion.Location;
-                suggestion.JoinedUsers = model.OriginalSuggestion.JoinedUsers;
-                suggestion.IsClosed = model.OriginalSuggestion.IsClosed;
+                suggestion.Id = model.OriginalId;
 
                 try
                 {
