@@ -1,9 +1,16 @@
-﻿using Domain;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+using System.Web.Mvc;
+using System.Web.Security;
 
 namespace PresentationLayer
 {
     public class EditSuggestionViewModel : CreateSuggestionViewModel
     {
+        [Required]
+        [RegularExpression("[1-9][0-9]*", ErrorMessage = "Dont mess with the secret Id man!")]
         public int OriginalId { get; set; }
     }
 }

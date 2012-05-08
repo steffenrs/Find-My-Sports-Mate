@@ -46,7 +46,7 @@ namespace PresentationLayer.Controllers
             try
             {
                 Suggestion suggestion = BusinessLayer.SuggestionBusiness.Read(Id);
-                CreateSuggestionViewModel viewModel = new CreateSuggestionViewModel
+                EditSuggestionViewModel viewModel = new EditSuggestionViewModel
                 {
                     Title = suggestion.Title,
                     Sport = suggestion.Sport.Name,
@@ -58,18 +58,20 @@ namespace PresentationLayer.Controllers
                     OriginalId = suggestion.Id
                 };
 
-                return View("Create", viewModel);
+                return View(viewModel);
             }
             catch (DomainException e) { return View("Error"); } // didnt find suggestion 404
         }
 
         [HttpPost]
-        public ActionResult Edit(CreateSuggestionViewModel model)
+        public ActionResult Edit(EditSuggestionViewModel model)
         {
             if (ModelState.IsValid)
             {
                 Suggestion suggestion = GetDomainFromViewModel(model);
                 suggestion.Id = model.OriginalId;
+
+                canChangeSuggestion(model.OriginalId, 1);
 
                 try
                 {
@@ -86,6 +88,11 @@ namespace PresentationLayer.Controllers
             {
                 return View("Create", model);
             }
+        }
+
+        public bool canChangeSuggestion(int suggestionId, int userId)
+        {
+            return true;
         }
 
         private Suggestion GetDomainFromViewModel(CreateSuggestionViewModel model)
