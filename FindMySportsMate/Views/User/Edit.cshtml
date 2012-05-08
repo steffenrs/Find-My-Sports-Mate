@@ -9,7 +9,7 @@
     Use the form below to edit your account.
 </p>
 <p>
-    Passwords are required to be a minimum of @Membership.MinRequiredPasswordLength characters in length.
+    To confirm changes please type in your password.
 </p>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
@@ -50,10 +50,9 @@
                 @Html.LabelFor(m => m.Email)
             </div>
             <div class="editor-field">
-                @Html.DisplayTextFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email)
                 @Html.ValidationMessageFor(m => m.Email)
             </div>
-
             <div class="editor-label">
                 @Html.LabelFor(m => m.Password)
             </div>

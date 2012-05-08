@@ -71,7 +71,7 @@ namespace PresentationLayer
         {
             FormsAuthentication.SignOut();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Dashboard");
         }
 
         //
@@ -155,19 +155,16 @@ namespace PresentationLayer
         {
             if (ModelState.IsValid)
             {
-                User currentUser = BusinessLayer.UserBusiness.GetUserByEmail(model.Email);
-                User newUser = new User();
+                User newUser = BusinessLayer.UserBusiness.GetUserByEmail(model.Email);
                 newUser.Area = model.Area;
                 newUser.BirthDate = model.BirthDate;
-                newUser.Email = model.Email;
                 newUser.FirstName = model.FirstName;
                 newUser.Gender = model.Gender;
                 newUser.LastName = model.LastName;
-                newUser.Password = model.Password;
                 newUser.PhoneNumber = model.PhoneNumber;
                 newUser.State = model.State;
                 newUser.StreetAddress = model.StreetAddress;
-                BusinessLayer.UserBusiness.Update(currentUser, newUser);
+                BusinessLayer.UserBusiness.Update(newUser);
                 return View();
             }
             return View();
@@ -202,7 +199,7 @@ namespace PresentationLayer
                     User currentUser = UserBusiness.GetUserById((int)Session["UserId"]);
                     if (model.OldPassword == currentUser.Password)
                     {
-                        UserBusiness.Update(currentUser, newUser);
+                        UserBusiness.Update(newUser);
                         return RedirectToAction("ChangePasswordSuccess");
                     }
                 }
