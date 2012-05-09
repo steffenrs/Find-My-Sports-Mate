@@ -140,5 +140,12 @@ namespace PresentationLayer.Controllers
                     SelectedSuggestion = SuggestionViewModel.FromModel(suggestion)
                 }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public void JoinSuggestion(int suggestionId)
+        {
+            Suggestion suggestion = BusinessLayer.SuggestionBusiness.GetById(suggestionId);
+            
+        }
     }
 }
