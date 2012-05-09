@@ -10,6 +10,6 @@ namespace PresentationLayer
     {
         public List<Suggestion> AllSuggestions {get; set;}
         public List<Suggestion> JoinedSuggestions { get; set; }
-        public Suggestion SelectedSuggestion { get; set; }
+        public SuggestionViewModel SelectedSuggestion { get; set; }
     }
 }
