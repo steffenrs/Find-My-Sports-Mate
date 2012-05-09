@@ -22,7 +22,7 @@ namespace PresentationLayer.Controllers
             if (ModelState.IsValid)
             {
                 Suggestion suggestion = GetDomainFromViewModel(model);
-                
+
                 try
                 {
                     BusinessLayer.SuggestionBusiness.Create(suggestion);
@@ -91,9 +91,6 @@ namespace PresentationLayer.Controllers
             }
         }
 
-
-
-
         private Suggestion GetDomainFromViewModel(CreateSuggestionViewModel model)
         {
             //Fetch user info
@@ -102,8 +99,8 @@ namespace PresentationLayer.Controllers
             // Fetch sport
             Sport suggestionSport;
             try { suggestionSport = BusinessLayer.SportBusiness.GetByName(model.Sport); }
-            catch (DomainException e) 
-            { 
+            catch (DomainException e)
+            {
                 suggestionSport = new Sport { Name = model.Sport };
                 BusinessLayer.SportBusiness.Save(suggestionSport);
             }
@@ -122,13 +119,34 @@ namespace PresentationLayer.Controllers
 
             return suggestion;
         }
-        
+
         [CustomAuthorizeAttribute]
         public JsonResult GetSuggestion(int id)
         {
             Suggestion suggestion = BusinessLayer.SuggestionBusiness.Get(id);
 
-            return Json(suggestion, JsonRequestBehavior.AllowGet);
+            //Manually specify properties to prevent circual reference error.
+            return Json(
+                new
+                {
+                    SelectedSuggestion = new SuggestionViewModel
+                  {
+                      Creator = suggestion.Creator,
+                      EndDate = suggestion.EndDate,
+                      IsClosed = suggestion.IsClosed,
+                      JoinedUsers = suggestion.JoinedUsers.Select(x => new JoinedUserViewModel
+                      {
+                          User = x.User,
+                          Weekdays = x.Weekdays
+                      }).ToList(),
+                      Location = suggestion.Location,
+                      Sport = suggestion.Sport,
+                      StartDate = suggestion.StartDate,
+                      Title = suggestion.Title,
+                      MaximumUsers = suggestion.MaximumUsers,
+                      Description = suggestion.Description
+                  },
+                }, JsonRequestBehavior.AllowGet);
         }
     }
 }

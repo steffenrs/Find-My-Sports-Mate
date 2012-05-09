@@ -88,14 +88,10 @@ namespace BusinessLayer
             suggestion3
         };
 
-        
-
         public static Suggestion Get(int id)
         {
-            return temp.Single(t => t.Id == id);
+            return DataAccessLayer.SuggestionAccess.Get(id);
         }
-
-        
 
         public static List<Suggestion> GetByUser(int userId)
         {

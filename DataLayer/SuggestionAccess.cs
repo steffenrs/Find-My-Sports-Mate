@@ -55,7 +55,7 @@ namespace DataAccessLayer
            
             using (var db = new MyDbContext())
             {
-                var care = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers") select s).ToList();
+                var care = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers").Include("Creator") select s).ToList();
                 return care;
             }
 
@@ -73,7 +73,7 @@ namespace DataAccessLayer
         {
             using (var db = new MyDbContext())
             {
-                var suggestion = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers") select s).First();
+                var suggestion = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers").Include("Creator") select s).First();
                 return suggestion;
             }
 

@@ -16,7 +16,7 @@ namespace Domain
 
         public string SportId { get; set; }
         [ForeignKey("SportId")]
-        public Sport Sport { get; set; }
+        public virtual Sport Sport { get; set; }
 
         public int LocationId { get; set; }
         [ForeignKey("LocationId")]

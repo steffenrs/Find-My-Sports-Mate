@@ -14,7 +14,6 @@ function showMap() {
 };
 
 function getSuggestion(id) {
-    console.log("lol");
     var suggestionDetails = $("#suggestions-content");
     console.log(suggestionDetails.data('update-url'));
 
@@ -26,14 +25,21 @@ function getSuggestion(id) {
 };
 
 function updateSuggestionDetails(data) {
+    data = data.SelectedSuggestion;
+    console.log(data);
     var suggestionsDetails = $("#suggestions-left-div");
     suggestionsDetails.find("#description").html(data.Description);
     suggestionsDetails.find("#creator").html("Creator:" + data.Creator.FirstName);
     suggestionsDetails.find("#time-period").html("Time period:" + data.Description);
     suggestionsDetails.find("#users").html("Users: " + data.JoinedUsers.length + " / " + data.MaximumUsers);
     suggestionsDetails.find("#status").html("Status: " + ((data.IsClosed) ? "Closed" : "Open"));
-    suggestionsDetails.find("#location").html("Location: " + data.Location.Name);
-
+    if (data.Location === null) {
+        suggestionsDetails.find("#location").html("Location will be generated after the minimum number of users has joined");
+    }
+    else {
+        suggestionsDetails.find("#location").html("Location: " + data.Location.Name);
+    }
+    
     var listHtml = "";
 
     $.each(data.JoinedUsers, function () {
