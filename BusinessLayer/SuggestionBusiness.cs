@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Domain;
-using DataAccessLayer;
 
 namespace BusinessLayer
 {
@@ -13,7 +12,7 @@ namespace BusinessLayer
         {
             DataAccessLayer.SuggestionAccess.Create(suggestion);
         }
-        public static Suggestion Read(int suggestionId)
+        public static Suggestion GetById(int suggestionId)
         {
             return DataAccessLayer.SuggestionAccess.Get(suggestionId);
         }
@@ -29,6 +28,19 @@ namespace BusinessLayer
         public static List<Suggestion> GetAll()
         {
             return DataAccessLayer.SuggestionAccess.GetAll();
+        }
+
+        public static bool UserCanEditSuggestion(int userId, int suggestionId)
+        {
+            try
+            {
+                Suggestion suggestion = DataAccessLayer.SuggestionAccess.Get(suggestionId);
+                return (userId == suggestion.CreatorId);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         static Suggestion suggestion = new Suggestion

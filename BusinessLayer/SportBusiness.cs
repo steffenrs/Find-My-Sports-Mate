@@ -13,9 +13,9 @@ namespace BusinessLayer
             return DataAccessLayer.SportAccess.GetByName(name);
         }
 
-        public static void Save(Sport suggestionSport)
+        public static void Create(Sport suggestionSport)
         {
-            DataAccessLayer.SportAccess.Save(suggestionSport);
+            DataAccessLayer.SportAccess.Create(suggestionSport);
         }
     }
 }
