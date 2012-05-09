@@ -30,6 +30,7 @@ function updateSuggestionDetails(data) {
     var suggestionsDetails = $("#suggestions-left-div");
     suggestionsDetails.find("#suggestion-title").html(data.Title);
     suggestionsDetails.find("#description").html(data.Description);
+    suggestionsDetails.find("#sport").html("Sport: " + data.Sport.Name);
     suggestionsDetails.find("#creator").html("Creator:" + data.Creator.FirstName);
     suggestionsDetails.find("#time-period").html("Time period:" + data.Description);
     suggestionsDetails.find("#users").html("Users: " + data.JoinedUsers.length + " / " + data.MaximumUsers);
