@@ -15,7 +15,7 @@ namespace BusinessLayer
         }
         public static Suggestion Read(int suggestionId)
         {
-            return DataAccessLayer.SuggestionAccess.Read(suggestionId);
+            return DataAccessLayer.SuggestionAccess.Get(suggestionId);
         }
         public static void Update(Suggestion suggestion)
         {

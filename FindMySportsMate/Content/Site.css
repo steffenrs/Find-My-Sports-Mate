@@ -27,6 +27,8 @@ section {
 
 .clear { clear: both; }
 
+.hidden { display:none; }
+
 .exception-message  
 {
     font-weight: bold;

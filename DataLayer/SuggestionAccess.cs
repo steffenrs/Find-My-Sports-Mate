@@ -17,14 +17,14 @@ namespace DataAccessLayer
             }
         }
 
-        public static Suggestion Read(int id)
+        public static Suggestion Get(int id)
         {
             validateId(id);
 
             Suggestion suggestion;
             using (var db = new MyDbContext())
             {
-                suggestion = db.Suggestion.Find(id);
+                suggestion = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers") select s).First();
             }
 
             if (suggestion == null)
@@ -33,10 +33,24 @@ namespace DataAccessLayer
                 return suggestion;
         }
 
-        public static void Update(Suggestion suggestion)
+        public static void Update(Suggestion updatedSuggestion)
         {
-            validateId(suggestion.Id);
+            validateId(updatedSuggestion.Id);
 
+            using (var db = new MyDbContext())
+            {
+                Suggestion suggestion = db.Suggestion.Single((i => i.Id == updatedSuggestion.Id));
+
+                suggestion.Title = updatedSuggestion.Title;
+                suggestion.Sport = updatedSuggestion.Sport;
+                suggestion.StartDate = updatedSuggestion.StartDate;
+                suggestion.EndDate = updatedSuggestion.EndDate;
+                suggestion.Description = updatedSuggestion.Description;
+                suggestion.MinimumUsers = updatedSuggestion.MinimumUsers;
+                suggestion.MaximumUsers = updatedSuggestion.MaximumUsers;
+
+                db.SaveChanges();
+            }
 
 
         }
@@ -55,7 +69,7 @@ namespace DataAccessLayer
            
             using (var db = new MyDbContext())
             {
-                var care = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers").Include("Creator") select s).ToList();
+                var care = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers") select s).ToList();
                 return care;
             }
 
@@ -67,17 +81,6 @@ namespace DataAccessLayer
             if (id < 1)
                 throw new DomainException("Suggestion id cannot be less than 1");
         }
-
-
-        public static Suggestion Get(int id)
-        {
-            using (var db = new MyDbContext())
-            {
-                var suggestion = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers").Include("Creator") select s).First();
-                return suggestion;
-            }
-
-            //TODO: throw exception
-        }
     }
 }
+

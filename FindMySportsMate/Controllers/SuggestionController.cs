@@ -46,7 +46,7 @@ namespace PresentationLayer.Controllers
             try
             {
                 Suggestion suggestion = BusinessLayer.SuggestionBusiness.Read(Id);
-                EditSuggestionViewModel viewModel = new EditSuggestionViewModel
+                CreateSuggestionViewModel viewModel = new CreateSuggestionViewModel
                 {
                     Title = suggestion.Title,
                     Sport = suggestion.Sport.Name,
@@ -55,7 +55,7 @@ namespace PresentationLayer.Controllers
                     Description = suggestion.Description,
                     MinPeople = suggestion.MinimumUsers,
                     MaxPeople = suggestion.MaximumUsers,
-                    OriginalSuggestion = suggestion
+                    OriginalId = suggestion.Id
                 };
 
                 return View("Create", viewModel);
@@ -64,15 +64,12 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(EditSuggestionViewModel model)
+        public ActionResult Edit(CreateSuggestionViewModel model)
         {
             if (ModelState.IsValid)
             {
                 Suggestion suggestion = GetDomainFromViewModel(model);
-                suggestion.Id = model.OriginalSuggestion.Id;
-                suggestion.Location = model.OriginalSuggestion.Location;
-                suggestion.JoinedUsers = model.OriginalSuggestion.JoinedUsers;
-                suggestion.IsClosed = model.OriginalSuggestion.IsClosed;
+                suggestion.Id = model.OriginalId;
 
                 try
                 {
@@ -82,12 +79,12 @@ namespace PresentationLayer.Controllers
                 catch (DomainException e)
                 {
                     ViewBag.ExceptionMessage = e.Message;
-                    return View(model);
+                    return View("Create", model);
                 }
             }
             else
             {
-                return View(model);
+                return View("Create", model);
             }
         }
 
