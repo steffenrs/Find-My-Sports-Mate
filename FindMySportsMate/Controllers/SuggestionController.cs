@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Domain;
 using System.Text;
+using PresentationLayer;
 
 namespace PresentationLayer.Controllers
 {
@@ -121,28 +122,11 @@ namespace PresentationLayer.Controllers
         public JsonResult GetSuggestion(int id)
         {
             Suggestion suggestion = BusinessLayer.SuggestionBusiness.Get(id);
-
             //Manually specify properties to prevent circual reference error.
             return Json(
                 new
                 {
-                    SelectedSuggestion = new SuggestionViewModel
-                  {
-                      Creator = suggestion.Creator,
-                      EndDate = suggestion.EndDate,
-                      IsClosed = suggestion.IsClosed,
-                      JoinedUsers = suggestion.JoinedUsers.Select(x => new JoinedUserViewModel
-                      {
-                          User = x.User,
-                          Weekdays = x.Weekdays
-                      }).ToList(),
-                      Location = suggestion.Location,
-                      Sport = suggestion.Sport,
-                      StartDate = suggestion.StartDate,
-                      Title = suggestion.Title,
-                      MaximumUsers = suggestion.MaximumUsers,
-                      Description = suggestion.Description
-                  },
+                    SelectedSuggestion = SuggestionViewModel.FromModel(suggestion)
                 }, JsonRequestBehavior.AllowGet);
         }
     }

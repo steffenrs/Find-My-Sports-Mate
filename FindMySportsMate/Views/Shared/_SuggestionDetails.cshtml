@@ -2,7 +2,8 @@
            
 <div id="suggestions-content" data-update-url="@Url.Action("GetSuggestion", "Suggestion")" data-view-user="@Url.Action("View", "User")">
     <div class="main-title">Suggestion details</div>
-        
+    @if (Model.SelectedSuggestion != null)
+    {
     <div id="suggestions-left-div">
         <div class="sub-title" id="suggestion-title">@Model.SelectedSuggestion.Title</div> 
         <p id="description">@Model.SelectedSuggestion.Description</p><br />
@@ -10,17 +11,20 @@
         <p id="creator">Creator: @Model.SelectedSuggestion.Creator.FirstName @Model.SelectedSuggestion.Creator.LastName</p>
         <p id="time-period">Time period: @Model.SelectedSuggestion.StartDate.Day.@Model.SelectedSuggestion.StartDate.Month.@Model.SelectedSuggestion.StartDate.Year - @Model.SelectedSuggestion.EndDate.Day.@Model.SelectedSuggestion.EndDate.Month.@Model.SelectedSuggestion.EndDate.Year</p>
         <p id="users">Users: @Model.SelectedSuggestion.JoinedUsers.Count / @Model.SelectedSuggestion.MaximumUsers</p>                                                
-        <p id="status">Status: @if(Model.SelectedSuggestion.IsClosed)
-                    { <text>Closed</text> }
-                    else
-                    { <text>Open</text> } 
+        <p id="status">Status: @if (Model.SelectedSuggestion.IsClosed)
+                               { <text>Closed</text> }
+                               else
+                               { <text>Open</text> } 
         </p>
-        <p id="location">Location: @if (@Model.SelectedSuggestion.Location == null) { <text>Location will be generated after the minimum number of users has joined</text> } else { @Model.SelectedSuggestion.Location.Name }</p>
+        <p id="location">Location: @if (@Model.SelectedSuggestion.Location == null)
+                                   { <text>Location will be generated after the minimum number of users has joined</text> }
+                                   else
+                                   { @Model.SelectedSuggestion.Location.Name }</p>
 
         <div id="suggestions-user-list">
             <p><br />Joined Users:</p>
             <ul>
-                @foreach(var currentUser in Model.SelectedSuggestion.JoinedUsers)
+                @foreach (var currentUser in Model.SelectedSuggestion.JoinedUsers)
                 {
                     <li>@Html.ActionLink(currentUser.User.FirstName, "View", "User", new { Id = currentUser.User.Id }, new { })</li>
                 }
@@ -37,9 +41,14 @@
             <text>A map will be generated when the minimum users have joined.</text> 
         }
     </div>
+    }
+    else
+    {
+        <text>No suggestions have been created.</text>
+    }
     <div style="width:50%">
     <!-- if user already have joined the suggestion, !-->
     
-        <input id="suggestions-join" type="submit" value="Join suggestion" onclick="alert('joined')"/>
+        <input id="suggestions-join" type="submit" value="Join suggestion" onclick="joinSuggestion("+@Model.SelectedSuggestion.Id+")"/>
     </div>
 </div>  
