@@ -16,8 +16,14 @@ namespace DataAccessLayer
                 using (var db = new MyDbContext())
                 {
                     User dbUser = db.User.Single(i => i.Id == newUser.Id);
-                    db.User.Attach(dbUser);
-                    dbUser = newUser;
+                    dbUser.Area = newUser.Area;
+                    dbUser.BirthDate = newUser.BirthDate;
+                    dbUser.FirstName = newUser.FirstName;
+                    dbUser.Gender = newUser.Gender;
+                    dbUser.LastName = newUser.LastName;
+                    dbUser.PhoneNumber = newUser.PhoneNumber;
+                    dbUser.State = newUser.State;
+                    dbUser.StreetAddress = newUser.StreetAddress;
                     db.SaveChanges();
                 }
             }
@@ -41,7 +47,7 @@ namespace DataAccessLayer
             var user = new User();
             using (var db = new MyDbContext())
             {
-                var dbUser = db.User.Where(u => u.Email == userEmail).FirstOrDefault();
+                var dbUser = db.User.Where(u => u.Email == userEmail).First();
                 user = (User)dbUser;
             }
 
