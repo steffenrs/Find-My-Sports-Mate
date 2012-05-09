@@ -41,14 +41,15 @@
             <text>A map will be generated when the minimum users have joined.</text> 
         }
     </div>
-    }
-    else
-    {
-        <text>No suggestions have been created.</text>
-    }
+    
     <div style="width:50%">
     <!-- if user already have joined the suggestion, !-->
     
         <input id="suggestions-join" type="submit" value="Join suggestion" onclick="joinSuggestion("+@Model.SelectedSuggestion.Id+")"/>
     </div>
+    }
+    else
+    {
+        <text>No suggestions have been created.</text>
+    }
 </div>  
