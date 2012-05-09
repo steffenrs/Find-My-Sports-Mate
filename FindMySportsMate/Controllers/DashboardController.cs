@@ -21,7 +21,7 @@ namespace PresentationLayer
             var viewModel = new DashboardViewModel()
             {
                 AllSuggestions = allSuggestions,
-                SelectedSuggestion = SuggestionViewModel.FromModel(allSuggestions[0]),
+                SelectedSuggestion = (allSuggestions.Count == 0 ? null : SuggestionViewModel.FromModel(allSuggestions[0])),
                 JoinedSuggestions = new List<Suggestion>()
             };
 
