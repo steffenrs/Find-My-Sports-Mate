@@ -25,6 +25,7 @@ namespace DataAccessLayer
                     dbUser.State = newUser.State;
                     dbUser.StreetAddress = newUser.StreetAddress;
                     db.SaveChanges();
+
                 }
             }
             catch (Exception e)

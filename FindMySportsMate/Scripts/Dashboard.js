@@ -51,6 +51,6 @@ function updateSuggestionDetails(data) {
     suggestionsDetails.find("ul").html(listHtml);
 }
 
-function joinSuggestion(id) {
+function joinSuggestion() {
     alert("hello");
 }

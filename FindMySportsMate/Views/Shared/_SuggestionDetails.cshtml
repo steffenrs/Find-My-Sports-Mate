@@ -44,8 +44,11 @@
     
     <div style="width:50%">
     <!-- if user already have joined the suggestion, !-->
-        @Ajax.ActionLink("Join suggestion!", "JoinSuggestion", "Suggestion", new { id = Model.SelectedSuggestion.Id }, new AjaxOptions { OnComplete = "joinedComplete", UpdateTargetId = "UpdateTargetId" });
+        @Ajax.ActionLink("Join suggestion!", "JoinSuggestion", "Suggestion", new { id = Model.SelectedSuggestion.Id }, new AjaxOptions { OnComplete = "joinSuggestion", UpdateTargetId = "UpdateTargetId", HttpMethod = "Post" } )
+        <!--
+        
         <input id="suggestions-join" type="submit" value="Join suggestion" onclick="joinSuggestion("+@Model.SelectedSuggestion.Id+")"/>
+        -->
     </div>
     }
     else

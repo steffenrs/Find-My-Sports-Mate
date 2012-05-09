@@ -7,6 +7,8 @@ using System.Web.Routing;
 using System.Web.Security;
 using Domain;
 using BusinessLayer;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace PresentationLayer
 {
@@ -29,9 +31,10 @@ namespace PresentationLayer
             {
                 User user = UserBusiness.GetUserByEmail(model.Email);
                 //// MODIFY FOR DATABASE USE!
-                
-                
-                if (user != null && user.Password == model.Password)
+
+                model.Password = CreatePasswordHash(model.Password);
+
+                if (user != null && model.Password.SequenceEqual(user.Password))
                 {
 
                     FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddDays(1), true, user.Id.ToString());
@@ -92,7 +95,7 @@ namespace PresentationLayer
             { 
                 User user = new User();
                 user.Email = model.Email;
-                user.Password = model.Password;
+                user.Password = CreatePasswordHash(model.Password);
                 user.StreetAddress = model.StreetAddress;
                 user.Area = model.Area;
                 user.State = model.State;
@@ -137,7 +140,7 @@ namespace PresentationLayer
             model.FirstName = user.FirstName;
             model.Gender = user.Gender;
             model.LastName = user.LastName;
-            model.Password = user.Password;
+            //model.Password = user.Password;
             model.PhoneNumber = user.PhoneNumber;
             model.State = user.State;
             model.StreetAddress = user.StreetAddress;
@@ -232,6 +235,17 @@ namespace PresentationLayer
         //{
         //    return View();
         //}
+
+
+        private static string CreatePasswordHash(string pwd)
+        {
+            string saltAndPwd = String.Concat(pwd, 8083327);
+            string hashedPwd =
+             FormsAuthentication.HashPasswordForStoringInConfigFile(
+             saltAndPwd, "sha1");
+
+            return hashedPwd;
+        }
 
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)

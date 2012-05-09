@@ -134,10 +134,17 @@ namespace PresentationLayer.Controllers
                 }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public void JoinSuggestion(int suggestionId)
+
+        [HttpGet]
+        public void JoinSuggestion()
         {
-            Suggestion suggestion = BusinessLayer.SuggestionBusiness.GetById(suggestionId);
+            RedirectToAction("Index", "Dashboard");
+        }
+
+        [HttpPost]
+        public void JoinSuggestion(int id)
+        {
+            Suggestion suggestion = BusinessLayer.SuggestionBusiness.GetById(id);
             User user = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name);
             JoinedUser joinedUser = new JoinedUser();
             joinedUser.SuggestionId = suggestion.Id;
