@@ -16,12 +16,14 @@ namespace BusinessLayer
         {
             return DataAccessLayer.SuggestionAccess.Get(suggestionId);
         }
-        public static void Update(Suggestion suggestion)
+        public static void Update(Suggestion suggestion, int userId)
         {
+            ValidateSuggestionAccess(suggestion.Id, userId);
             DataAccessLayer.SuggestionAccess.Update(suggestion);
         }
-        public static void Delete(int suggestionId)
+        public static void Delete(int suggestionId, int userId)
         {
+            ValidateSuggestionAccess(suggestionId, userId);
             DataAccessLayer.SuggestionAccess.Delete(suggestionId);
         }
 
@@ -30,73 +32,14 @@ namespace BusinessLayer
             return DataAccessLayer.SuggestionAccess.GetAll();
         }
 
-        public static bool UserCanEditSuggestion(int userId, int suggestionId)
+        public static void ValidateSuggestionAccess(int suggestionId, int userId)
         {
-            try
+            Suggestion suggestion = DataAccessLayer.SuggestionAccess.Get(suggestionId);
+            if (userId != suggestion.CreatorId)
             {
-                Suggestion suggestion = DataAccessLayer.SuggestionAccess.Get(suggestionId);
-                return (userId == suggestion.CreatorId);
-            }
-            catch (Exception e)
-            {
-                return false;
+                throw new DomainException("User is not authorized to edit the suggestion.");
             }
         }
-
-        static Suggestion suggestion = new Suggestion
-        {
-            Title = "Volley in winter?",
-            Id = 0,
-            Creator = new Domain.User { FirstName = "Frank the tank" },
-            IsClosed = false,
-            Description = "Keen på å spille volleyball eller?",
-            Sport = new Sport { Name = "Volleyball" },
-            MinimumUsers = 5,
-            MaximumUsers = 10,
-            StartDate = new DateTime(2012, 5, 5),
-            EndDate = new DateTime(2012, 5, 15),
-            Location = new Location { Name = "Helvete" },
-            JoinedUsers = new List<JoinedUser> { new JoinedUser { User = new User { FirstName = "PETAH" } } }
-        };
-
-        static Suggestion suggestion2 = new Suggestion
-        {
-            Title = "Football in winter?",
-            Id = 1,
-            Creator = new Domain.User { FirstName = "Frank the ball" },
-            IsClosed = false,
-            Description = "Keen på å spille Football eller?",
-            Sport = new Sport { Name = "Football" },
-            MinimumUsers = 5,
-            MaximumUsers = 10,
-            StartDate = new DateTime(2012, 5, 5),
-            EndDate = new DateTime(2012, 5, 15),
-            Location = new Location { Name = "Footiete" },
-            JoinedUsers = new List<JoinedUser> { new JoinedUser { User = new User { FirstName = "STUBBEN" } } }
-        };
-
-        static Suggestion suggestion3 = new Suggestion
-        {
-            Title = "Volley in summer?",
-            Id = 2,
-            Creator = new Domain.User { FirstName = "B aks" },
-            IsClosed = true,
-            Description = "Keen på å spille volleyball eller?",
-            Sport = new Sport { Name = "Volleyball" },
-            MinimumUsers = 5,
-            MaximumUsers = 10,
-            StartDate = new DateTime(2012, 5, 5),
-            EndDate = new DateTime(2012, 5, 15),
-            Location = new Location { Name = "Bak deg" },
-            JoinedUsers = new List<JoinedUser> { new JoinedUser { User = new User { FirstName = "han andre" } } }
-        };
-
-        private static List<Suggestion> temp = new List<Suggestion>()
-        {
-            suggestion,
-            suggestion2,
-            suggestion3
-        };
 
         public static Suggestion Get(int id)
         {

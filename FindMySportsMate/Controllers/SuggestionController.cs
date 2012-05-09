@@ -81,14 +81,9 @@ namespace PresentationLayer.Controllers
                 {
                     // Validate suggestion with user
                     User currentUser = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name);
-                    if (!BusinessLayer.SuggestionBusiness.UserCanEditSuggestion(currentUser.Id, suggestion.Id))
-                    {
-                        ViewBag.ExceptionMessage = "You are not authorized to edit this suggestion.";
-                        return View(model);
-                    }
 
                     // Update suggestion
-                    BusinessLayer.SuggestionBusiness.Update(suggestion);
+                    BusinessLayer.SuggestionBusiness.Update(suggestion, currentUser.Id);
                     return RedirectToAction("Index", "Dashboard");
                 }
                 catch (DomainException e)

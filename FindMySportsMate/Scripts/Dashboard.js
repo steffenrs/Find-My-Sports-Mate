@@ -52,6 +52,5 @@ function updateSuggestionDetails(data) {
 }
 
 function joinSuggestion(id) {
-
-
+    alert("hello");
 }
