@@ -73,7 +73,10 @@ namespace DataAccessLayer
         {
             using (var db = new MyDbContext())
             {
-                user = db.User.Remove(user);
+                db.User.Attach(user);
+                //User dbUser = db.User.Single(i => i.Id == user.Id);
+                db.User.Remove(user);
+                db.SaveChanges();
             }
         }
     }

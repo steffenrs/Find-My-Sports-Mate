@@ -105,6 +105,6 @@
             </p>
                 
         </fieldset>
-        <input id="DeleteButton" type="button" value="Delete Account" />
+                @Html.ActionLink("Delete Account", "Delete", "User", new { onclick = "return confirm('Are you sure?');" })
     </div>
 }
