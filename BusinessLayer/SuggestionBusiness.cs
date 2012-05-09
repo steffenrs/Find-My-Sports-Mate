@@ -31,8 +31,6 @@ namespace BusinessLayer
             return DataAccessLayer.SuggestionAccess.GetAll();
         }
 
-
-
         static Suggestion suggestion = new Suggestion
         {
             Title = "Volley in winter?",
