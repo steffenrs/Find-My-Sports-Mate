@@ -8,9 +8,9 @@ namespace BusinessLayer
 {
     public static class SportBusiness
     {
-        public static Sport GetByName(string name)
+        public static Sport Get(string name)
         {
-            return DataAccessLayer.SportAccess.GetByName(name);
+            return DataAccessLayer.SportAccess.GetOrCreate(name);
         }
 
         public static void Create(Sport suggestionSport)

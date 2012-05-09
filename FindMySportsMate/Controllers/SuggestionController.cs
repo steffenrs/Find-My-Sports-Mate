@@ -81,14 +81,9 @@ namespace PresentationLayer.Controllers
                 {
                     // Validate suggestion with user
                     User currentUser = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name);
-                    if (!BusinessLayer.SuggestionBusiness.UserCanEditSuggestion(currentUser.Id, suggestion.Id))
-                    {
-                        ViewBag.ExceptionMessage = "You are not authorized to edit this suggestion.";
-                        return View(model);
-                    }
 
                     // Update suggestion
-                    BusinessLayer.SuggestionBusiness.Update(suggestion);
+                    BusinessLayer.SuggestionBusiness.Update(suggestion, currentUser.Id);
                     return RedirectToAction("Index", "Dashboard");
                 }
                 catch (DomainException e)
@@ -106,13 +101,7 @@ namespace PresentationLayer.Controllers
         private Suggestion GetDomainFromViewModel(CreateSuggestionViewModel model)
         {
             // Get or create sport
-            Sport suggestionSport;
-            try { suggestionSport = BusinessLayer.SportBusiness.GetByName(model.Sport); }
-            catch (DomainException e)
-            {
-                suggestionSport = new Sport { Name = model.Sport };
-                BusinessLayer.SportBusiness.Create(suggestionSport);
-            }
+            var suggestionSport = BusinessLayer.SportBusiness.Get(model.Sport);
 
             Suggestion suggestion = new Suggestion
             {
@@ -123,6 +112,10 @@ namespace PresentationLayer.Controllers
                 MinimumUsers = model.MinPeople,
                 MaximumUsers = model.MaxPeople,
                 SportId = suggestionSport.Name,
+                JoinedUsers = new List<JoinedUser>()
+                {
+
+                }
             };
 
             return suggestion;
