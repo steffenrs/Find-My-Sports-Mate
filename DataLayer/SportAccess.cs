@@ -8,7 +8,7 @@ namespace DataAccessLayer
 {
     public static class SportAccess
     {
-        public static Sport GetByName(string name)
+        public static Sport GetOrCreate(string name)
         {
             validateName(name);
 
@@ -16,12 +16,17 @@ namespace DataAccessLayer
             using (var db = new MyDbContext())
             {
                 sport = db.Sport.Where(p => p.Name == name).FirstOrDefault();
-            }
 
-            if (sport == null)
-                throw new DomainException("Could not find sport with name: " + name);
-            else
+                if (sport == null)
+                {
+                    sport = new Sport();
+                    sport.Name = name;
+                    db.Sport.Add(sport);
+                    db.SaveChanges();
+                }
+
                 return sport;
+            }
         }
 
         public static void Create(Sport suggestionSport)

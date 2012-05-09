@@ -106,13 +106,7 @@ namespace PresentationLayer.Controllers
         private Suggestion GetDomainFromViewModel(CreateSuggestionViewModel model)
         {
             // Get or create sport
-            Sport suggestionSport;
-            try { suggestionSport = BusinessLayer.SportBusiness.GetByName(model.Sport); }
-            catch (DomainException e)
-            {
-                suggestionSport = new Sport { Name = model.Sport };
-                BusinessLayer.SportBusiness.Create(suggestionSport);
-            }
+            var suggestionSport = BusinessLayer.SportBusiness.Get(model.Sport);
 
             Suggestion suggestion = new Suggestion
             {
@@ -123,6 +117,10 @@ namespace PresentationLayer.Controllers
                 MinimumUsers = model.MinPeople,
                 MaximumUsers = model.MaxPeople,
                 SportId = suggestionSport.Name,
+                JoinedUsers = new List<JoinedUser>()
+                {
+
+                }
             };
 
             return suggestion;
