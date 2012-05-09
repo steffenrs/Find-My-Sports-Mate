@@ -4,7 +4,7 @@
     <div class="main-title">Suggestion details</div>
         
     <div id="suggestions-left-div">
-        <div class="sub-title">@Model.SelectedSuggestion.Title</div> 
+        <div class="sub-title" id="suggestion-title">@Model.SelectedSuggestion.Title</div> 
         <p id="description">@Model.SelectedSuggestion.Description</p>
         <p id="creator">Creator: @Model.SelectedSuggestion.Creator.FirstName @Model.SelectedSuggestion.Creator.LastName</p>
         <p id="time-period">Time period: @Model.SelectedSuggestion.StartDate.Day.@Model.SelectedSuggestion.StartDate.Month.@Model.SelectedSuggestion.StartDate.Year - @Model.SelectedSuggestion.EndDate.Day.@Model.SelectedSuggestion.EndDate.Month.@Model.SelectedSuggestion.EndDate.Year</p>
