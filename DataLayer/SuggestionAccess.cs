@@ -52,13 +52,14 @@ namespace DataAccessLayer
         public static List<Suggestion> GetAll()
         {
             List<Suggestion> allSuggestions = new List<Suggestion>();
-
+           
             using (var db = new MyDbContext())
             {
-                allSuggestions = db.Suggestion.ToList();
+                var care = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers") select s).ToList();
+                return care;
             }
 
-            return allSuggestions;
+            //TODO: THROW EXCEPTION!
         }
 
         private static void validateId(int id)
@@ -67,5 +68,16 @@ namespace DataAccessLayer
                 throw new DomainException("Suggestion id cannot be less than 1");
         }
 
+
+        public static Suggestion Get(int id)
+        {
+            using (var db = new MyDbContext())
+            {
+                var suggestion = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers") select s).First();
+                return suggestion;
+            }
+
+            //TODO: throw exception
+        }
     }
 }
