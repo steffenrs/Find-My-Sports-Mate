@@ -15,7 +15,7 @@ namespace BusinessLayer
         public static Location nearestLocationForUsers(Suggestion suggestion)
         {
 
-            //List<Location> locations = BusinessLayer.LocationBusiness.getAll();
+            //List<Location> locations = LocationAccess.LocationBusiness.getAll();
             List<Location> locations = new List<Location>();
 
             foreach(Location location in locations){
