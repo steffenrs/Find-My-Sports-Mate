@@ -15,8 +15,7 @@ namespace BusinessLayer
         public static Location nearestLocationForUsers(Suggestion suggestion)
         {
 
-            //List<Location> locations = LocationAccess.LocationBusiness.getAll();
-            List<Location> locations = new List<Location>();
+            List<Location> locations = DataAccessLayer.LocationAccess.getAll();
 
             foreach(Location location in locations){
                 foreach(JoinedUser joinedUser in suggestion.JoinedUsers)
@@ -33,16 +32,12 @@ namespace BusinessLayer
         }
 
 
-
-
-
-
-
         public static int getDistanceBetweenUserAddressAndLocation(User user, Location location)
         {
+            string address = user.StreetAddress + ", " + user.Area + ", " + user.State;
             var url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins=" +
                         HttpUtility.UrlEncode(address) +
-                        "&destinations=" + to +
+                        "&destinations=" + "to" +
                         "&mode=driving&language=en&sensor=false";
 
             var request = WebRequest.Create(url);
@@ -60,7 +55,7 @@ namespace BusinessLayer
         }
 
 
-        public static 
+
 
     }
 }

@@ -6,7 +6,7 @@ using Domain;
 
 namespace DataAccessLayer
 {
-    class LocationAccess
+    public class LocationAccess
     {
         public static List<Location> getAll()
         {
