@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -14,9 +15,16 @@ namespace BusinessLayer
         public static Location nearestLocationForUsers(Suggestion suggestion)
         {
 
+            //List<Location> locations = BusinessLayer.LocationBusiness.getAll();
+            List<Location> locations = new List<Location>();
 
-
-
+            foreach(Location location in locations){
+                foreach(JoinedUser joinedUser in suggestion.JoinedUsers)
+                {
+                    User user = BusinessLayer.UserBusiness.GetUserById(joinedUser.UserId);
+                    getDistanceBetweenUserAddressAndLocation(user, location);
+                }
+            }
 
 
             
@@ -50,5 +58,9 @@ namespace BusinessLayer
 
             return 0;
         }
+
+
+        public static 
+
     }
 }
