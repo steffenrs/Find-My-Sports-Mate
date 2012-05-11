@@ -39,6 +39,16 @@ namespace BusinessLayer
             return DataAccessLayer.SuggestionAccess.GetAll();
         }
 
+        public static void OpenCloseSuggestion(Suggestion suggestion, User user)
+        {
+            ValidateSuggestionAccess(suggestion.Id, user.Id);
+            suggestion = DataAccessLayer.SuggestionAccess.OpenClose(suggestion.Id);
+            if (suggestion.IsClosed == true)
+            {
+                //LOGIC FOR CALCULATING NEAREST POINT
+            }
+        }
+
         public static void ValidateSuggestionAccess(int suggestionId, int userId)
         {
             Suggestion suggestion = DataAccessLayer.SuggestionAccess.Get(suggestionId);
@@ -48,14 +58,42 @@ namespace BusinessLayer
             }
         }
 
-        public static Suggestion Get(int id)
+
+        public static List<Suggestion> GetSuggestionsByUserId(int userId)
         {
-            return DataAccessLayer.SuggestionAccess.Get(id);
+            return DataAccessLayer.SuggestionAccess.GetAllByCreatorId(userId);
         }
 
-        public static List<Suggestion> GetByUser(int userId)
+        public static bool JoinSuggestion(JoinedUser joinedUser) 
         {
-            return new List<Suggestion>();
+            Suggestion suggestion = SuggestionBusiness.GetById(joinedUser.SuggestionId);
+            if (!suggestion.IsClosed && suggestion.JoinedUsers.Count < suggestion.MaximumUsers)
+            {
+                DataAccessLayer.JoinedUserAccess.AddJoinedUser(joinedUser);
+                suggestion = SuggestionBusiness.GetById(joinedUser.SuggestionId);
+                if (suggestion.JoinedUsers.Count >= suggestion.MinimumUsers)
+                {
+                    CalculateNearestLocation(suggestion);
+                }
+                else if (suggestion.JoinedUsers.Count == suggestion.MaximumUsers)
+                {
+                    DataAccessLayer.SuggestionAccess.OpenClose(suggestion.Id);
+                    //
+                }
+
+                return true;
+            }
+            else return false;
+
+
+        }
+
+        public static void CalculateNearestLocation(Suggestion suggestion)
+        {
+            Location nearestLocation = new Location();
+
+
+            
         }
     }
 }

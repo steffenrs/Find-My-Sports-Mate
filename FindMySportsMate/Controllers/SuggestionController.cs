@@ -134,5 +134,23 @@ namespace PresentationLayer.Controllers
                     SelectedSuggestion = SuggestionViewModel.FromModel(suggestion)
                 }, JsonRequestBehavior.AllowGet);
         }
+
+
+
+        [HttpPost]
+        public void Join(int id)
+        {
+            try
+            {
+
+                Suggestion suggestion = BusinessLayer.SuggestionBusiness.GetById(id);
+                User user = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name);
+                JoinedUser joinedUser = new JoinedUser();
+                joinedUser.SuggestionId = suggestion.Id;
+                joinedUser.UserId = user.Id;
+                BusinessLayer.SuggestionBusiness.JoinSuggestion(joinedUser);
+            }
+            catch(Exception e) {  };
+        }
     }
 }

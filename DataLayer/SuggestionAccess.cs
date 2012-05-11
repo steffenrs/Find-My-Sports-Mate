@@ -36,8 +36,6 @@ namespace DataAccessLayer
 
         public static void Update(Suggestion updatedSuggestion)
         {
-            validateId(updatedSuggestion.Id);
-
             using (var db = new MyDbContext())
             {
                 Suggestion suggestion = db.Suggestion.Single((i => i.Id == updatedSuggestion.Id));
@@ -52,29 +50,45 @@ namespace DataAccessLayer
 
                 db.SaveChanges();
             }
+        }
 
-
+        public static Suggestion OpenClose(int suggestionId)
+        {
+            using (var db = new MyDbContext())
+            {
+                Suggestion suggestion = db.Suggestion.Single((i => i.Id == suggestionId));
+                suggestion.IsClosed = !suggestion.IsClosed;
+                db.SaveChanges();
+                return suggestion;
+            }
         }
 
         public static void Delete(int id)
         {
-            validateId(id);
+            using (var db = new MyDbContext())
+            {
+                Suggestion suggestion = db.Suggestion.Single((i => i.Id == id));
+                db.Suggestion.Remove(suggestion);
+                db.SaveChanges();
+            }
+        }
 
-
-
+        public static List<Suggestion> GetAllByCreatorId(int creatorId)
+        {
+            using (var db = new MyDbContext())
+            {
+                var list = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers").Include("Creator") where s.CreatorId == creatorId select s).ToList();
+                return list;
+            }
         }
 
         public static List<Suggestion> GetAll()
         {
-            List<Suggestion> allSuggestions = new List<Suggestion>();
-           
             using (var db = new MyDbContext())
             {
-                var care = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers").Include("Creator") select s).ToList();
-                return care;
+                var list = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers").Include("Creator") select s).ToList();
+                return list;
             }
-
-            //TODO: THROW EXCEPTION!
         }
 
         private static void validateId(int id)
