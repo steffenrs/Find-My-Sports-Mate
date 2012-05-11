@@ -8,8 +8,15 @@ namespace BusinessLayer
 {
     public static class SuggestionBusiness
     {
-        public static void Create(Suggestion suggestion)
+        public static void Create(Suggestion suggestion, string weekdays)
         {
+            JoinedUser u = new JoinedUser
+            {
+                UserId = suggestion.CreatorId,
+                Weekdays = weekdays
+            };
+            suggestion.JoinedUsers.Add(u);
+
             DataAccessLayer.SuggestionAccess.Create(suggestion);
         }
         public static Suggestion GetById(int suggestionId)

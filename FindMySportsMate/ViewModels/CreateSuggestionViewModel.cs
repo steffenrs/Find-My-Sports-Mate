@@ -50,5 +50,7 @@ namespace PresentationLayer
         [RegularExpression("[1-9][0-9]*", ErrorMessage = "Must be a number above 0")]
         [IntegerIsLessThanAttribute("MinPeople")]
         public int MaxPeople { get; set; }
+
+        public Weekdays Weekdays { get; set; }
     }
 }

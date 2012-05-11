@@ -1,0 +1,33 @@
+﻿@model PresentationLayer.Weekdays
+
+<div class="editor-field" id="weekdays">
+    <div class="suggestion-day-box">
+        @Html.CheckBoxFor(m => Model.Monday)
+        <p>Mo</p>
+    </div>
+    <div class="suggestion-day-box">
+        @Html.CheckBoxFor(m => m.Tuesday)
+        <p>Tu</p>
+    </div>
+    <div class="suggestion-day-box">
+        @Html.CheckBoxFor(m => m.Wednesday)
+        <p>We</p>
+    </div>
+    <div class="suggestion-day-box">
+        @Html.CheckBoxFor(m => m.Thursday)
+        <p>Th</p>
+    </div>
+    <div class="suggestion-day-box">
+        @Html.CheckBoxFor(m => m.Friday)
+        <p>Fr</p>
+    </div>
+    <div class="suggestion-day-box">
+        @Html.CheckBoxFor(m => m.Saturday)
+        <p>Sa</p>
+    </div>
+    <div class="suggestion-day-box">
+        @Html.CheckBoxFor(m => m.Sunday)
+        <p>Su</p>
+    </div>
+</div>
+<div style="clear: both"></div>

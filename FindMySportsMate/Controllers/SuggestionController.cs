@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Domain;
 using System.Text;
 using PresentationLayer;
+using System.Text.RegularExpressions;
 
 namespace PresentationLayer.Controllers
 {
@@ -23,7 +24,7 @@ namespace PresentationLayer.Controllers
             if (ModelState.IsValid)
             {
                 Suggestion suggestion = GetDomainFromViewModel(model);
-
+              
                 try
                 {
                     // Add creator id
@@ -31,7 +32,7 @@ namespace PresentationLayer.Controllers
                     suggestion.CreatorId = currentUser.Id;
 
                     // Create suggestion
-                    BusinessLayer.SuggestionBusiness.Create(suggestion);
+                    BusinessLayer.SuggestionBusiness.Create(suggestion, model.Weekdays.ToString());
                     return RedirectToAction("Index", "Dashboard");
                 }
                 catch (DomainException e)
@@ -114,7 +115,7 @@ namespace PresentationLayer.Controllers
                 SportId = suggestionSport.Name,
                 JoinedUsers = new List<JoinedUser>()
                 {
-
+                    
                 }
             };
 
