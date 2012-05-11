@@ -12,6 +12,7 @@ namespace DataAccessLayer
         {
             using (var db = new MyDbContext())
             {
+                db.JoinedUser.Add(suggestion.JoinedUsers[0]);
                 db.Suggestion.Add(suggestion);
                 db.SaveChanges();
             }
