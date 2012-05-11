@@ -32,10 +32,14 @@ namespace BusinessLayer
             return DataAccessLayer.SuggestionAccess.GetAll();
         }
 
-        public static void OpenCloseSuggestion(int suggestionId, int userId)
+        public static void OpenCloseSuggestion(Suggestion suggestion, User user)
         {
-            ValidateSuggestionAccess(suggestionId, userId);
-            DataAccessLayer.SuggestionAccess.OpenClose(suggestionId);
+            ValidateSuggestionAccess(suggestion.Id, user.Id);
+            suggestion = DataAccessLayer.SuggestionAccess.OpenClose(suggestion.Id);
+            if (suggestion.IsClosed == true)
+            {
+                //LOGIC FOR CALCULATING NEAREST POINT
+            }
         }
 
         public static void ValidateSuggestionAccess(int suggestionId, int userId)
@@ -59,11 +63,30 @@ namespace BusinessLayer
             if (!suggestion.IsClosed && suggestion.JoinedUsers.Count < suggestion.MaximumUsers)
             {
                 DataAccessLayer.JoinedUserAccess.AddJoinedUser(joinedUser);
+                suggestion = SuggestionBusiness.GetById(joinedUser.SuggestionId);
+                if (suggestion.JoinedUsers.Count >= suggestion.MinimumUsers)
+                {
+                    CalculateNearestLocation(suggestion);
+                }
+                else if (suggestion.JoinedUsers.Count == suggestion.MaximumUsers)
+                {
+                    DataAccessLayer.SuggestionAccess.OpenClose(suggestion.Id);
+                    //
+                }
+
                 return true;
             }
             else return false;
 
 
+        }
+
+        public static void CalculateNearestLocation(Suggestion suggestion)
+        {
+            Location nearestLocation = new Location();
+
+
+            
         }
     }
 }

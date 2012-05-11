@@ -51,13 +51,14 @@ namespace DataAccessLayer
             }
         }
 
-        public static void OpenClose(int suggestionId)
+        public static Suggestion OpenClose(int suggestionId)
         {
             using (var db = new MyDbContext())
             {
                 Suggestion suggestion = db.Suggestion.Single((i => i.Id == suggestionId));
                 suggestion.IsClosed = !suggestion.IsClosed;
                 db.SaveChanges();
+                return suggestion;
             }
         }
 
