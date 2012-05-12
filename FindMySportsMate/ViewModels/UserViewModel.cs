@@ -9,10 +9,7 @@ namespace PresentationLayer
 {
     public class UserViewModel : RegisterViewModel
     {
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
+
         [Display(Name = "Gender")]
         public bool Gender { get; set; } // true = male, false = female
         [Display(Name = "Birth date")]

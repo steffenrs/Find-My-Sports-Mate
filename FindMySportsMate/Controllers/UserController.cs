@@ -29,36 +29,43 @@ namespace PresentationLayer
         {
             if (ModelState.IsValid)
             {
-                User user = UserBusiness.GetUserByEmail(model.Email);
-                //// MODIFY FOR DATABASE USE!
-
-                model.Password = CreatePasswordHash(model.Password);
-
-                if (user != null && model.Password.SequenceEqual(user.Password))
+                try
                 {
+                    User user = UserBusiness.GetUserByEmail(model.Email);
+                
 
-                    FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddDays(1), true, user.Id.ToString());
+                    model.Password = CreatePasswordHash(model.Password);
 
-                    // Encrypt the ticket.
-                    string encTicket = FormsAuthentication.Encrypt(ticket);
-
-                    // Create the cookie.
-                    Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
-
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    if (user != null && model.Password.SequenceEqual(user.Password))
                     {
-                        return Redirect(returnUrl);
+
+                        FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddDays(1), true, user.Id.ToString());
+
+                        // Encrypt the ticket.
+                        string encTicket = FormsAuthentication.Encrypt(ticket);
+
+                        // Create the cookie.
+                        Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+
+                        if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                            && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Dashboard");
+                        }
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Dashboard");
+                        ModelState.AddModelError("", "The user name or password provided is incorrect.");
                     }
+
                 }
-                else
-                {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                }
+                catch { ModelState.AddModelError("", "The user does not exist. Please register a new user."); 
+                };
+
 
                 
             }
@@ -94,6 +101,8 @@ namespace PresentationLayer
             if (ModelState.IsValid) 
             { 
                 User user = new User();
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
                 user.Email = model.Email;
                 user.Password = CreatePasswordHash(model.Password);
                 user.StreetAddress = model.StreetAddress;
@@ -115,9 +124,7 @@ namespace PresentationLayer
                 }
                 catch(Exception e)
                 {
-
-                    //WRITE OUT MODEL REGISTRATION ERROR
-                    //ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                    ModelState.AddModelError("", "There was an error registering the user: the user already exists");
                 }
             }
 

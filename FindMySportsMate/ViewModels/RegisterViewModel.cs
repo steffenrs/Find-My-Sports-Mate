@@ -10,10 +10,16 @@ namespace PresentationLayer
 {
     public class RegisterViewModel : LogOnViewModel
     {
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
 
+        [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "</br>The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "<br/>The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         [Required]
