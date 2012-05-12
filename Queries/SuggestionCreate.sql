@@ -1,6 +1,14 @@
 USE [FindMySportsMate]
 GO
 
+/****** Object:  Table [dbo].[Suggestion]    Script Date: 05/12/2012 07:14:33 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Suggestion]') AND type in (N'U'))
+DROP TABLE [dbo].[Suggestion]
+GO
+
+USE [FindMySportsMate]
+GO
+
 /****** Object:  Table [dbo].[Suggestion]    Script Date: 05/12/2012 13:48:49 ******/
 SET ANSI_NULLS ON
 GO
