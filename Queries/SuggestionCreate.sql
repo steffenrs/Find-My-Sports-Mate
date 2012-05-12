@@ -1,7 +1,7 @@
 USE [FindMySportsMate]
 GO
 
-/****** Object:  Table [dbo].[Suggestion]    Script Date: 05/09/2012 09:39:47 ******/
+/****** Object:  Table [dbo].[Suggestion]    Script Date: 05/12/2012 13:48:49 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -32,5 +32,13 @@ CREATE TABLE [dbo].[Suggestion](
 GO
 
 SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[Suggestion]  WITH CHECK ADD  CONSTRAINT [FK_Suggestion_User] FOREIGN KEY([CreatorId])
+REFERENCES [dbo].[User] ([Id])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[Suggestion] CHECK CONSTRAINT [FK_Suggestion_User]
 GO
 
