@@ -15,40 +15,15 @@ function showMap() {
 
 function getSuggestion(id) {
     var suggestionDetails = $("#suggestions-content");
-    console.log(suggestionDetails.data('update-url'));
-
     $.ajax({
         url: suggestionDetails.data('update-url')+"/"+id,
         type: "POST",
-        success: updateSuggestionDetails 
+        success: updateSuggestionDetails
     });
 };
 
 function updateSuggestionDetails(data) {
-    data = data.SelectedSuggestion;
-    console.log(data);
-    var suggestionsDetails = $("#suggestions-left-div");
-    suggestionsDetails.find("#suggestion-title").html(data.Title);
-    suggestionsDetails.find("#description").html(data.Description);
-    suggestionsDetails.find("#sport").html("Sport: " + data.Sport.Name);
-    suggestionsDetails.find("#creator").html("Creator:" + data.Creator.FirstName);
-    suggestionsDetails.find("#time-period").html("Time period:" + data.Description);
-    suggestionsDetails.find("#users").html("Users: " + data.JoinedUsers.length + " / " + data.MaximumUsers);
-    suggestionsDetails.find("#status").html("Status: " + ((data.IsClosed) ? "Closed" : "Open"));
-    if (data.Location === null) {
-        suggestionsDetails.find("#location").html("Location will be generated after the minimum number of users has joined");
-    }
-    else {
-        suggestionsDetails.find("#location").html("Location: " + data.Location.Name);
-    }
-    
-    var listHtml = "";
-
-    $.each(data.JoinedUsers, function () {
-        listHtml += "<li><a href='" + suggestionsDetails.data("view-user") + "/" + this.User.Id + "'>" + this.User.FirstName + "</a></li>";
-    });
-
-    suggestionsDetails.find("ul").html(listHtml);
+    $("#suggestions-content").html(data);
 }
 
 function joinSuggestion() {

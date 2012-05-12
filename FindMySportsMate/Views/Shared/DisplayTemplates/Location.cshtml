@@ -1,0 +1,10 @@
+﻿@model Domain.Location
+
+@if (Model == null)
+{ 
+    @Html.Encode("Location will be generated after the minimum number of users has joined") 
+}
+else
+{ 
+    @Html.Encode(Model.Name)
+}

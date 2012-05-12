@@ -87,7 +87,7 @@
     <Compile Include="ViewModels\JoinedUserViewModel.cs" />
     <Compile Include="ViewModels\LogOnViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
-    <Compile Include="ViewModels\SelectedSuggestionViewModel.cs" />
+    <Compile Include="ViewModels\SuggestionViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\Weekdays.cs" />
   </ItemGroup>
@@ -228,9 +228,14 @@
   <ItemGroup>
     <Content Include="Views\Shared\_JoinSuggestion.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\IsClosed.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\EditorTemplates\Weekdays.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\Location.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

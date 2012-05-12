@@ -44,6 +44,7 @@
              @foreach(Domain.Suggestion suggestion in Model.JoinedSuggestions)
             {
                 <tr>
+                    
                    <td><a href="#suggestions-details" onclick="getSuggestion(@suggestion.Id)">@suggestion.Title</a></td>
                    <td>@suggestion.Sport.Name</td>
                    <td>@suggestion.StartDate.ToString("dd.MM.yy") - @suggestion.EndDate.ToString("dd.MM.yy")</td>
@@ -53,5 +54,5 @@
         </table>
 
     </div>
-    @Html.Partial("_SuggestionDetails")
+    @{ Html.RenderPartial("_SuggestionDetails", Model.SelectedSuggestion); }
 </div>

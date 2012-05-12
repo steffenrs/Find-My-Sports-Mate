@@ -87,7 +87,7 @@ namespace DataAccessLayer
             using (var db = new MyDbContext())
             {
                 var list = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers").Include("Creator") select s).ToList();
-                return list;
+                return list;    
             }
         }
 

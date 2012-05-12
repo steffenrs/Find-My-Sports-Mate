@@ -1,30 +1,25 @@
-﻿@model PresentationLayer.DashboardViewModel
+﻿@model PresentationLayer.SuggestionViewModel
            
 <div id="suggestions-content" data-update-url="@Url.Action("GetSuggestion", "Suggestion")" data-view-user="@Url.Action("View", "User")">
     <div class="main-title">Suggestion details</div>
-    @if (Model.SelectedSuggestion != null)
+    @if (Model != null)
     {
     <div id="suggestions-left-div">
-        <div class="sub-title" id="suggestion-title">@Model.SelectedSuggestion.Title</div> 
-        <p id="description">@Model.SelectedSuggestion.Description</p><br />
-        <p id="sport">Sport: @Model.SelectedSuggestion.Sport.Name</p>
-        <p id="creator">Creator: @Model.SelectedSuggestion.Creator.FirstName @Model.SelectedSuggestion.Creator.LastName</p>
-        <p id="time-period">Time period: @Model.SelectedSuggestion.StartDate.Day.@Model.SelectedSuggestion.StartDate.Month.@Model.SelectedSuggestion.StartDate.Year - @Model.SelectedSuggestion.EndDate.Day.@Model.SelectedSuggestion.EndDate.Month.@Model.SelectedSuggestion.EndDate.Year</p>
-        <p id="users">Users: @Model.SelectedSuggestion.JoinedUsers.Count / @Model.SelectedSuggestion.MaximumUsers</p>                                                
-        <p id="status">Status: @if (Model.SelectedSuggestion.IsClosed)
-                               { <text>Closed</text> }
-                               else
-                               { <text>Open</text> } 
-        </p>
-        <p id="location">Location: @if (@Model.SelectedSuggestion.Location == null)
-                                   { <text>Location will be generated after the minimum number of users has joined</text> }
-                                   else
-                                   { @Model.SelectedSuggestion.Location.Name }</p>
+        
+
+        <div class="sub-title" id="suggestion-title">@Html.DisplayTextFor(m => m.Title)</div> 
+        <p id="description">@Html.DisplayTextFor(m => m.Description) </p><br />
+        <p id="sport">@Html.LabelFor(m => m.Sport): @Html.DisplayTextFor(m => m.Sport.Name)</p>
+        <p id="creator">@Html.LabelFor(m => m.Creator): @Html.DisplayTextFor(m => m.Creator.FirstName) @Html.DisplayTextFor(m => m.Creator.LastName)</p>
+        <p id="time-period">@Html.LabelFor(m => m.StartDate): @Model.StartDate.Day.@Model.StartDate.Month.@Model.StartDate.Year - @Model.EndDate.Day.@Model.EndDate.Month.@Model.EndDate.Year</p>
+        <p id="users">@Html.LabelFor(m => m.JoinedUsers): @Html.DisplayTextFor(m => m.JoinedUsers.Count) / @Html.DisplayTextFor(m => m.MaximumUsers)</p>                                                
+        <p id="status">@Html.LabelFor(m => m.IsClosed): @Html.DisplayFor(m => m.IsClosed)</p>
+        <p id="location">Location: @Html.DisplayFor(m => m.Location)</p>
 
         <div id="suggestions-user-list">
             <p><br />Joined Users:</p>
             <ul>
-                @foreach (var currentUser in Model.SelectedSuggestion.JoinedUsers)
+                @foreach (var currentUser in Model.JoinedUsers)
                 {
                     <li>@Html.ActionLink(currentUser.User.FirstName, "View", "User", new { Id = currentUser.User.Id }, new { })</li>
                 }
@@ -32,7 +27,7 @@
         </div>
     </div>
     <div id="suggestions-right-div" style="width: 300px; height:300px">
-        @if (Model.SelectedSuggestion.Location != null)
+        @if (Model.Location != null)
         {
             <script>showMap(0, 0);</script>
         }
@@ -44,10 +39,10 @@
     
     <div style="width:50%">
     <!-- if user already have joined the suggestion, !-->
-        @Ajax.ActionLink("Join suggestion!", "JoinSuggestion", "Suggestion", new { id = Model.SelectedSuggestion.Id }, new AjaxOptions { OnComplete = "joinSuggestion", UpdateTargetId = "UpdateTargetId", HttpMethod = "Post" } )
+        @Ajax.ActionLink("Join suggestion!", "JoinSuggestion", "Suggestion", new { id = Model.Id }, new AjaxOptions { OnComplete = "joinSuggestion", UpdateTargetId = "UpdateTargetId", HttpMethod = "Post" }, new { id = "suggestions-join" })
         <!--
         
-        <input id="suggestions-join" type="submit" value="Join suggestion" onclick="joinSuggestion("+@Model.SelectedSuggestion.Id+")"/>
+        <input id="suggestions-join" type="submit" value="Join suggestion" onclick="joinSuggestion("+@Model.Id+")"/>
         -->
     </div>
     }

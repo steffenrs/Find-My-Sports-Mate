@@ -123,19 +123,15 @@ namespace PresentationLayer.Controllers
         }
 
         [CustomAuthorizeAttribute]
-        public JsonResult GetSuggestion(int id)
+        [HttpPost]
+        public ActionResult GetSuggestion(int id)
         {
             Suggestion suggestion = BusinessLayer.SuggestionBusiness.GetById(id);
+            
+            var model = new DashboardViewModel { SelectedSuggestion = SuggestionViewModel.FromModel(suggestion) };
 
-            //Manually specify properties to prevent circual reference error.
-            return Json(
-                new
-                {
-                    SelectedSuggestion = SuggestionViewModel.FromModel(suggestion)
-                }, JsonRequestBehavior.AllowGet);
+            return PartialView("_SuggestionDetails", model.SelectedSuggestion);
         }
-
-
 
         [HttpPost]
         public void Join(int id)
