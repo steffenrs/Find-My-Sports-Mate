@@ -127,26 +127,31 @@ namespace PresentationLayer.Controllers
         public ActionResult GetSuggestion(int id)
         {
             Suggestion suggestion = BusinessLayer.SuggestionBusiness.GetById(id);
-            
+            suggestion.JoinedUsers = BusinessLayer.JoinedUserBusiness.GetBySuggestion(suggestion.Id);
+
             var model = new DashboardViewModel { SelectedSuggestion = SuggestionViewModel.FromModel(suggestion) };
 
             return PartialView("_SuggestionDetails", model.SelectedSuggestion);
         }
 
         [HttpPost]
-        public void Join(int id)
-        {
+        public ActionResult Join(int id)
+        {         
             try
             {
-
                 Suggestion suggestion = BusinessLayer.SuggestionBusiness.GetById(id);
                 User user = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name);
-                JoinedUser joinedUser = new JoinedUser();
-                joinedUser.SuggestionId = suggestion.Id;
-                joinedUser.UserId = user.Id;
-                BusinessLayer.SuggestionBusiness.JoinSuggestion(joinedUser);
+                BusinessLayer.SuggestionBusiness.JoinSuggestion(user.Id, id, "Mo");
+                suggestion.JoinedUsers = BusinessLayer.JoinedUserBusiness.GetBySuggestion(suggestion.Id);
+                var model = new DashboardViewModel { SelectedSuggestion = SuggestionViewModel.FromModel(suggestion) };
+   
+                
+                return PartialView("_SuggestionDetails", model.SelectedSuggestion);
             }
-            catch(Exception e) {  };
+            catch(DomainException e)
+            {
+                return View("Error");
+            };
         }
     }
 }

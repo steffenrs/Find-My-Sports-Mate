@@ -64,13 +64,15 @@ namespace BusinessLayer
             return DataAccessLayer.SuggestionAccess.GetAllByCreatorId(userId);
         }
 
-        public static bool JoinSuggestion(JoinedUser joinedUser) 
+        public static bool JoinSuggestion(int userId, int suggestionId, string weekdays) 
         {
-            Suggestion suggestion = SuggestionBusiness.GetById(joinedUser.SuggestionId);
-            if (!suggestion.IsClosed && suggestion.JoinedUsers.Count < suggestion.MaximumUsers)
+            Suggestion suggestion = SuggestionBusiness.GetById(suggestionId);
+            if (!suggestion.IsClosed && suggestion.JoinedUsers.Count < suggestion.MaximumUsers && suggestion.JoinedUsers.FindAll(j => j.UserId == userId).Count == 0)
             {
-                DataAccessLayer.JoinedUserAccess.AddJoinedUser(joinedUser);
-                suggestion = SuggestionBusiness.GetById(joinedUser.SuggestionId);
+                var joinedUser = new JoinedUser { UserId = userId, SuggestionId = suggestionId, Weekdays = weekdays };
+                suggestion.JoinedUsers.Add(joinedUser);
+                DataAccessLayer.JoinedUserAccess.Add(joinedUser);
+
                 if (suggestion.JoinedUsers.Count >= suggestion.MinimumUsers)
                 {
                     CalculateNearestLocation(suggestion);
@@ -78,14 +80,12 @@ namespace BusinessLayer
                 else if (suggestion.JoinedUsers.Count == suggestion.MaximumUsers)
                 {
                     DataAccessLayer.SuggestionAccess.OpenClose(suggestion.Id);
-                    //
                 }
 
                 return true;
             }
-            else return false;
-
-
+            else 
+                return false;
         }
 
         public static void CalculateNearestLocation(Suggestion suggestion)

@@ -9,7 +9,7 @@
     });
 </script>
            
-<div id="suggestions-content" data-update-url="@Url.Action("GetSuggestion", "Suggestion")" data-view-user="@Url.Action("View", "User")">
+<div id="suggestions-content" data-join-url="@Url.Action("Join", "Suggestion")" data-update-url="@Url.Action("GetSuggestion", "Suggestion")" data-view-user="@Url.Action("View", "User")">
     <div class="main-title">Suggestion details</div>
     @if (Model != null)
     {
@@ -57,7 +57,7 @@
             }
             else
             {
-                @Ajax.ActionLink("Join suggestion!", "Join", "Suggestion", new { id = Model.Id }, new AjaxOptions { OnComplete = "joinSuggestion", UpdateTargetId = "UpdateTargetId", HttpMethod = "Post" }, new { id = "suggestions-join" })
+                <div id="suggestions-join" onclick="joinSuggestion(@Model.Id)">Join suggestion!</div>
             }
          }
         <!--

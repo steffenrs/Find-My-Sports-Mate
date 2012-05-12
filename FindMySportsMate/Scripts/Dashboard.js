@@ -26,6 +26,11 @@ function updateSuggestionDetails(data) {
     $("#suggestions-content").html(data);
 }
 
-function joinSuggestion() {
-    alert("hello");
+function joinSuggestion(id) {
+    var suggestionDetails = $("#suggestions-content");
+    $.ajax({
+        url: suggestionDetails.data('join-url') + "/" + id,
+        type: "POST",
+        success: updateSuggestionDetails
+    });
 }
