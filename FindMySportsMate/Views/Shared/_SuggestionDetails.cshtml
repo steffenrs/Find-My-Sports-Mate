@@ -1,4 +1,13 @@
 ﻿@model PresentationLayer.SuggestionViewModel
+
+<script>
+    $(function () {
+        $("#suggestions-join").button();
+        if ($("#suggestions-join").hasClass("ui-button-disabled")) {
+            $("#suggestions-join").addClass("suggestion-already-joined");
+        }
+    });
+</script>
            
 <div id="suggestions-content" data-update-url="@Url.Action("GetSuggestion", "Suggestion")" data-view-user="@Url.Action("View", "User")">
     <div class="main-title">Suggestion details</div>
@@ -39,7 +48,19 @@
     
     <div style="width:50%">
     <!-- if user already have joined the suggestion, !-->
-        @Ajax.ActionLink("Join suggestion!", "JoinSuggestion", "Suggestion", new { id = Model.Id }, new AjaxOptions { OnComplete = "joinSuggestion", UpdateTargetId = "UpdateTargetId", HttpMethod = "Post" }, new { id = "suggestions-join" })
+    
+        @{
+            int id = Convert.ToInt32(((PresentationLayer.CustomPrincipal)HttpContext.Current.User).UserID);
+            int count = (Model.JoinedUsers.Select(m => m.User.Id == id).Count());
+            if (count > 0)
+            {
+                <div id="suggestions-join" disabled="true">Joined</div>
+            }
+            else
+            {
+                @Ajax.ActionLink("Join suggestion!", "JoinSuggestion", "Suggestion", new { id = Model.Id }, new AjaxOptions { OnComplete = "joinSuggestion", UpdateTargetId = "UpdateTargetId", HttpMethod = "Post" }, new { id = "suggestions-join" })
+            }
+         }
         <!--
         
         <input id="suggestions-join" type="submit" value="Join suggestion" onclick="joinSuggestion("+@Model.Id+")"/>
