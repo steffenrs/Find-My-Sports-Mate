@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Domain;
+using System.Data.Objects;
 
 namespace DataAccessLayer
 {
@@ -73,12 +74,37 @@ namespace DataAccessLayer
             }
         }
 
-        public static List<Suggestion> GetAllByCreatorId(int creatorId)
+        public static List<Suggestion> GetAllByCreator(int creatorId)
         {
             using (var db = new MyDbContext())
             {
-                var list = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers").Include("Creator") where s.CreatorId == creatorId select s).ToList();
-                return list;
+                return (from s in db.Suggestion
+                        .Include("Sport")
+                        .Include("JoinedUsers")
+                        .Include("Creator") 
+                        where s.CreatorId == creatorId 
+                        select s).ToList();
+            }
+        }
+
+         public static List<Suggestion> GetByJoinedUser(int userId)
+        {
+            using (var db = new MyDbContext())
+            {
+                var query = from s in db.Suggestion
+                            from ju in db.JoinedUser
+                            where ju.UserId == userId
+                            && s.Id == ju.SuggestionId
+                            select new
+                            {
+                                s,
+                                sport = s.Sport,
+                                ju = s.JoinedUsers
+                            };
+
+                var suggestions = query.AsEnumerable().Select(m => m.s);
+
+                return suggestions.ToList();
             }
         }
 
@@ -86,8 +112,11 @@ namespace DataAccessLayer
         {
             using (var db = new MyDbContext())
             {
-                var list = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers").Include("Creator") select s).ToList();
-                return list;    
+                return (from s in db.Suggestion
+                        .Include("Sport")
+                        .Include("JoinedUsers")
+                        .Include("Creator") 
+                        select s).ToList();
             }
         }
 
@@ -95,7 +124,7 @@ namespace DataAccessLayer
         {
             if (id < 1)
                 throw new DomainException("Suggestion id cannot be less than 1");
-        }
+        }       
     }
 }
 

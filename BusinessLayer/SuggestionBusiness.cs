@@ -25,12 +25,12 @@ namespace BusinessLayer
         }
         public static void Update(Suggestion suggestion, int userId)
         {
-            ValidateSuggestionAccess(suggestion.Id, userId);
+            ValidateUserAccess(suggestion.Id, userId);
             DataAccessLayer.SuggestionAccess.Update(suggestion);
         }
         public static void Delete(int suggestionId, int userId)
         {
-            ValidateSuggestionAccess(suggestionId, userId);
+            ValidateUserAccess(suggestionId, userId);
             DataAccessLayer.SuggestionAccess.Delete(suggestionId);
         }
 
@@ -39,9 +39,9 @@ namespace BusinessLayer
             return DataAccessLayer.SuggestionAccess.GetAll();
         }
 
-        public static void OpenCloseSuggestion(Suggestion suggestion, User user)
+        public static void ToggleOpenClose(Suggestion suggestion, User user)
         {
-            ValidateSuggestionAccess(suggestion.Id, user.Id);
+            ValidateUserAccess(suggestion.Id, user.Id);
             suggestion = DataAccessLayer.SuggestionAccess.OpenClose(suggestion.Id);
             if (suggestion.IsClosed == true)
             {
@@ -49,7 +49,7 @@ namespace BusinessLayer
             }
         }
 
-        public static void ValidateSuggestionAccess(int suggestionId, int userId)
+        public static void ValidateUserAccess(int suggestionId, int userId)
         {
             Suggestion suggestion = DataAccessLayer.SuggestionAccess.Get(suggestionId);
             if (userId != suggestion.CreatorId)
@@ -59,9 +59,14 @@ namespace BusinessLayer
         }
 
 
-        public static List<Suggestion> GetSuggestionsByUserId(int userId)
+        public static List<Suggestion> GetByUser(int userId)
         {
-            return DataAccessLayer.SuggestionAccess.GetAllByCreatorId(userId);
+            return DataAccessLayer.SuggestionAccess.GetByJoinedUser(userId);
+        }
+
+        public static List<Suggestion> GetByCreator(int userId)
+        {
+            return DataAccessLayer.SuggestionAccess.GetAllByCreator(userId);
         }
 
         public static bool JoinSuggestion(int userId, int suggestionId, string weekdays) 
