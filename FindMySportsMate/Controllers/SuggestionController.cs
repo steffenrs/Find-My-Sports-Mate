@@ -134,18 +134,18 @@ namespace PresentationLayer.Controllers
             return PartialView("_SuggestionDetails", model.SelectedSuggestion);
         }
 
+        [CustomAuthorizeAttribute]
         [HttpPost]
-        public ActionResult Join(int id)
+        public ActionResult Join(int id, Weekdays weekdays)
         {         
             try
             {
                 Suggestion suggestion = BusinessLayer.SuggestionBusiness.GetById(id);
                 User user = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name);
-                BusinessLayer.SuggestionBusiness.JoinSuggestion(user.Id, id, "Mo");
+                BusinessLayer.SuggestionBusiness.JoinSuggestion(user.Id, id, weekdays.ToString());
                 suggestion.JoinedUsers = BusinessLayer.JoinedUserBusiness.GetBySuggestion(suggestion.Id);
                 var model = new DashboardViewModel { SelectedSuggestion = SuggestionViewModel.FromModel(suggestion) };
-   
-                
+      
                 return PartialView("_SuggestionDetails", model.SelectedSuggestion);
             }
             catch(DomainException e)
