@@ -19,7 +19,7 @@ namespace BusinessLayer
         /// </summary>
         /// <param name="suggestion">A suggestion</param>
         /// <returns>The specific location</returns>
-        public static Location nearestLocationForUsers(Suggestion suggestion)
+        public static Location NearestLocationForUsers(Suggestion suggestion)
         {
             List<Location> locations = DataAccessLayer.LocationAccess.getAll();
             Dictionary<User,List<Element>> distanceElements = new Dictionary<User,List<Element>>();
@@ -34,7 +34,7 @@ namespace BusinessLayer
             foreach (JoinedUser joinedUser in suggestion.JoinedUsers)
             {
                 User user = UserBusiness.GetUserById(joinedUser.UserId);
-                distanceElements.Add(user,getDistanceBetweenUserAddressAndLocations(user, origins));
+                distanceElements.Add(user,GetDistanceBetweenUserAddressAndLocations(user, origins));
             }
 
             int[] distances = new int[locations.Count];
@@ -57,7 +57,7 @@ namespace BusinessLayer
         /// <param name="user">A specific user</param>
         /// <param name="origins">The stationary locations parsed to a Google Distance API string</param>
         /// <returns>List of elements</returns>
-        public static List<Element> getDistanceBetweenUserAddressAndLocations(User user, string origins)
+        private static List<Element> GetDistanceBetweenUserAddressAndLocations(User user, string origins)
         {
             string address = user.StreetAddress + "+" + user.Area + "+" + user.State;
             var url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins=" + origins +

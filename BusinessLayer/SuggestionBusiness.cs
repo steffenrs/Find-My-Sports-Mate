@@ -45,7 +45,8 @@ namespace BusinessLayer
             suggestion = DataAccessLayer.SuggestionAccess.OpenClose(suggestion.Id);
             if (suggestion.IsClosed == true)
             {
-                //LOGIC FOR CALCULATING NEAREST POINT
+                suggestion.Location = LocationBusiness.NearestLocationForUsers(suggestion);
+                SuggestionBusiness.Update(suggestion, suggestion.CreatorId);
             }
         }
 
@@ -80,8 +81,9 @@ namespace BusinessLayer
 
                 if (suggestion.JoinedUsers.Count >= suggestion.MinimumUsers)
                 {
-                    //TODO CALCULATE NEAREST LOCATION
-                    CalculateNearestLocation(suggestion);
+                    suggestion.Location = LocationBusiness.NearestLocationForUsers(suggestion);
+                    SuggestionBusiness.Update(suggestion, suggestion.CreatorId);
+
                 }
                 else if (suggestion.JoinedUsers.Count == suggestion.MaximumUsers)
                 {
@@ -94,12 +96,5 @@ namespace BusinessLayer
                 return false;
         }
 
-        public static void CalculateNearestLocation(Suggestion suggestion)
-        {
-            Location nearestLocation = new Location();
-
-
-            
-        }
     }
 }

@@ -48,6 +48,7 @@ namespace DataAccessLayer
                 suggestion.Description = updatedSuggestion.Description;
                 suggestion.MinimumUsers = updatedSuggestion.MinimumUsers;
                 suggestion.MaximumUsers = updatedSuggestion.MaximumUsers;
+                suggestion.Location = updatedSuggestion.Location;
 
                 db.SaveChanges();
             }

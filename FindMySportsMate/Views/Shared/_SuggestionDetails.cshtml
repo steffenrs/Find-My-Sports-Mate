@@ -38,7 +38,7 @@
     <div id="suggestions-right-div" style="width: 300px; height:300px">
         @if (Model.Location != null)
         {
-            <script>showMap(0, 0);</script>
+            <script>showmap(@Model.Location.Latitude,@Model.Location.Longitude);</script>
         }
         else
         {

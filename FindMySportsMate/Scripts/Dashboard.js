@@ -5,14 +5,20 @@
     var diag = createJoinDialog();
 });
 
-function showMap() {
+function showMap(Lat,Lng) {
     var myOptions = {
-        center: new google.maps.LatLng(-34.397, 150.644),
+        center: new google.maps.LatLng(Lat, Lng),
         zoom: 8,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     var map = new google.maps.Map(document.getElementById("suggestions-right-div"), myOptions);
 };
+
+function placeMarker(location) {
+  var marker = new google.maps.Marker({
+      position: location,
+      map: map
+  });
 
 function getSuggestion(id) {
     var suggestionDetails = $("#suggestions-content");
