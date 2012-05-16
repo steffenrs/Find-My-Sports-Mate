@@ -27,8 +27,12 @@ namespace PresentationLayer
         public String Description { get; set; }
         public int MaximumUsers { get; set; }
 
+        public Weekdays Weekdays { get; set; }
+
         public static SuggestionViewModel FromModel(Suggestion suggestion)
         {
+            if (suggestion == null)
+                return null;
             return new SuggestionViewModel
             {
                 Id = suggestion.Id,

@@ -2,6 +2,7 @@
     $("#suggestions-tabs").tabs();
     $("#suggestions-join").button();
     showMap();
+    var diag = createJoinDialog();
 });
 
 function showMap() {
@@ -27,10 +28,41 @@ function updateSuggestionDetails(data) {
 }
 
 function joinSuggestion(id) {
+    openDialog();
+
     var suggestionDetails = $("#suggestions-content");
-    $.ajax({
-        url: suggestionDetails.data('join-url') + "/" + id,
-        type: "POST",
-        success: updateSuggestionDetails
+//    $.ajax({
+//        url: suggestionDetails.data('join-url') + "/" + id,
+//        type: "POST",
+//        success: updateSuggestionDetails
+//    });
+}
+
+
+function createJoinDialog() {
+    var elem = $("#join-suggestion").dialog({
+        autoOpen: false,
+        height: 300,
+        width: 300,
+        modal: true,
+        resizable: false,
+        buttons: {
+            "Select": function () { $(this).dialog("close"); selectFunction(); },
+            "Cancel": function () { $(this).dialog("close"); }
+        }
     });
+
+    return elem;
+}
+
+function openDialog() {
+    $("#join-suggestion").dialog("open");
+    return false;
+}
+
+function selectFunction() {
+    var fields = $("#weekdays");
+    fields.appendTo("#suggestions-join-form");
+
+    $("#suggestions-join-form").submit();
 }

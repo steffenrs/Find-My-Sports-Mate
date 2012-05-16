@@ -60,14 +60,15 @@
                 <div id="suggestions-join" onclick="joinSuggestion(@Model.Id)">Join suggestion!</div>
             }
          }
-        <!--
-        
-        <input id="suggestions-join" type="submit" value="Join suggestion" onclick="joinSuggestion("+@Model.Id+")"/>
-        -->
     </div>
     }
     else
     {
-        <text>No suggestions have been created.</text>
+        @Html.Encode("No suggestions have been created.")
     }
-</div>  
+       @using (Ajax.BeginForm("Join", "Suggestion", new {}, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "suggestions-content" }, new { id = "suggestions-join-form" }))
+       {
+           @Html.HiddenFor(m => m.Id)
+           Html.RenderPartial("_JoinSuggestion", new PresentationLayer.Weekdays());
+       }
+   </div>
