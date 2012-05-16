@@ -2,7 +2,6 @@
     $("#suggestions-tabs").tabs();
     $("#suggestions-join").button();
     showMap();
-    var diag = createJoinDialog();
 });
 
 function showMap(Lat,Lng) {
@@ -68,7 +67,7 @@ function openDialog() {
 
 function selectFunction() {
     var fields = $("#weekdays");
-    fields.appendTo("#suggestions-join-form");
+    fields.clone().appendTo("#suggestions-join-form");
 
     $("#suggestions-join-form").submit();
 }
