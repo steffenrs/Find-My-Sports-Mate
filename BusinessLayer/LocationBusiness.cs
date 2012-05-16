@@ -40,6 +40,7 @@ namespace BusinessLayer
                 User user = UserBusiness.GetUserById(joinedUser.UserId);
                 distanceElements.Add(user,getDistanceBetweenUserAddressAndLocations(user, origins));
             }
+            
 
             return null;
         }
