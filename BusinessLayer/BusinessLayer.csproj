@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtensionMethodsBusiness.cs" />
     <Compile Include="JoinedUserBusiness.cs" />
     <Compile Include="LocationBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
