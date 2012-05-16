@@ -4,20 +4,14 @@
     showMap();
 });
 
-function showMap(Lat,Lng) {
+function showMap() {
     var myOptions = {
-        center: new google.maps.LatLng(Lat, Lng),
+        center: new google.maps.LatLng(),
         zoom: 8,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     var map = new google.maps.Map(document.getElementById("suggestions-right-div"), myOptions);
 };
-
-function placeMarker(location) {
-  var marker = new google.maps.Marker({
-      position: location,
-      map: map
-  });
 
 function getSuggestion(id) {
     var suggestionDetails = $("#suggestions-content");
