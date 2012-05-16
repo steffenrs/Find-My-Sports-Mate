@@ -80,6 +80,7 @@ namespace BusinessLayer
 
                 if (suggestion.JoinedUsers.Count >= suggestion.MinimumUsers)
                 {
+                    //TODO CALCULATE NEAREST LOCATION
                     CalculateNearestLocation(suggestion);
                 }
                 else if (suggestion.JoinedUsers.Count == suggestion.MaximumUsers)
