@@ -42,7 +42,7 @@
                 <th>No</th>
                 <th>Status</th>
             </tr>
-             @foreach(Domain.Suggestion suggestion in Model.JoinedSuggestions)
+            @foreach(Domain.Suggestion suggestion in Model.JoinedSuggestions)
             {
                 <tr>
                    <td><a href="#suggestions-details" onclick="getSuggestion(@suggestion.Id)">@suggestion.Title</a></td>

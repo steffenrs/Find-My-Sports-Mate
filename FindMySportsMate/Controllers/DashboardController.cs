@@ -23,11 +23,12 @@ namespace PresentationLayer
                 selectedSuggestion = allSuggestions[0];
                 selectedSuggestion.JoinedUsers = JoinedUserBusiness.GetBySuggestion(selectedSuggestion.Id);
             }
+
             var viewModel = new DashboardViewModel()
             {
                 AllSuggestions = allSuggestions,
                 SelectedSuggestion = selectedSuggestion == null ? null : SuggestionViewModel.FromModel(selectedSuggestion),
-                JoinedSuggestions = new List<Suggestion>()
+                JoinedSuggestions = SuggestionBusiness.GetByUser(UserBusiness.GetUserByEmail(username).Id)
             };
 
             return View(viewModel);
