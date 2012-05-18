@@ -181,7 +181,7 @@ li
 .suggestions-table
 {
     width: 100%;
-    text-align: center;
+    text-align: left;
 }
 
 .suggestions-table tr:nth-child(odd)
@@ -206,7 +206,9 @@ li
     width: 30%;
 }
 
-.edit-icon
+.suggestions-table-icon
 {
-    background: url(images/pencil3.png) no-repeat;
+    float: right;
+    width: 16px;
+    height: 16px;
 }
