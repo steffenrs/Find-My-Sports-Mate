@@ -67,7 +67,14 @@ namespace PresentationLayer.Controllers
 
                 return View(viewModel);
             }
-            catch (DomainException e) { return View("Error"); } // didnt find suggestion 404
+            catch (DomainException e)
+            {
+                return View("Error");
+            }
+            catch (Exception e)
+            {
+                return View("Error");
+            }
         }
 
         [HttpPost]
