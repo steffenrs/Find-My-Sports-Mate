@@ -88,10 +88,10 @@ namespace PresentationLayer.Controllers
                 try
                 {
                     // Validate suggestion with user
-                    User currentUser = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name);
+                    int userId = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name).Id;
 
                     // Update suggestion
-                    BusinessLayer.SuggestionBusiness.Update(suggestion, currentUser.Id);
+                    BusinessLayer.SuggestionBusiness.Update(suggestion, userId);
                     return RedirectToAction("Index", "Dashboard");
                 }
                 catch (DomainException e)
@@ -148,8 +148,8 @@ namespace PresentationLayer.Controllers
             try
             {
                 Suggestion suggestion = BusinessLayer.SuggestionBusiness.GetById(id);
-                User user = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name);
-                BusinessLayer.SuggestionBusiness.JoinSuggestion(user.Id, id, weekdays.ToString());
+                int userId = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name).Id;
+                BusinessLayer.SuggestionBusiness.JoinSuggestion(userId, id, weekdays.ToString());
                 suggestion.JoinedUsers = BusinessLayer.JoinedUserBusiness.GetBySuggestion(suggestion.Id);
                 var model = new DashboardViewModel { SelectedSuggestion = SuggestionViewModel.FromModel(suggestion) };
       
