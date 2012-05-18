@@ -205,3 +205,8 @@ li
     float: left;
     width: 30%;
 }
+
+.edit-icon
+{
+    background: url(images/pencil3.png) no-repeat;
+}

@@ -25,7 +25,8 @@
            @foreach(Domain.Suggestion suggestion in Model.AllSuggestions)
             {
                 <tr>
-                   <td><a href="#suggestions-details" onclick="getSuggestion(@suggestion.Id)">@suggestion.Title</a></td>
+                   <td><a href="#suggestions-details" onclick="getSuggestion(@suggestion.Id)">@suggestion.Title</a>
+                   </td>
                    <td>@suggestion.Sport.Name</td>
                    <td>@suggestion.StartDate.ToString("dd.MM.yy") - @suggestion.EndDate.ToString("dd.MM.yy")</td>
                    <td>@suggestion.JoinedUsers.Count    /@suggestion.MaximumUsers</td>
@@ -45,7 +46,15 @@
             @foreach(Domain.Suggestion suggestion in Model.JoinedSuggestions)
             {
                 <tr>
-                   <td><a href="#suggestions-details" onclick="getSuggestion(@suggestion.Id)">@suggestion.Title</a></td>
+                   <td>
+                   <a href="#suggestions-details" onclick="getSuggestion(@suggestion.Id)">@suggestion.Title</a>
+                    <!-- IF U HAVE EDITING RIGTS ONLY -->
+                   <a href="#" style="float:right"><img src="../../Content/images/pencil3.png" width="16px" height="16px" /></a>
+                   <!-- END IF -->
+                   <!-- if not closed, show close. else, show open? -->
+                   <a href="#" style="float:right"><img src="../../Content/images/stock_lock.png" width="16px" height="16px" /></a>
+                   <!-- end if else -->
+                   </td>
                    <td>@suggestion.Sport.Name</td>
                    <td>@suggestion.StartDate.ToString("dd.MM.yy") - @suggestion.EndDate.ToString("dd.MM.yy")</td>
                    <td>@suggestion.JoinedUsers.Count/@suggestion.MaximumUsers</td>
