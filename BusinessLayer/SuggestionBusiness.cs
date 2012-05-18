@@ -39,20 +39,33 @@ namespace BusinessLayer
             return DataAccessLayer.SuggestionAccess.GetAll();
         }
 
-        public static void ToggleOpenClose(Suggestion suggestion, User user)
+        public static void Open(int id, int userId)
         {
-            ValidateUserAccess(suggestion.Id, user.Id);
-            suggestion = DataAccessLayer.SuggestionAccess.OpenClose(suggestion.Id);
-            if (suggestion.IsClosed == true)
-            {
-                suggestion.Location = LocationBusiness.NearestLocationForUsers(suggestion);
-                SuggestionBusiness.Update(suggestion, suggestion.CreatorId);
-            }
+            ValidateUserAccess(id, userId);
+            Suggestion suggestion = GetById(id);
+            if (suggestion.JoinedUsers.Count >= suggestion.MaximumUsers)
+                return;
+
+            suggestion.IsClosed = false;
+            DataAccessLayer.SuggestionAccess.Update(suggestion);
+
+            //DataAccessLayer.SuggestionAccess.Open(id);
         }
 
-        public static void ValidateUserAccess(int suggestionId, int userId)
+        public static void Close(int id, int userId)
         {
-            Suggestion suggestion = DataAccessLayer.SuggestionAccess.Get(suggestionId);
+            ValidateUserAccess(id, userId);
+            Suggestion suggestion = GetById(id);
+            suggestion.LocationId = LocationBusiness.NearestLocationForUsers(suggestion).Id;
+            suggestion.IsClosed = true;
+            SuggestionBusiness.Update(suggestion, userId);
+            
+            //DataAccessLayer.SuggestionAccess.Close(id);
+        }
+
+        private static void ValidateUserAccess(int id, int userId)
+        {
+            Suggestion suggestion = DataAccessLayer.SuggestionAccess.Get(id);
             if (userId != suggestion.CreatorId)
             {
                 throw new DomainException("User is not authorized to edit the suggestion.");
@@ -85,9 +98,9 @@ namespace BusinessLayer
                     SuggestionBusiness.Update(suggestion, suggestion.CreatorId);
 
                 }
-                else if (suggestion.JoinedUsers.Count == suggestion.MaximumUsers)
+                if (suggestion.JoinedUsers.Count == suggestion.MaximumUsers)
                 {
-                    DataAccessLayer.SuggestionAccess.OpenClose(suggestion.Id);
+                    DataAccessLayer.SuggestionAccess.Close(suggestion.Id);
                 }
 
                 return true;

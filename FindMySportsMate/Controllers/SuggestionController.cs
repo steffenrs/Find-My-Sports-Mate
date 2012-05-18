@@ -160,5 +160,19 @@ namespace PresentationLayer.Controllers
                 return View("Error");
             };
         }
+
+        [CustomAuthorizeAttribute]
+        public void Open(int id)
+        {
+            int userId = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name).Id;
+            BusinessLayer.SuggestionBusiness.Open(id, userId);
+        }
+
+        [CustomAuthorizeAttribute]
+        public void Close(int id)
+        {
+            int userId = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name).Id;
+            BusinessLayer.SuggestionBusiness.Close(id, userId);
+        }
     }
 }

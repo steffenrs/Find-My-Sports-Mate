@@ -30,11 +30,22 @@ function joinSuggestion(id) {
     openDialog();
 
     var suggestionDetails = $("#suggestions-content");
-//    $.ajax({
-//        url: suggestionDetails.data('join-url') + "/" + id,
-//        type: "POST",
-//        success: updateSuggestionDetails
-//    });
+}
+
+function closeSuggestion(id) {
+    var suggestionDetails = $("#tabs-2");
+    $.ajax({
+        url: suggestionDetails.data('close-suggestion-url') + "/" + id,
+        type: "POST"
+    });
+}
+
+function openSuggestion(id) {
+    var suggestionDetails = $("#tabs-2");
+    $.ajax({
+        url: suggestionDetails.data('open-suggestion-url') + "/" + id,
+        type: "POST"
+    });
 }
 
 

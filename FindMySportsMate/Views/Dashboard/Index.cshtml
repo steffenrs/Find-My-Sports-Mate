@@ -34,7 +34,7 @@
             }
         </table>
     </div>
-    <div id="tabs-2">
+    <div id="tabs-2" data-open-suggestion-url=@Url.Action("Open", "Suggestion") data-close-suggestion-url=@Url.Action("Close", "Suggestion")>
                 <table class="suggestions-table" cellspacing="0">
             <tr>
                 <th>Name</th>
@@ -67,16 +67,16 @@
                     { 
                         @Html.Encode("Open") 
                     }
-                    <!-- if max users have joined, not able to open, k? -->
                     @if (isOwner)
                     {
                         if (suggestion.IsClosed && suggestion.JoinedUsers.Count < suggestion.MaximumUsers)
                         {
-                            <a href="#"><img class="suggestions-table-icon" alt="Open suggestion" src="../../Content/images/stock_lock_open.png" /></a>
+                            
+                            <a onclick="openSuggestion(@suggestion.Id)" href="#"><img class="suggestions-table-icon" alt="Open suggestion" src="../../Content/images/stock_lock_open.png" /></a>
                         }
                         else if (!suggestion.IsClosed)
                         {    
-                            <a href="#" style="margin-left: 5px"><img class="suggestions-table-icon" alt="Close suggestion" src="../../Content/images/stock_lock.png" /></a>
+                            <a onclick="closeSuggestion(@suggestion.Id)" href="#"><img class="suggestions-table-icon" alt="Close suggestion" src="../../Content/images/stock_lock.png" /></a>
                         }
                     }
                     </td>

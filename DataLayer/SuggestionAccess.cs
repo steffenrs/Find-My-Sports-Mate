@@ -46,14 +46,24 @@ namespace DataAccessLayer
             }
         }
 
-        public static Suggestion OpenClose(int suggestionId)
+        public static void Close(int id)
         {
             using (var db = new MyDbContext())
             {
-                Suggestion suggestion = db.Suggestion.Single((i => i.Id == suggestionId));
-                suggestion.IsClosed = !suggestion.IsClosed;
+                Suggestion suggestion = db.Suggestion.Single(s => s.Id == id);
+                suggestion.IsClosed = true;
                 db.SaveChanges();
-                return suggestion;
+            }
+        }
+
+        public static void Open(int id)
+        {
+            using (var db = new MyDbContext())
+            {
+                var suggestion = db.Suggestion.Single(s => s.Id == id);
+                suggestion.IsClosed = false;
+                db.Entry(suggestion).CurrentValues.SetValues(suggestion);
+                db.SaveChanges();
             }
         }
 
