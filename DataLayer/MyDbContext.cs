@@ -13,7 +13,6 @@ namespace DataAccessLayer
             Database.Connection.ConnectionString = Properties.Settings.Default.Database;
         }
 
-       // public DbSet<AddressBook> Test { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Suggestion> Suggestion { get; set; }
         public DbSet<Sport> Sport { get; set; }

@@ -39,17 +39,9 @@ namespace DataAccessLayer
         {
             using (var db = new MyDbContext())
             {
-                Suggestion suggestion = db.Suggestion.Single((i => i.Id == updatedSuggestion.Id));
-
-                suggestion.Title = updatedSuggestion.Title;
-                suggestion.Sport = updatedSuggestion.Sport;
-                suggestion.StartDate = updatedSuggestion.StartDate;
-                suggestion.EndDate = updatedSuggestion.EndDate;
-                suggestion.Description = updatedSuggestion.Description;
-                suggestion.MinimumUsers = updatedSuggestion.MinimumUsers;
-                suggestion.MaximumUsers = updatedSuggestion.MaximumUsers;
-                suggestion.Location = updatedSuggestion.Location;
-
+                var suggestion = db.Suggestion.Single((i => i.Id == updatedSuggestion.Id));
+                updatedSuggestion.LocationId = updatedSuggestion.Location.Id;
+                db.Entry(suggestion).CurrentValues.SetValues(updatedSuggestion);
                 db.SaveChanges();
             }
         }
