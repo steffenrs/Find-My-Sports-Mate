@@ -68,7 +68,6 @@ namespace BusinessLayer
             }
         }
 
-
         public static List<Suggestion> GetByUser(int userId)
         {
             return DataAccessLayer.SuggestionAccess.GetByJoinedUser(userId);
@@ -98,15 +97,11 @@ namespace BusinessLayer
                     }
 
                     SuggestionBusiness.Update(suggestion, suggestion.CreatorId);
-
                 }
-               
-
                 return true;
             }
             else 
                 return false;
         }
-
     }
 }
