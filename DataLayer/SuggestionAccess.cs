@@ -40,7 +40,7 @@ namespace DataAccessLayer
             using (var db = new MyDbContext())
             {
                 var suggestion = db.Suggestion.Single((i => i.Id == updatedSuggestion.Id));
-                updatedSuggestion.LocationId = updatedSuggestion.Location.Id;
+                updatedSuggestion.CreatorId = suggestion.CreatorId;
                 db.Entry(suggestion).CurrentValues.SetValues(updatedSuggestion);
                 db.SaveChanges();
             }
