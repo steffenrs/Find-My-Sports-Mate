@@ -48,8 +48,6 @@ namespace BusinessLayer
 
             suggestion.IsClosed = false;
             DataAccessLayer.SuggestionAccess.Update(suggestion);
-
-            //DataAccessLayer.SuggestionAccess.Open(id);
         }
 
         public static void Close(int id, int userId)
@@ -59,8 +57,6 @@ namespace BusinessLayer
             suggestion.LocationId = LocationBusiness.NearestLocationForUsers(suggestion).Id;
             suggestion.IsClosed = true;
             SuggestionBusiness.Update(suggestion, userId);
-            
-            //DataAccessLayer.SuggestionAccess.Close(id);
         }
 
         private static void ValidateUserAccess(int id, int userId)
@@ -95,13 +91,16 @@ namespace BusinessLayer
                 if (suggestion.JoinedUsers.Count >= suggestion.MinimumUsers)
                 {
                     suggestion.Location = LocationBusiness.NearestLocationForUsers(suggestion);
+                    
+                    if (suggestion.JoinedUsers.Count == suggestion.MaximumUsers)
+                    {
+                        suggestion.IsClosed = true;
+                    }
+
                     SuggestionBusiness.Update(suggestion, suggestion.CreatorId);
 
                 }
-                if (suggestion.JoinedUsers.Count == suggestion.MaximumUsers)
-                {
-                    DataAccessLayer.SuggestionAccess.Close(suggestion.Id);
-                }
+               
 
                 return true;
             }
