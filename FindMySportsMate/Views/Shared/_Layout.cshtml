@@ -10,6 +10,11 @@
     <script src="@Url.Content("~/Scripts/jquery-ui-1.8.19.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+    <script>
+        $(function () {
+            $("input:submit, .button").button();
+        });
+    </script>
 </head>
 @if (HttpContext.Current.Request.IsAuthenticated){
     ViewBag.Email = ((PresentationLayer.CustomPrincipal)HttpContext.Current.User).Identity.Name;
