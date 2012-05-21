@@ -87,6 +87,8 @@ namespace PresentationLayer.Controllers
 
                 try
                 {
+                    suggestion.IsClosed = BusinessLayer.SuggestionBusiness.GetById(suggestion.Id).IsClosed;
+
                     // Validate suggestion with user
                     int userId = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name).Id;
 
