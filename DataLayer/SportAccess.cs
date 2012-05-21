@@ -39,6 +39,14 @@ namespace DataAccessLayer
             }
         }
 
+        public static List<Sport> GetAll()
+        {
+            using (var db = new MyDbContext())
+            {
+                return (from s in db.Sport select s).ToList();
+            }
+        }
+
         private static void validateName(string name)
         {
             if (name == null || name.Equals(""))
