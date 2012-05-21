@@ -64,21 +64,5 @@ namespace DataAccessLayer
             }
             return user;
         }
-
-        //public static List<User> GetAllUsers()
-        //{
-        //    //
-        //}
-
-        public static void Delete(User user)
-        {
-            using (var db = new MyDbContext())
-            {
-                db.User.Attach(user);
-                //User dbUser = db.User.Single(i => i.Id == user.Id);
-                db.User.Remove(user);
-                db.SaveChanges();
-            }
-        }
     }
 }

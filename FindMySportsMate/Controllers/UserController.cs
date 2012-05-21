@@ -255,18 +255,6 @@ namespace PresentationLayer
             return View(model);
         }
 
-        /// <summary>
-        /// Get Delete user
-        /// </summary>
-        /// <returns>Edit view</returns>
-        [CustomAuthorize]
-        public ActionResult Delete()
-        {
-                User userToBeDeleted = UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name);
-                UserBusiness.Delete(userToBeDeleted);
-                FormsAuthentication.SignOut();
-                return RedirectToAction("LogOn");
-        }
         //
         // GET: /Account/ChangePasswordSuccess
 
