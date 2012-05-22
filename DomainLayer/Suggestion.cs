@@ -35,5 +35,7 @@ namespace Domain
         public Boolean IsClosed { get; set; }
         public int MinimumUsers { get; set; }
         public int MaximumUsers { get; set; }
+
+        public string MostPopularDays { get; set; }
     }
 }

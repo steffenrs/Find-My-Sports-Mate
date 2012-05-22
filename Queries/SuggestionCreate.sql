@@ -1,15 +1,22 @@
-USE [FindMySportsMate]
+USE [n8487171]
 GO
 
-/****** Object:  Table [dbo].[Suggestion]    Script Date: 05/12/2012 07:14:33 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Suggestion_User]') AND parent_object_id = OBJECT_ID(N'[dbo].[Suggestion]'))
+ALTER TABLE [dbo].[Suggestion] DROP CONSTRAINT [FK_Suggestion_User]
+GO
+
+USE [n8487171]
+GO
+
+/****** Object:  Table [dbo].[Suggestion]    Script Date: 05/22/2012 05:43:42 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Suggestion]') AND type in (N'U'))
 DROP TABLE [dbo].[Suggestion]
 GO
 
-USE [FindMySportsMate]
+USE [n8487171]
 GO
 
-/****** Object:  Table [dbo].[Suggestion]    Script Date: 05/12/2012 13:48:49 ******/
+/****** Object:  Table [dbo].[Suggestion]    Script Date: 05/22/2012 05:43:43 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -31,6 +38,7 @@ CREATE TABLE [dbo].[Suggestion](
 	[IsClosed] [bit] NOT NULL,
 	[MinimumUsers] [int] NOT NULL,
 	[MaximumUsers] [int] NOT NULL,
+	[MostPopularDays] [varchar](50) NULL,
  CONSTRAINT [PK_Suggestion] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -49,4 +57,5 @@ GO
 
 ALTER TABLE [dbo].[Suggestion] CHECK CONSTRAINT [FK_Suggestion_User]
 GO
+
 

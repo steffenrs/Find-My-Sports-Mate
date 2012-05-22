@@ -32,9 +32,10 @@ namespace BusinessLayer
                 suggestion.JoinedUsers.Add(joinedUser);
                 DataAccessLayer.JoinedUserAccess.Add(joinedUser);
 
-                // Find a location if min users are set
+                // Find a location and playdays if min users are set
                 if (suggestion.JoinedUsers.Count >= suggestion.MinimumUsers)
                 {
+                    suggestion.MostPopularDays = JoinedUserBusiness.GetMostPopularDaysForSuggestion(suggestion.Id);
                     suggestion.LocationId = LocationBusiness.NearestLocationForUsers(suggestion).Id;
 
                     // Close suggestion if max users reached

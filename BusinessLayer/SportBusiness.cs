@@ -17,5 +17,23 @@ namespace BusinessLayer
         {
             DataAccessLayer.SportAccess.Create(suggestionSport);
         }
+
+        public static String GetAllFormattedString()
+        {
+            List<Sport> sports = DataAccessLayer.SportAccess.GetAll();
+
+            StringBuilder formattedString = new StringBuilder();
+            
+            foreach (Sport sport in sports)
+            {
+                formattedString.Append(sport.Name + ",");
+            }
+
+            // Remove last comma
+            if (formattedString.Length > 0)
+                formattedString.Remove(formattedString.Length - 1, 1);
+
+            return formattedString.ToString();
+        }
     }
 }
