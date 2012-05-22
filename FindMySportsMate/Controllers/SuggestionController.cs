@@ -151,6 +151,10 @@ namespace PresentationLayer.Controllers
                 int userId = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name).Id;
                 BusinessLayer.SuggestionBusiness.JoinSuggestion(userId, id, weekdays.ToString());
                 suggestion.JoinedUsers = BusinessLayer.JoinedUserBusiness.GetBySuggestion(suggestion.Id);
+
+                //get updated location
+                suggestion.Location = BusinessLayer.SuggestionBusiness.GetById(id).Location;
+
                 var model = new DashboardViewModel { SelectedSuggestion = SuggestionViewModel.FromModel(suggestion) };
       
                 return PartialView("_SuggestionDetails", model.SelectedSuggestion);
