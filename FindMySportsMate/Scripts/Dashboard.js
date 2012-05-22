@@ -72,7 +72,9 @@ function openDialog() {
 
 function selectFunction() {
     var fields = $("#weekdays");
-    fields.clone().appendTo("#suggestions-join-form");
+    var clone = fields.clone();
+    clone.appendTo("#suggestions-join-form");
+    clone.css("display", "none");
 
     $("#suggestions-join-form").submit();
 }
