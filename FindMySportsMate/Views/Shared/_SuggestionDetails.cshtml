@@ -15,7 +15,7 @@
     <div class="main-title">Suggestion details</div>
     @if (Model != null)
     {
-    <div id="suggestions-left-div">
+        <div id="suggestions-left-div">
         
 
         <div class="sub-title" id="suggestion-title">@Html.DisplayTextFor(m => m.Title)</div> 
@@ -57,21 +57,20 @@
     
     <div style="width:50%">
     <!-- if user already have joined the suggestion, !-->
-    
         @{
-        int id = Convert.ToInt32(((PresentationLayer.CustomPrincipal)HttpContext.Current.User).UserID);
-        if (Model.JoinedUsers.FindAll(m => m.User.Id == id).Count > 0)
-        {
-                <div id="suggestions-join" disabled="true">Joined</div>
-        }
-        else if (Model.IsClosed)
-        {
-                <div id="suggestions-join" disabled="true">Closed</div>
-        }
-        else
-        {
-                <div id="suggestions-join" onclick="joinSuggestion(@Model.Id)">Join suggestion!</div>
-        }
+            int id = Convert.ToInt32(((PresentationLayer.CustomPrincipal)HttpContext.Current.User).UserID);
+            if (Model.JoinedUsers.FindAll(m => m.User.Id == id).Count > 0)
+            {
+                    <div id="suggestions-join" disabled="true">Joined</div>
+            }
+            else if (Model.IsClosed)
+            {
+                    <div id="suggestions-join" disabled="true">Closed</div>
+            }
+            else
+            {
+                    <div id="suggestions-join" onclick="joinSuggestion(@Model.Id)">Join suggestion!</div>
+            }
          }
     </div>
     }
@@ -79,7 +78,7 @@
     {
         @Html.Encode("No suggestions have been created.")
     }
-       @using (Ajax.BeginForm("Join", "Suggestion", new { }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "suggestions-content" }, new { id = "suggestions-join-form" }))
+       @using (Ajax.BeginForm("Join", "Suggestion", new { }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "suggestions-content", OnSuccess="(function() { updateUserCount(); })", new { id = "suggestions-join-form" }))
        {
            @Html.HiddenFor(m => m.Id)
            Html.RenderPartial("_JoinSuggestion", new PresentationLayer.Weekdays());

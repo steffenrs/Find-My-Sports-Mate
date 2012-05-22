@@ -100,6 +100,7 @@ namespace DataAccessLayer
                         .Include("JoinedUsers")
                         .Include("Creator") 
                         .Include("Location")
+                        where s.IsClosed == false
                         select s).ToList();
             }
         }
