@@ -15,28 +15,41 @@ namespace BusinessLayer
                 UserId = suggestion.CreatorId,
                 Weekdays = weekdays
             };
+
             suggestion.JoinedUsers.Add(u);
 
             DataAccessLayer.SuggestionAccess.Create(suggestion);
         }
-        public static Suggestion GetById(int suggestionId)
-        {
-            return DataAccessLayer.SuggestionAccess.Get(suggestionId);
-        }
-        public static void Update(Suggestion suggestion, int userId)
-        {
-            ValidateUserAccess(suggestion.Id, userId);
-            DataAccessLayer.SuggestionAccess.Update(suggestion);
-        }
-        public static void Delete(int suggestionId, int userId)
-        {
-            ValidateUserAccess(suggestionId, userId);
-            DataAccessLayer.SuggestionAccess.Delete(suggestionId);
-        }
 
-        public static List<Suggestion> GetAll()
+        public static bool JoinSuggestion(int userId, int suggestionId, string weekdays)
         {
-            return DataAccessLayer.SuggestionAccess.GetAll();
+            Suggestion suggestion = SuggestionBusiness.GetById(suggestionId);
+
+            // Join if not closed, not full and not already joined
+            if (!suggestion.IsClosed && suggestion.JoinedUsers.Count < suggestion.MaximumUsers && HasUserJoined(userId, suggestion))
+            {
+                var joinedUser = new JoinedUser { UserId = userId, SuggestionId = suggestionId, Weekdays = weekdays };
+                suggestion.JoinedUsers.Add(joinedUser);
+                DataAccessLayer.JoinedUserAccess.Add(joinedUser);
+
+                // Find a location if min users are set
+                if (suggestion.JoinedUsers.Count >= suggestion.MinimumUsers)
+                {
+                    suggestion.LocationId = LocationBusiness.NearestLocationForUsers(suggestion).Id;
+
+                    // Close suggestion if max users reached
+                    if (suggestion.JoinedUsers.Count == suggestion.MaximumUsers)
+                    {
+                        suggestion.IsClosed = true;
+                    }
+
+                    SuggestionBusiness.Update(suggestion, suggestion.CreatorId);
+                }
+
+                return true;
+            }
+            else
+                return false;
         }
 
         public static void Open(int id, int userId)
@@ -59,6 +72,23 @@ namespace BusinessLayer
             SuggestionBusiness.Update(suggestion, userId);
         }
 
+       
+        public static void Update(Suggestion suggestion, int userId)
+        {
+            ValidateUserAccess(suggestion.Id, userId);
+            DataAccessLayer.SuggestionAccess.Update(suggestion);
+        }
+
+        public static List<Suggestion> GetAll()
+        {
+            return DataAccessLayer.SuggestionAccess.GetAll();
+        }
+
+        public static Suggestion GetById(int suggestionId)
+        {
+            return DataAccessLayer.SuggestionAccess.Get(suggestionId);
+        }
+
         private static void ValidateUserAccess(int id, int userId)
         {
             Suggestion suggestion = DataAccessLayer.SuggestionAccess.Get(id);
@@ -76,37 +106,6 @@ namespace BusinessLayer
         public static List<Suggestion> GetByCreator(int userId)
         {
             return DataAccessLayer.SuggestionAccess.GetAllByCreator(userId);
-        }
-
-        public static bool JoinSuggestion(int userId, int suggestionId, string weekdays) 
-        {
-            Suggestion suggestion = SuggestionBusiness.GetById(suggestionId);
-
-            // Join if not closed, not full and not already joined
-            if (!suggestion.IsClosed && suggestion.JoinedUsers.Count < suggestion.MaximumUsers && HasUserJoined(userId, suggestion))
-            {
-                var joinedUser = new JoinedUser { UserId = userId, SuggestionId = suggestionId, Weekdays = weekdays };
-                suggestion.JoinedUsers.Add(joinedUser);
-                DataAccessLayer.JoinedUserAccess.Add(joinedUser);
-
-                // Find a location if min users are set
-                if (suggestion.JoinedUsers.Count >= suggestion.MinimumUsers)
-                {
-                    suggestion.Location = LocationBusiness.NearestLocationForUsers(suggestion);
-
-                    // Close suggestion if max users reached
-                    if (suggestion.JoinedUsers.Count == suggestion.MaximumUsers)
-                    {
-                        suggestion.IsClosed = true;
-                    }
-
-                    SuggestionBusiness.Update(suggestion, suggestion.CreatorId);
-                }
-
-                return true;
-            }
-            else 
-                return false;
         }
 
         private static bool HasUserJoined(int userId, Suggestion suggestion)
