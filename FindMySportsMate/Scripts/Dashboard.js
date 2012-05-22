@@ -15,15 +15,11 @@
 function getSuggestion(id) {
     var suggestionDetails = $("#suggestions-content");
     $.ajax({
-        url: suggestionDetails.data('update-url')+"/"+id,
+        url: suggestionDetails.data('update-url') + "/" + id,
         type: "POST",
-        success: updateSuggestionDetails
+        success: function (data) { $("#suggestions-content").html(data); }
     });
 };
-
-function updateSuggestionDetails(data) {
-    $("#suggestions-content").html(data);
-}
 
 function joinSuggestion(id) {
     openDialog();
@@ -35,7 +31,8 @@ function closeSuggestion(id) {
         url: suggestionDetails.data('close-suggestion-url') + "/" + id,
         type: "POST",
         success: function (data, textStatus, jqXHR) {
-            closedSuccess(data, id);
+            $("#suggestions-table-view").html(data);
+            $("#suggestions-tabs").tabs({ selected: 2 });
         }
     });
 }
@@ -45,22 +42,12 @@ function openSuggestion(id) {
     $.ajax({
         url: suggestionDetails.data('open-suggestion-url') + "/" + id,
         type: "POST",
-        success: function (data, textStatus, jqXHR) {
-            openSuccess(data, id);
+        success: function (data) {
+            $("#suggestions-table-view").html(data);
+            $("#suggestions-tabs").tabs({ selected: 2 });
         }
     });
 }
-
-function openSuccess(data, id) {
-    $("#suggestions-table-view").html(data);
-    $("#suggestions-tabs").tabs( { selected: 2 } );
-}
-
-function closedSuccess(data, id) {
-    $("#suggestions-table-view").html(data);
-    $("#suggestions-tabs").tabs({ selected: 2 });
-}
-
 
 function createJoinDialog() {
     var elem = $("#join-suggestion").dialog({
