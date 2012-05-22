@@ -14,7 +14,39 @@ namespace PresentationLayer
 {
     public class UserController : Controller
     {
+         //
+        // GET: /Dashboard/
+        [CustomAuthorize]
+        public ActionResult Profile(int Id)
+        {
+            try
+            {
+                User user = BusinessLayer.UserBusiness.GetUserById(Id);
+                UserViewModel viewModel = new UserViewModel
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Gender = user.Gender,
+                    BirthDate = user.BirthDate,
+                    Email = user.Email,
+                    StreetAddress = user.StreetAddress,
+                    Area = user.Area,
+                    State = user.State,
+                    PhoneNumber = user.PhoneNumber
+                };
 
+                return View(viewModel);
+            }
+            catch (DomainException e)
+            {
+                return View("Error");
+            }
+            catch (Exception e)
+            {
+                return View("Error");
+            }
+        }
+        
         // GET: /Account/LogOn
         public ActionResult LogOn()
         {

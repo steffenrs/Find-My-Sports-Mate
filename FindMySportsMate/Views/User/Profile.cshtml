@@ -1,83 +1,66 @@
 ﻿@model PresentationLayer.UserViewModel
 
 @{
-    ViewBag.Title = "View";
+    ViewBag.Title = "Profile";
 }
 
-<h2>NAME OF ACCOUNT</h2>
+<h2>@Model.FirstName @Model.LastName</h2>
 <p>
     LOL!
 </p>
 
 
 @using (Html.BeginForm()) {
-    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+
     <div>
         <fieldset>
-            <legend>Please Provide Your Information</legend>
+            <legend>Profile information</legend>
             <div style="float:left">
             <div class="editor-label">
                 @Html.LabelFor(m => m.FirstName)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.FirstName)
+                @Html.TextBoxFor(m => m.FirstName, new { disabled="disabled" })
             </div>
              <div class="editor-label">
                 @Html.LabelFor(m => m.LastName)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.LastName)
+                @Html.TextBoxFor(m => m.LastName, new { disabled = "disabled" })
             </div>
             <div class="editor-label">
                 @Html.LabelFor(m => m.Gender)
             </div>
             <div class="editor-field">
-                @Html.RadioButtonFor(x => x.Gender,true)
-                @Html.RadioButtonFor(x => x.Gender, false)
+                @Html.TextBoxFor(m => m.Gender, new { disabled = "disabled" })
             </div>
             <div class="editor-label">
                 @Html.LabelFor(m => m.BirthDate)
             </div>
             <div class="editor-field">
-                @Html.EditorFor(m => m.BirthDate)
+                @Html.TextBoxFor(m => m.BirthDate, new { disabled = "disabled" })
             </div>
             <div class="editor-label">
                 @Html.LabelFor(m => m.Email)
             </div>
             <div class="editor-field">
-                @Html.DisplayTextFor(m => m.Email)
-                @Html.ValidationMessageFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email, new { disabled = "disabled" })
+            </div>
             </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(m => m.Password)
-            </div>
-            <div class="editor-field">
-                @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(m => m.ConfirmPassword)
-            </div>
-            <div class="editor-field">
-                @Html.PasswordFor(m => m.ConfirmPassword)
-                @Html.ValidationMessageFor(m => m.ConfirmPassword)
-            </div>
-            </div>
             <div style="float:left">
             <div class="editor-label">
                 @Html.LabelFor(m => m.StreetAddress)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.StreetAddress)
+                @Html.TextBoxFor(m => m.StreetAddress, new { disabled = "disabled" })
                 @*Html.ValidationMessageFor(m => m.Email)*@
             </div>
             <div class="editor-label">
                 @Html.LabelFor(m => m.Area)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.Area)
+                @Html.TextBoxFor(m => m.Area, new { disabled = "disabled" })
                 @*Html.ValidationMessageFor(m => m.Email)*@
             </div>
 
@@ -85,20 +68,18 @@
                 @Html.LabelFor(m => m.State)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.State)
+                @Html.TextBoxFor(m => m.State, new { disabled = "disabled" })
                 @*Html.ValidationMessageFor(m => m.Email)*@
             </div>
            <div class="editor-label">
                 @Html.LabelFor(m => m.PhoneNumber)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.PhoneNumber)
+                @Html.TextBoxFor(m => m.PhoneNumber, new { disabled = "disabled" })
             </div>
-                            
+                     
             </div>
-            <p style="clear:both">
-                <input type="submit" value="Register" />
-            </p>
+            
         </fieldset>
     </div>
 }
