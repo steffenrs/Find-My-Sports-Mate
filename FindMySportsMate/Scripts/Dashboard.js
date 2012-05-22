@@ -37,19 +37,45 @@ function joinSuggestion(id) {
 }
 
 function closeSuggestion(id) {
-    var suggestionDetails = $("#tabs-2");
+    var suggestionDetails = $("#tabs-3");
     $.ajax({
         url: suggestionDetails.data('close-suggestion-url') + "/" + id,
-        type: "POST"
+        type: "POST",
+        success: closedSuccess(id)
     });
 }
 
+
+
 function openSuggestion(id) {
-    var suggestionDetails = $("#tabs-2");
+    var suggestionDetails = $("#tabs-3");
     $.ajax({
         url: suggestionDetails.data('open-suggestion-url') + "/" + id,
-        type: "POST"
+        type: "POST",
+        success: openSuccess(id)
     });
+}
+
+function openSuccess(id) {
+    var status = $("#suggestion-status-" + id);
+
+    var html = "Open <a id='suggestion-lock-"+ id +"' href='#' onclick='closeSuggestion("+ id +")'>";
+
+    var suggestionDetails = $("#tabs-3");
+    var src = suggestionDetails.data("close-suggestion-img");
+    html += "<img class='suggestions-table-icon' alt='Close suggestion' src='" + src + "' />";
+    status.html(html);
+}
+
+function closedSuccess(id) {
+    var status = $("#suggestion-status-" + id);
+
+    var html = "Closed <a id='suggestion-lock-" + id + "' href='#' onclick='openSuggestion(" + id + ")'>";
+
+    var suggestionDetails = $("#tabs-3");
+    var src = suggestionDetails.data("open-suggestion-img");
+    html += "<img class='suggestions-table-icon' alt='Open suggestion' src='" + src + "' />";
+    status.html(html);
 }
 
 
