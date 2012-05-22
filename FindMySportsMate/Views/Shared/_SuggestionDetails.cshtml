@@ -48,12 +48,11 @@
         }
         else
         {
-            <text>A map will be generated when the minimum users have joined.</text> 
+            @Html.Encode("A map will be generated when the minimum users have joined.");
         }
     </div>
     
     <div style="width:50%">
-    <!-- if user already have joined the suggestion, !-->
         @{
             int id = Convert.ToInt32(((PresentationLayer.CustomPrincipal)HttpContext.Current.User).UserID);
             if (Model.JoinedUsers.FindAll(m => m.User.Id == id).Count > 0)
@@ -68,16 +67,15 @@
             {
                     <div id="suggestions-join" onclick="joinSuggestion(@Model.Id)">Join suggestion!</div>
             }
-            }
+        }
     </div>
 }
 else
 {
     @Html.Encode("No suggestions have been created.")
 }
-    @using (Ajax.BeginForm("Join", "Suggestion", new { }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "suggestions-content" }, new { id = "suggestions-join-form" }))
-    {
-        @Html.HiddenFor(m => m.Id)
-        Html.RenderPartial("_JoinSuggestion", new PresentationLayer.Weekdays());
-    }
-</div>
+@using (Ajax.BeginForm("Join", "Suggestion", new { }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "suggestions-content" }, new { id = "suggestions-join-form" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    Html.RenderPartial("_JoinSuggestion", new PresentationLayer.Weekdays());
+}
