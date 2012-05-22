@@ -12,6 +12,7 @@
     <ul>
         <li><a href="#tabs-1">All Suggestions</a></li>
         <li><a href="#tabs-2">Joined Suggestions</a></li>
+        <li><a href="#tabs-3">My Suggestions</a></li>
     </ul>
     <div id="tabs-1">
         <table class="suggestions-table" cellspacing="0">
@@ -34,8 +35,8 @@
             }
         </table>
     </div>
-    <div id="tabs-2" data-open-suggestion-url=@Url.Action("Open", "Suggestion") data-close-suggestion-url=@Url.Action("Close", "Suggestion")>
-                <table class="suggestions-table" cellspacing="0">
+    <div id="tabs-2">
+        <table class="suggestions-table" cellspacing="0">
             <tr>
                 <th>Name</th>
                 <th>Sport</th>
@@ -49,10 +50,39 @@
                 <tr>
                     <td>
                         <a href="#suggestions-details" onclick="getSuggestion(@suggestion.Id)">@suggestion.Title</a>
-                        @if (isOwner)
-                        {
-                            <a href='@Url.Action("Edit", "Suggestion", new { id = suggestion.Id })'><img class="suggestions-table-icon" style="padding-right: 20px" src="../../Content/images/pencil3.png" /></a>
+                    </td>
+                    <td>@suggestion.Sport.Name</td>
+                    <td>@suggestion.StartDate.ToString("dd.MM.yy") - @suggestion.EndDate.ToString("dd.MM.yy")</td>
+                    <td>@suggestion.JoinedUsers.Count/@suggestion.MaximumUsers</td>
+                    <td>
+                        @if (suggestion.IsClosed)
+                        { 
+                            @Html.Encode("Closed") 
                         }
+                        else
+                        { 
+                            @Html.Encode("Open") 
+                        }
+                    </td>
+               </tr>
+            }
+        </table>
+    </div>
+      <div id="tabs-3" data-open-suggestion-url=@Url.Action("Open", "Suggestion") data-close-suggestion-url=@Url.Action("Close", "Suggestion")>
+        <table class="suggestions-table" cellspacing="0">
+            <tr>
+                <th>Name</th>
+                <th>Sport</th>
+                <th>Time Period</th>
+                <th>No</th>
+                <th>Status</th>
+            </tr>
+            @foreach(Domain.Suggestion suggestion in Model.OwnedSuggestions)
+            {
+                <tr>
+                    <td>
+                        <a href="#suggestions-details" onclick="getSuggestion(@suggestion.Id)">@suggestion.Title</a>
+                        <a href='@Url.Action("Edit", "Suggestion", new { id = suggestion.Id })'><img class="suggestions-table-icon" style="padding-right: 20px" src="../../Content/images/pencil3.png" /></a>
                     </td>
                     <td>@suggestion.Sport.Name</td>
                     <td>@suggestion.StartDate.ToString("dd.MM.yy") - @suggestion.EndDate.ToString("dd.MM.yy")</td>
@@ -66,17 +96,13 @@
                     { 
                         @Html.Encode("Open") 
                     }
-                    @if (isOwner)
+                    @if (suggestion.IsClosed && suggestion.JoinedUsers.Count < suggestion.MaximumUsers)
                     {
-                        if (suggestion.IsClosed && suggestion.JoinedUsers.Count < suggestion.MaximumUsers)
-                        {
-                            
-                            <a onclick="openSuggestion(@suggestion.Id)" href="#"><img class="suggestions-table-icon" alt="Open suggestion" src="../../Content/images/stock_lock_open.png" /></a>
-                        }
-                        else if (!suggestion.IsClosed)
-                        {    
-                            <a onclick="closeSuggestion(@suggestion.Id)" href="#"><img class="suggestions-table-icon" alt="Close suggestion" src="../../Content/images/stock_lock.png" /></a>
-                        }
+                        <a onclick="openSuggestion(@suggestion.Id)" href="#"><img class="suggestions-table-icon" alt="Open suggestion" src="../../Content/images/stock_lock_open.png" /></a>
+                    }
+                    else if (!suggestion.IsClosed)
+                    {    
+                        <a onclick="closeSuggestion(@suggestion.Id)" href="#"><img class="suggestions-table-icon" alt="Close suggestion" src="../../Content/images/stock_lock.png" /></a>
                     }
                     </td>
                </tr>
