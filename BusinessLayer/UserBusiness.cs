@@ -28,15 +28,5 @@ namespace BusinessLayer
         {
             return DataAccessLayer.UserAccess.GetUserById(userId);
         }
-
-        //public static List<User> GetAllUsers()
-        //{
-        //    //
-        //}
-
-        public static void Delete(User user)
-        {
-            DataAccessLayer.UserAccess.Delete(user);
-        }
     }
 }

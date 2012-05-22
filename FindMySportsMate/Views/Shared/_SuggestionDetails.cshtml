@@ -33,11 +33,11 @@
                 {
                     if (Model.Creator.Id != joinedUser.User.Id)
                     {
-                    <li>@Html.ActionLink(joinedUser.User.FirstName + " " + joinedUser.User.LastName, "View", "User", new { Id = joinedUser.User.Id }, new { })</li>
+                    <li>@Html.ActionLink(joinedUser.User.FirstName + " " + joinedUser.User.LastName, "Profile", "User", new { Id = joinedUser.User.Id }, new { })</li>
                     }
                     else
                     {
-                    <li>@Html.ActionLink(joinedUser.User.FirstName + " " + joinedUser.User.LastName+" (Creator)", "View", "User", new { Id = joinedUser.User.Id }, new { })</li>
+                    <li>@Html.ActionLink(joinedUser.User.FirstName + " " + joinedUser.User.LastName+" (Creator)", "Profile", "User", new { Id = joinedUser.User.Id }, new { })</li>
                     }
                 }
             </ul>

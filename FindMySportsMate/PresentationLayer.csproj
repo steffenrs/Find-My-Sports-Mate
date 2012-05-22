@@ -226,7 +226,7 @@
     <Content Include="Views\User\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\User\View.cshtml" />
+    <Content Include="Views\User\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Suggestion\Edit.cshtml" />
