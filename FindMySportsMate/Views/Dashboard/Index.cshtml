@@ -12,4 +12,6 @@
 <div id="suggestions-table-view">
     @{ Html.RenderPartial("_SuggestionTable", Model, new ViewDataDictionary()); }
 </div>
+<div id="suggestions-content" data-join-url="@Url.Action("Join", "Suggestion")" data-update-url="@Url.Action("GetSuggestion", "Suggestion")" data-view-user="@Url.Action("View", "User")">
     @{ Html.RenderPartial("_SuggestionDetails", Model.SelectedSuggestion, new ViewDataDictionary()); }
+</div>
