@@ -83,7 +83,7 @@ namespace BusinessLayer
             Suggestion suggestion = SuggestionBusiness.GetById(suggestionId);
 
             // Join if not closed, not full and not already joined
-            if (!suggestion.IsClosed && suggestion.JoinedUsers.Count < suggestion.MaximumUsers && suggestion.JoinedUsers.FindAll(j => j.UserId == userId).Count == 0)
+            if (!suggestion.IsClosed && suggestion.JoinedUsers.Count < suggestion.MaximumUsers && HasUserJoined(userId, suggestion))
             {
                 var joinedUser = new JoinedUser { UserId = userId, SuggestionId = suggestionId, Weekdays = weekdays };
                 suggestion.JoinedUsers.Add(joinedUser);
@@ -107,6 +107,11 @@ namespace BusinessLayer
             }
             else 
                 return false;
+        }
+
+        private static bool HasUserJoined(int userId, Suggestion suggestion)
+        {
+            return suggestion.JoinedUsers.FindAll(j => j.UserId == userId).Count == 0;
         }
     }
 }
