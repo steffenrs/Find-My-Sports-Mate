@@ -1,9 +1,4 @@
-﻿$(function () {
-    $("#suggestions-tabs").tabs();
-    $("#suggestions-join").button();
-});
-
-function showMap(Lat,Lon) {
+﻿function showMap(Lat,Lon) {
     var myLatLong = new google.maps.LatLng(Lat,Lon);
     var myOptions = {
         center: myLatLong,
@@ -57,26 +52,13 @@ function openSuggestion(id) {
 }
 
 function openSuccess(data, id) {
-    console.log(data);
-    var status = $("#suggestion-status-" + id);
-
-    var html = "Open <a id='suggestion-lock-"+ id +"' href='#' onclick='closeSuggestion("+ id +")'>";
-
-    var suggestionDetails = $("#tabs-3");
-    var src = suggestionDetails.data("close-suggestion-img");
-    html += "<img class='suggestions-table-icon' alt='Close suggestion' src='" + src + "' />";
-    status.html(html);
+    $("#suggestions-table-view").html(data);
+    $("#suggestions-tabs").tabs( { selected: 2 } );
 }
 
 function closedSuccess(data, id) {
-    var status = $("#suggestion-status-" + id);
-
-    var html = "Closed <a id='suggestion-lock-" + id + "' href='#' onclick='openSuggestion(" + id + ")'>";
-
-    var suggestionDetails = $("#tabs-3");
-    var src = suggestionDetails.data("open-suggestion-img");
-    html += "<img class='suggestions-table-icon' alt='Open suggestion' src='" + src + "' />";
-    status.html(html);
+    $("#suggestions-table-view").html(data);
+    $("#suggestions-tabs").tabs({ selected: 2 });
 }
 
 

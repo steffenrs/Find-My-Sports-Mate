@@ -77,7 +77,7 @@
     {
         @Html.Encode("No suggestions have been created.")
     }
-       @using (Ajax.BeginForm("Join", "Suggestion", new { }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "suggestions-content", OnSuccess="(function() { updateUserCount(); })", new { id = "suggestions-join-form" }))
+       @using (Ajax.BeginForm("Join", "Suggestion", new { }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "suggestions-content" }, new { id = "suggestions-join-form" }))
        {
            @Html.HiddenFor(m => m.Id)
            Html.RenderPartial("_JoinSuggestion", new PresentationLayer.Weekdays());

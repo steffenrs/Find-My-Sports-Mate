@@ -7,6 +7,7 @@ using Domain;
 using System.Text;
 using PresentationLayer;
 using System.Text.RegularExpressions;
+using BusinessLayer;
 
 namespace PresentationLayer.Controllers
 {
@@ -150,10 +151,10 @@ namespace PresentationLayer.Controllers
                 Suggestion suggestion = BusinessLayer.SuggestionBusiness.GetById(id);
                 int userId = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name).Id;
                 BusinessLayer.SuggestionBusiness.JoinSuggestion(userId, id, weekdays.ToString());
-                suggestion.JoinedUsers = BusinessLayer.JoinedUserBusiness.GetBySuggestion(suggestion.Id);
 
                 //get updated location
                 suggestion.Location = BusinessLayer.SuggestionBusiness.GetById(id).Location;
+                suggestion.JoinedUsers = BusinessLayer.JoinedUserBusiness.GetBySuggestion(suggestion.Id);
 
                 var model = new DashboardViewModel { SelectedSuggestion = SuggestionViewModel.FromModel(suggestion) };
       
@@ -166,17 +167,25 @@ namespace PresentationLayer.Controllers
         }
 
         [CustomAuthorizeAttribute]
-        public void Open(int id)
+        public ActionResult Open(int id)
         {
             int userId = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name).Id;
             BusinessLayer.SuggestionBusiness.Open(id, userId);
+
+            var model = new DashboardViewModel { AllSuggestions = SuggestionBusiness.GetAll(), OwnedSuggestions = SuggestionBusiness.GetByCreator(userId), JoinedSuggestions = SuggestionBusiness.GetByUser(userId) };
+
+            return PartialView("_SuggestionTable", model);
         }
 
         [CustomAuthorizeAttribute]
-        public void Close(int id)
+        public ActionResult Close(int id)
         {
             int userId = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name).Id;
             BusinessLayer.SuggestionBusiness.Close(id, userId);
+
+            var model = new DashboardViewModel { AllSuggestions = SuggestionBusiness.GetAll(), OwnedSuggestions = SuggestionBusiness.GetByCreator(userId), JoinedSuggestions = SuggestionBusiness.GetByUser(userId) };
+
+            return PartialView("_SuggestionTable", model);
         }
     }
 }
