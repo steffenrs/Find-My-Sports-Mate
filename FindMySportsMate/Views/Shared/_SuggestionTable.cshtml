@@ -69,8 +69,8 @@
         <div id="tabs-3" 
             data-open-suggestion-url=@Url.Action("Open", "Suggestion") 
             data-close-suggestion-url=@Url.Action("Close", "Suggestion")
-            data-open-suggestion-img=@Url.Content("~/Content/images/stock_lock_open.png")
-            data-close-suggestion-img=@Url.Content("~/Content/images/stock_lock.png") >
+            data-open-suggestion-img=@Url.Content("~/Content/images/stock_lock.png")
+            data-close-suggestion-img=@Url.Content("~/Content/images/stock_lock_open.png") >
             <table class="suggestions-table" cellspacing="0">
                 <tr>
                     <th>Name</th>
@@ -100,13 +100,13 @@
                         }
                         @if (suggestion.IsClosed && suggestion.JoinedUsers.Count < suggestion.MaximumUsers)
                         {
-                            <a id="suggestion-lock-@suggestion.Id" onclick="openSuggestion(@suggestion.Id)" href="#"><img class="suggestions-table-icon" alt="Open suggestion" src='@Url.Content("~/Content/images/stock_lock_open.png")' /></a>
+                            <a id="suggestion-lock-@suggestion.Id" onclick="openSuggestion(@suggestion.Id)" href="#"><img class="suggestions-table-icon" alt="Open suggestion" src='@Url.Content("~/Content/images/stock_lock.png")' /></a>
        
 
                         }
                         else if (!suggestion.IsClosed)
                         {    
-                            <a id="suggestion-lock-@suggestion.Id" onclick="closeSuggestion(@suggestion.Id)" href="#"><img class="suggestions-table-icon" alt="Close suggestion" src='@Url.Content("~/Content/images/stock_lock.png")' /></a>
+                            <a id="suggestion-lock-@suggestion.Id" onclick="closeSuggestion(@suggestion.Id)" href="#"><img class="suggestions-table-icon" alt="Close suggestion" src='@Url.Content("~/Content/images/stock_lock_open.png")' /></a>
                         }
                         </td>
                     </tr>

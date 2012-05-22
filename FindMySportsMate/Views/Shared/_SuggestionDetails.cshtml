@@ -16,63 +16,61 @@
     @if (Model != null)
     {
         <div id="suggestions-left-div">
-        
+            <div class="sub-title" id="suggestion-title">@Html.DisplayTextFor(m => m.Title)</div> 
+            <p id="description">@Html.DisplayTextFor(m => m.Description) </p><br />
+            <p id="sport">@Html.LabelFor(m => m.Sport): @Html.DisplayTextFor(m => m.Sport.Name)</p>
+            <p id="time-period">@Html.LabelFor(m => m.StartDate): @Model.StartDate.Day.@Model.StartDate.Month.@Model.StartDate.Year - @Model.EndDate.Day.@Model.EndDate.Month.@Model.EndDate.Year</p>
+            <p id="popular-days">@Html.LabelFor(m => m.MostPopularDays): @Model.MostPopularDays </p>
+            <p id="users">@Html.LabelFor(m => m.JoinedUsers): @Html.DisplayTextFor(m => m.JoinedUsers.Count) / @Html.DisplayTextFor(m => m.MaximumUsers)</p>                                                
+            <p id="status">@Html.LabelFor(m => m.IsClosed): @Html.DisplayFor(m => m.IsClosed)</p>
+            <p id="location">Location: @Html.DisplayFor(m => m.Location)</p>
 
-        <div class="sub-title" id="suggestion-title">@Html.DisplayTextFor(m => m.Title)</div> 
-        <p id="description">@Html.DisplayTextFor(m => m.Description) </p><br />
-        <p id="sport">@Html.LabelFor(m => m.Sport): @Html.DisplayTextFor(m => m.Sport.Name)</p>
-        <p id="time-period">@Html.LabelFor(m => m.StartDate): @Model.StartDate.Day.@Model.StartDate.Month.@Model.StartDate.Year - @Model.EndDate.Day.@Model.EndDate.Month.@Model.EndDate.Year</p>
-        <p id="popular-days">@Html.LabelFor(m => m.MostPopularDays): @Model.MostPopularDays </p>
-        <p id="users">@Html.LabelFor(m => m.JoinedUsers): @Html.DisplayTextFor(m => m.JoinedUsers.Count) / @Html.DisplayTextFor(m => m.MaximumUsers)</p>                                                
-        <p id="status">@Html.LabelFor(m => m.IsClosed): @Html.DisplayFor(m => m.IsClosed)</p>
-        <p id="location">Location: @Html.DisplayFor(m => m.Location)</p>
-
-        <div id="suggestions-user-list">
-            <p><br />Joined Users:</p>
-            <ul>
-                @foreach (var joinedUser in Model.JoinedUsers)
-                {
-                    if (Model.Creator.Id != joinedUser.User.Id)
+            <div id="suggestions-user-list">
+                <p><br />Joined Users:</p>
+                <ul>
+                    @foreach (var joinedUser in Model.JoinedUsers)
                     {
-                    <li>@Html.ActionLink(joinedUser.User.FirstName + " " + joinedUser.User.LastName, "Profile", "User", new { Id = joinedUser.User.Id }, new { })</li>
+                        if (Model.Creator.Id != joinedUser.User.Id)
+                        {
+                        <li>@Html.ActionLink(joinedUser.User.FirstName + " " + joinedUser.User.LastName, "Profile", "User", new { Id = joinedUser.User.Id }, new { })</li>
+                        }
+                        else
+                        {
+                        <li>@Html.ActionLink(joinedUser.User.FirstName + " " + joinedUser.User.LastName+" (Creator)", "Profile", "User", new { Id = joinedUser.User.Id }, new { })</li>
+                        }
                     }
-                    else
-                    {
-                    <li>@Html.ActionLink(joinedUser.User.FirstName + " " + joinedUser.User.LastName+" (Creator)", "Profile", "User", new { Id = joinedUser.User.Id }, new { })</li>
-                    }
-                }
-            </ul>
+                </ul>
+            </div>
         </div>
-    </div>
-    <div id="suggestions-right-div" style="width: 300px; height:300px">
-        @if (Model.Location != null)
-        {
-            <script>showMap(@Model.Location.Latitude,@Model.Location.Longitude);</script>
-        }
-        else
-        {
-            <text>A map will be generated when the minimum users have joined.</text> 
-        }
-    </div>
-    
-    <div style="width:50%">
-    <!-- if user already have joined the suggestion, !-->
-        @{
-            int id = Convert.ToInt32(((PresentationLayer.CustomPrincipal)HttpContext.Current.User).UserID);
-            if (Model.JoinedUsers.FindAll(m => m.User.Id == id).Count > 0)
+        <div id="suggestions-right-div" style="width: 300px; height:300px">
+            @if (Model.Location != null)
             {
-                    <div id="suggestions-join" disabled="true">Joined</div>
-            }
-            else if (Model.IsClosed)
-            {
-                    <div id="suggestions-join" disabled="true">Closed</div>
+                <script>showMap(@Model.Location.Latitude,@Model.Location.Longitude);</script>
             }
             else
             {
-                    <div id="suggestions-join" onclick="joinSuggestion(@Model.Id)">Join suggestion!</div>
+                <text>A map will be generated when the minimum users have joined.</text> 
             }
-         }
-    </div>
+        </div>
+    
+        <div style="width:50%">
+        <!-- if user already have joined the suggestion, !-->
+            @{
+                int id = Convert.ToInt32(((PresentationLayer.CustomPrincipal)HttpContext.Current.User).UserID);
+                if (Model.JoinedUsers.FindAll(m => m.User.Id == id).Count > 0)
+                {
+                        <div id="suggestions-join" disabled="true">Joined</div>
+                }
+                else if (Model.IsClosed)
+                {
+                        <div id="suggestions-join" disabled="true">Closed</div>
+                }
+                else
+                {
+                        <div id="suggestions-join" onclick="joinSuggestion(@Model.Id)">Join suggestion!</div>
+                }
+             }
+        </div>
     }
     else
     {
