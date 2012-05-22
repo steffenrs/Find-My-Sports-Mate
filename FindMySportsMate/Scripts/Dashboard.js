@@ -32,8 +32,6 @@ function updateSuggestionDetails(data) {
 
 function joinSuggestion(id) {
     openDialog();
-
-    var suggestionDetails = $("#suggestions-content");
 }
 
 function closeSuggestion(id) {
@@ -41,22 +39,25 @@ function closeSuggestion(id) {
     $.ajax({
         url: suggestionDetails.data('close-suggestion-url') + "/" + id,
         type: "POST",
-        success: closedSuccess(id)
+        success: function (data, textStatus, jqXHR) {
+            closedSuccess(data, id);
+        }
     });
 }
-
-
 
 function openSuggestion(id) {
     var suggestionDetails = $("#tabs-3");
     $.ajax({
         url: suggestionDetails.data('open-suggestion-url') + "/" + id,
         type: "POST",
-        success: openSuccess(id)
+        success: function (data, textStatus, jqXHR) {
+            openSuccess(data, id);
+        }
     });
 }
 
-function openSuccess(id) {
+function openSuccess(data, id) {
+    console.log(data);
     var status = $("#suggestion-status-" + id);
 
     var html = "Open <a id='suggestion-lock-"+ id +"' href='#' onclick='closeSuggestion("+ id +")'>";
@@ -67,7 +68,7 @@ function openSuccess(id) {
     status.html(html);
 }
 
-function closedSuccess(id) {
+function closedSuccess(data, id) {
     var status = $("#suggestion-status-" + id);
 
     var html = "Closed <a id='suggestion-lock-" + id + "' href='#' onclick='openSuggestion(" + id + ")'>";
