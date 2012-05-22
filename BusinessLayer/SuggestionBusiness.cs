@@ -81,16 +81,20 @@ namespace BusinessLayer
         public static bool JoinSuggestion(int userId, int suggestionId, string weekdays) 
         {
             Suggestion suggestion = SuggestionBusiness.GetById(suggestionId);
-            if (!suggestion.IsClosed && suggestion.JoinedUsers.Count < suggestion.MaximumUsers && suggestion.JoinedUsers.FindAll(j => j.UserId == userId).Count == 0)
+
+            // Join if not closed, not full and not already joined
+            if (!suggestion.IsClosed && suggestion.JoinedUsers.Count < suggestion.MaximumUsers && HasUserJoined(userId, suggestion))
             {
                 var joinedUser = new JoinedUser { UserId = userId, SuggestionId = suggestionId, Weekdays = weekdays };
                 suggestion.JoinedUsers.Add(joinedUser);
                 DataAccessLayer.JoinedUserAccess.Add(joinedUser);
 
+                // Find a location if min users are set
                 if (suggestion.JoinedUsers.Count >= suggestion.MinimumUsers)
                 {
                     suggestion.Location = LocationBusiness.NearestLocationForUsers(suggestion);
-                    
+
+                    // Close suggestion if max users reached
                     if (suggestion.JoinedUsers.Count == suggestion.MaximumUsers)
                     {
                         suggestion.IsClosed = true;
@@ -98,10 +102,16 @@ namespace BusinessLayer
 
                     SuggestionBusiness.Update(suggestion, suggestion.CreatorId);
                 }
+
                 return true;
             }
             else 
                 return false;
+        }
+
+        private static bool HasUserJoined(int userId, Suggestion suggestion)
+        {
+            return suggestion.JoinedUsers.FindAll(j => j.UserId == userId).Count == 0;
         }
     }
 }

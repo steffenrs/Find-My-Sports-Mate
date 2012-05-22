@@ -15,7 +15,7 @@ namespace PresentationLayer
         [CustomAuthorize]
         public ActionResult Index()
         {
-            var username = User.Identity.Name;
+            User currentUser = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name);
             var allSuggestions = SuggestionBusiness.GetAll();
             Suggestion selectedSuggestion = null;
             if (allSuggestions.Count > 0)
@@ -28,7 +28,8 @@ namespace PresentationLayer
             {
                 AllSuggestions = allSuggestions,
                 SelectedSuggestion = selectedSuggestion == null ? null : SuggestionViewModel.FromModel(selectedSuggestion),
-                JoinedSuggestions = SuggestionBusiness.GetByUser(UserBusiness.GetUserByEmail(username).Id)
+                JoinedSuggestions = SuggestionBusiness.GetByUser(currentUser.Id),
+                OwnedSuggestions = SuggestionBusiness.GetByCreator(currentUser.Id)
             };
 
             return View(viewModel);
