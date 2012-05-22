@@ -24,6 +24,7 @@ namespace DataAccessLayer
                     dbUser.PhoneNumber = newUser.PhoneNumber;
                     dbUser.State = newUser.State;
                     dbUser.StreetAddress = newUser.StreetAddress;
+                    dbUser.Password = newUser.Password;
                     db.SaveChanges();
 
                 }

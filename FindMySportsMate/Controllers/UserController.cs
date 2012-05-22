@@ -206,8 +206,9 @@ namespace PresentationLayer
                 newUser.PhoneNumber = model.PhoneNumber;
                 newUser.State = model.State;
                 newUser.StreetAddress = model.StreetAddress;
+                newUser.Password = CreatePasswordHash(model.Password);
                 BusinessLayer.UserBusiness.Update(newUser);
-                return View();
+                RedirectToAction("Index", "Dashboard");
             }
             return View();
         }

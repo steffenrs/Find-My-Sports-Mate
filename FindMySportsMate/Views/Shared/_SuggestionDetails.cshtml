@@ -22,6 +22,7 @@
         <p id="description">@Html.DisplayTextFor(m => m.Description) </p><br />
         <p id="sport">@Html.LabelFor(m => m.Sport): @Html.DisplayTextFor(m => m.Sport.Name)</p>
         <p id="time-period">@Html.LabelFor(m => m.StartDate): @Model.StartDate.Day.@Model.StartDate.Month.@Model.StartDate.Year - @Model.EndDate.Day.@Model.EndDate.Month.@Model.EndDate.Year</p>
+        <p id="popular-days">@Html.LabelFor(m => m.MostPopularDays): @Model.MostPopularDays </p>
         <p id="users">@Html.LabelFor(m => m.JoinedUsers): @Html.DisplayTextFor(m => m.JoinedUsers.Count) / @Html.DisplayTextFor(m => m.MaximumUsers)</p>                                                
         <p id="status">@Html.LabelFor(m => m.IsClosed): @Html.DisplayFor(m => m.IsClosed)</p>
         <p id="location">Location: @Html.DisplayFor(m => m.Location)</p>

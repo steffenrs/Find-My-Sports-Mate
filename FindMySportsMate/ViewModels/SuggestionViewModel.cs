@@ -29,6 +29,9 @@ namespace PresentationLayer
 
         public Weekdays Weekdays { get; set; }
 
+        [Display(Name = "Days")]
+        public string MostPopularDays { get; set; }
+
         public static SuggestionViewModel FromModel(Suggestion suggestion)
         {
             if (suggestion == null)
@@ -49,7 +52,8 @@ namespace PresentationLayer
                 StartDate = suggestion.StartDate,
                 Title = suggestion.Title,
                 MaximumUsers = suggestion.MaximumUsers,
-                Description = suggestion.Description
+                Description = suggestion.Description,
+                MostPopularDays = suggestion.MostPopularDays
             };
         }
     }
