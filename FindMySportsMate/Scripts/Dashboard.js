@@ -1,16 +1,20 @@
 ﻿$(function () {
     $("#suggestions-tabs").tabs();
     $("#suggestions-join").button();
-    showMap();
 });
 
-function showMap() {
+function showMap(Lat,Lon) {
+    var myLatLong = new google.maps.LatLng(Lat,Lon);
     var myOptions = {
-        center: new google.maps.LatLng(),
-        zoom: 8,
+        center: myLatLong,
+        zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     var map = new google.maps.Map(document.getElementById("suggestions-right-div"), myOptions);
+    var marker = new google.maps.Marker({
+        position: myLatLong,
+        map: map
+    });  
 };
 
 function getSuggestion(id) {

@@ -26,7 +26,7 @@ namespace DataAccessLayer
             Suggestion suggestion;
             using (var db = new MyDbContext())
             {
-                suggestion = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers").Include("Creator") where s.Id == id select s).First();
+                suggestion = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers").Include("Creator").Include("Location") where s.Id == id select s).First();
             }
 
             if (suggestion == null)
@@ -42,6 +42,7 @@ namespace DataAccessLayer
                 var suggestion = db.Suggestion.Single((i => i.Id == updatedSuggestion.Id));
                 updatedSuggestion.CreatorId = suggestion.CreatorId;
                 db.Entry(suggestion).CurrentValues.SetValues(updatedSuggestion);
+                suggestion.Location = updatedSuggestion.Location;
                 db.SaveChanges();
             }
         }
@@ -64,6 +65,7 @@ namespace DataAccessLayer
                         .Include("Sport")
                         .Include("JoinedUsers")
                         .Include("Creator") 
+                        .Include("Location")
                         where s.CreatorId == creatorId 
                         select s).ToList();
             }
@@ -98,6 +100,7 @@ namespace DataAccessLayer
                         .Include("Sport")
                         .Include("JoinedUsers")
                         .Include("Creator") 
+                        .Include("Location")
                         select s).ToList();
             }
         }
