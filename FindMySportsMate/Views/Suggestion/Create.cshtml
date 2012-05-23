@@ -15,40 +15,11 @@
             success: populateField
         });
 
-        /*var availableTags = [
-			"ActionScript",
-			"AppleScript",
-			"Asp",
-			"BASIC",
-			"C",
-			"C++",
-			"Clojure",
-			"COBOL",
-			"ColdFusion",
-			"Erlang",
-			"Fortran",
-			"Groovy",
-			"Haskell",
-			"Java",
-			"JavaScript",
-			"Lisp",
-			"Perl",
-			"PHP",
-			"Python",
-			"Ruby",
-			"Scala",
-			"Scheme"
-		];
-
-        populateField(availableTags);*/
-
     });
 
     function populateField(data)
     {
-        var list = data;
-
-        alert(list);
+        var list = data.split(",");
 
         $(".sportSuggestionField").autocomplete({
 			source: list

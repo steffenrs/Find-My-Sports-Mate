@@ -5,9 +5,30 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script>
+    $(function () {
+
+        var form = $("#editSuggestionForm");
+        $.ajax({
+            url: form.data('get-sports'),
+            type: "GET",
+            success: populateField
+        });
+
+    });
+
+    function populateField(data) {
+        var list = data.split(",");
+
+        $(".sportSuggestionField").autocomplete({
+            source: list
+        });
+    }
+</script>
+
 @using (Html.BeginForm())
 {
-     <div>
+     <div id="editSuggestionForm" data-get-sports="@Url.Action("GetSports", "Sport")">
         <fieldset>
             <legend>Edit Suggestion</legend>
 
@@ -26,7 +47,7 @@
                 @Html.LabelFor(m => m.Sport)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.Sport, new { @class = "suggestion-input-field" })
+                @Html.TextBoxFor(m => m.Sport, new { @class = "suggestion-input-field, sportSuggestionField" })
                 @Html.ValidationMessageFor(m => m.Sport)
             </div>
 
