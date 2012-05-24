@@ -4,20 +4,16 @@
     ViewBag.Title = "Log On";
 }
 
-<h2>Log On</h2>
-<p>
-    Please enter your user name and password. @Html.ActionLink("Register", "Register") if you don't have an account.
-</p>
-
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
 @Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")
 
-@using (Html.BeginForm()) {
-    <div>
+@using (Html.BeginForm())
+{
+    <div style="width: 500px; float: left">
         <fieldset>
-            <legend>Account Information</legend>
+            <legend>Log in</legend>
 
             <div class="editor-label">
                 @Html.LabelFor(m => m.Email)
@@ -43,6 +39,22 @@
             <p>
                 <input type="submit" value="Log On" />
             </p>
+
+            <p style="margin-top: 25px">Don't have a user? Register @Html.ActionLink("here", "Register")!</p>
         </fieldset>
     </div>
 }
+    
+    <div style="width: 500px; float: right;">
+        <fieldset id="howToSystem">
+            <legend>How to use the system</legend>
+            <p>The Log In page allows you to log in to the system with a current user or create a new one. After doing this, you will automatically be redirected to the Dashboard, which gives you an overview of the current “suggestions” in the system. A “Suggestion” is a user created sport suggestion, like a Facebook event with a title, type of sport, description and time period.</p>
+            <p>You can navigate the different suggestions in the Dashboard to see their specific details and you can filter suggestions using the different tabs in the suggestions table.</p>
+            <p>If a suggestion fits your wishes and calendar then you can join that suggestion. Where the meetup will be held is automatically calculated to the nearest park from the joined users home addresses. The location isn’t calculated until the minimum given users of the suggestion have joined.</p>
+            <p>You can also create a suggestion yourself by clicking “Create a Suggestion” from the Dashboard and fill in the form. Now you can just relax and wait for your friends or others to join.</p>
+            <p>When you create a new user you are only asked to fill in your minimal user details. Please fill in the rest of the details by editing your user profile. (Your email address in the top-right menu)</p>
+        </fieldset>
+    </div>
+    
+    <div class="clear"></div>
+

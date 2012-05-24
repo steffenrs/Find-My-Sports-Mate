@@ -235,3 +235,20 @@ li
     width: 16px;
     height: 16px;
 }
+
+#howToSystem p 
+{
+    margin: 10px 0px;
+    font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+}
+
+#footer 
+{
+    margin-top: 40px;
+    text-align: center;
+    
+}
+#footer p
+{
+    color: grey;
+}
