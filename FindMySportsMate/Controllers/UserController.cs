@@ -14,8 +14,6 @@ namespace PresentationLayer
 {
     public class UserController : Controller
     {
-         //
-        // GET: /Dashboard/
         [CustomAuthorize]
         public ActionResult Profile(int Id)
         {
@@ -39,11 +37,7 @@ namespace PresentationLayer
             }
             catch (DomainException e)
             {
-                return View("Error");
-            }
-            catch (Exception e)
-            {
-                return View("Error");
+                return View("Error", ErrorHelper.ErrorModelForDomainException(e));
             }
         }
         
@@ -95,7 +89,9 @@ namespace PresentationLayer
                     }
 
                 }
-                catch { ModelState.AddModelError("", "The user does not exist. Please register a new user."); 
+                catch (DomainException e)
+                {
+                    ModelState.AddModelError("", "The user does not exist. Please register a new user."); 
                 };
 
 

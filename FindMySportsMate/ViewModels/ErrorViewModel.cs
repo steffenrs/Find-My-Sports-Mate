@@ -9,7 +9,7 @@ namespace PresentationLayer
 {
     public class ErrorViewModel
     {
-        public String domainErrorMessage { get; set; }
+        public String errorMessage { get; set; }
         public String innerErrorMessage { get; set; }
     }
 }
