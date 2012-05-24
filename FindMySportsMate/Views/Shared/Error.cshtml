@@ -1,5 +1,8 @@
-﻿@{
-    Layout = null;
+﻿@model PresentationLayer.ErrorViewModel
+
+@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -8,8 +11,8 @@
     <title>Error</title>
 </head>
 <body>
-    <h2>
-        Sorry, an error occurred while processing your request.
-    </h2>
+    <h3>Error</h3>
+    <p>@Html.DisplayTextFor(e => e.domainErrorMessage)</p>
+    <p>@Html.DisplayTextFor(e => e.innerErrorMessage)</p>
 </body>
 </html>

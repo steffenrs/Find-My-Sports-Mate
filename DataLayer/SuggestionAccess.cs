@@ -11,48 +11,54 @@ namespace DataAccessLayer
     {
         public static void Create(Suggestion suggestion)
         {
-            using (var db = new MyDbContext())
+            try
             {
-                db.JoinedUser.Add(suggestion.JoinedUsers[0]);
-                db.Suggestion.Add(suggestion);
-                db.SaveChanges();
+                using (var db = new MyDbContext())
+                {
+                    db.JoinedUser.Add(suggestion.JoinedUsers[0]);
+                    db.Suggestion.Add(suggestion);
+                    db.SaveChanges();
+                }
             }
+            catch (Exception e)
+            {
+                throw new DomainException("Could not process request", e);
+            } 
         }
 
         public static Suggestion Get(int id)
         {
             validateId(id);
 
-            Suggestion suggestion;
-            using (var db = new MyDbContext())
+            try
             {
-                suggestion = (from s in db.Suggestion.Include("Sport").Include("JoinedUsers").Include("Creator").Include("Location") where s.Id == id select s).First();
-            }
+                using (var db = new MyDbContext())
+                {
+                    return (from s in db.Suggestion.Include("Sport").Include("JoinedUsers").Include("Creator").Include("Location") where s.Id == id select s).First();
+                }
 
-            if (suggestion == null)
-                throw new DomainException("Could not find suggestion with id: " + id);
-            else
-                return suggestion;
+            }
+            catch (Exception e)
+            {
+                throw new DomainException("Could not process request", e);
+            }
         }
 
         public static void Update(Suggestion updatedSuggestion)
         {
-            using (var db = new MyDbContext())
+            try
             {
-                var suggestion = db.Suggestion.Single((i => i.Id == updatedSuggestion.Id));
-                updatedSuggestion.CreatorId = suggestion.CreatorId;
-                db.Entry(suggestion).CurrentValues.SetValues(updatedSuggestion);
-                db.SaveChanges();
+                using (var db = new MyDbContext())
+                {
+                    var suggestion = db.Suggestion.Single((i => i.Id == updatedSuggestion.Id));
+                    updatedSuggestion.CreatorId = suggestion.CreatorId;
+                    db.Entry(suggestion).CurrentValues.SetValues(updatedSuggestion);
+                    db.SaveChanges();
+                }
             }
-        }
-
-        public static void Delete(int id)
-        {
-            using (var db = new MyDbContext())
+            catch (Exception e)
             {
-                Suggestion suggestion = db.Suggestion.Single((i => i.Id == id));
-                db.Suggestion.Remove(suggestion);
-                db.SaveChanges();
+                throw new DomainException("Could not process request", e);
             }
         }
 

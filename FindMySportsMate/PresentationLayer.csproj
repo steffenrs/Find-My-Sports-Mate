@@ -51,8 +51,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Binaries\System.Web.Helpers.dll</HintPath>
     </Reference>
-    
-    
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -78,6 +76,7 @@
     <Compile Include="Controllers\SportController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\SuggestionController.cs" />
+    <Compile Include="ErrorHelper.cs" />
     <Compile Include="Roles\CustomAuthorizeAttribute.cs" />
     <Compile Include="Roles\CustomPrincipal.cs" />
     <Compile Include="Validation\DateIsEarlierAttribute.cs" />
@@ -90,6 +89,7 @@
     <Compile Include="ViewModels\CreateSuggestionViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\EditSuggestionViewModel.cs" />
+    <Compile Include="ViewModels\ErrorViewModel.cs" />
     <Compile Include="ViewModels\JoinedUserViewModel.cs" />
     <Compile Include="ViewModels\LogOnViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />

@@ -70,11 +70,7 @@ namespace PresentationLayer.Controllers
             }
             catch (DomainException e)
             {
-                return View("Error");
-            }
-            catch (Exception e)
-            {
-                return View("Error");
+                return View("Error", ErrorHelper.ErrorModelForDomainException(e));
             }
         }
 
