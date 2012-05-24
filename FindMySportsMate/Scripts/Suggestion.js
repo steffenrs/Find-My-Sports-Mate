@@ -28,6 +28,7 @@ function openDialog() {
 function selectFunction() {
     var fields = $("#weekdays");
     fields.appendTo("#create-suggestion");
+    fields.css("display", "none");
 
     $("#create-suggestion").submit();
 }
