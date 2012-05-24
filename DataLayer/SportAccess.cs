@@ -10,10 +10,10 @@ namespace DataAccessLayer
     {
         public static Sport GetOrCreate(string name)
         {
-            validateName(name);
-
             try
             {
+                validateName(name);
+
                 Sport sport;
                 using (var db = new MyDbContext())
                 {
@@ -38,32 +38,47 @@ namespace DataAccessLayer
 
         public static void Create(Sport suggestionSport)
         {
-            validateSport(suggestionSport);
-            using (var db = new MyDbContext())
+            try
             {
-                db.Sport.Add(suggestionSport);
-                db.SaveChanges();
+                validateSport(suggestionSport);
+
+                using (var db = new MyDbContext())
+                {
+                    db.Sport.Add(suggestionSport);
+                    db.SaveChanges();
+                }
             }
+            catch (Exception e)
+            {
+                throw new DomainException("Could not create sport", e);
+            } 
         }
 
         public static List<Sport> GetAll()
         {
-            using (var db = new MyDbContext())
+            try
             {
-                return (from s in db.Sport select s).ToList();
+                using (var db = new MyDbContext())
+                {
+                    return (from s in db.Sport select s).ToList();
+                }
             }
+            catch (Exception e)
+            {
+                throw new DomainException("Could not get all sports", e);
+            }   
         }
 
         private static void validateName(string name)
         {
             if (name == null || name.Equals(""))
-                throw new DomainException("Name cannot be null or empty");
+                throw new DomainException("Invalid sport");
         }
 
         private static void validateSport(Sport sport)
         {
             if (sport == null)
-                throw new DomainException("Sport cannot be a null reference");
+                throw new DomainException("Invalid sport");
             validateName(sport.Name);
         }
     }

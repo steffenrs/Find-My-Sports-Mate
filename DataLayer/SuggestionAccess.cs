@@ -28,15 +28,14 @@ namespace DataAccessLayer
 
         public static Suggestion Get(int id)
         {
-            validateId(id);
-
             try
             {
+                validateId(id);
+
                 using (var db = new MyDbContext())
                 {
                     return (from s in db.Suggestion.Include("Sport").Include("JoinedUsers").Include("Creator").Include("Location") where s.Id == id select s).First();
                 }
-
             }
             catch (Exception e)
             {
@@ -64,10 +63,10 @@ namespace DataAccessLayer
 
         public static List<Suggestion> GetAllByCreator(int creatorId)
         {
-            validateId(creatorId);
-
             try
             {
+                validateId(creatorId);
+
                 using (var db = new MyDbContext())
                 {
                     return (from s in db.Suggestion
@@ -87,10 +86,10 @@ namespace DataAccessLayer
 
         public static List<Suggestion> GetByJoinedUser(int userId)
         {
-            validateId(userId);
-
             try
             {
+                validateId(userId);
+
                 using (var db = new MyDbContext())
                 {
                     var query = from s in db.Suggestion
@@ -138,8 +137,8 @@ namespace DataAccessLayer
 
         private static void validateId(int id)
         {
-            if (id < 1)
-                throw new DomainException("Invalid suggestion id. Id cannot be less than 1");
+            if (id < 0)
+                throw new DomainException("Invalid suggestion id");
         }       
     }
 }
