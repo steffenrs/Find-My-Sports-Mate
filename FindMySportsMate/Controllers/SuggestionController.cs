@@ -24,10 +24,10 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                Suggestion suggestion = GetDomainFromViewModel(model);
-              
                 try
                 {
+                    Suggestion suggestion = GetDomainFromViewModel(model);
+
                     // Add creator id
                     User currentUser = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name);
                     suggestion.CreatorId = currentUser.Id;
@@ -38,8 +38,7 @@ namespace PresentationLayer.Controllers
                 }
                 catch (DomainException e)
                 {
-                    ViewBag.ExceptionMessage = e.Message;
-                    return View(model);
+                    return View("Error", ErrorHelper.ErrorModelForDomainException(e));
                 }
             }
             else
@@ -79,11 +78,11 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                Suggestion suggestion = GetDomainFromViewModel(model);
-                suggestion.Id = model.OriginalId;
-
                 try
                 {
+                    Suggestion suggestion = GetDomainFromViewModel(model);
+                    suggestion.Id = model.OriginalId;
+
                     // Validate suggestion with user
                     int userId = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name).Id;
 
@@ -93,8 +92,7 @@ namespace PresentationLayer.Controllers
                 }
                 catch (DomainException e)
                 {
-                    ViewBag.ExceptionMessage = e.Message;
-                    return View(model);
+                    return View("Error", ErrorHelper.ErrorModelForDomainException(e));
                 }
             }
             else
@@ -130,8 +128,17 @@ namespace PresentationLayer.Controllers
         [HttpPost]
         public ActionResult GetSuggestion(int id)
         {
-            Suggestion suggestion = BusinessLayer.SuggestionBusiness.GetById(id);
-            suggestion.JoinedUsers = BusinessLayer.JoinedUserBusiness.GetBySuggestion(suggestion.Id);
+            Suggestion suggestion;
+
+            try
+            {
+                suggestion = BusinessLayer.SuggestionBusiness.GetById(id);
+                suggestion.JoinedUsers = BusinessLayer.JoinedUserBusiness.GetBySuggestion(suggestion.Id);
+            }
+            catch (DomainException e)
+            {
+                return View("Error", ErrorHelper.ErrorModelForDomainException(e));
+            }
 
             var model = new DashboardViewModel { SelectedSuggestion = SuggestionViewModel.FromModel(suggestion) };
 

@@ -12,20 +12,27 @@ namespace DataAccessLayer
         {
             validateName(name);
 
-            Sport sport;
-            using (var db = new MyDbContext())
+            try
             {
-                sport = db.Sport.Where(p => p.Name == name).FirstOrDefault();
-
-                if (sport == null)
+                Sport sport;
+                using (var db = new MyDbContext())
                 {
-                    sport = new Sport();
-                    sport.Name = name;
-                    db.Sport.Add(sport);
-                    db.SaveChanges();
-                }
+                    sport = db.Sport.Where(p => p.Name == name).FirstOrDefault();
 
-                return sport;
+                    if (sport == null)
+                    {
+                        sport = new Sport();
+                        sport.Name = name;
+                        db.Sport.Add(sport);
+                        db.SaveChanges();
+                    }
+
+                    return sport;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new DomainException("Could not find or create sport", e);
             }
         }
 

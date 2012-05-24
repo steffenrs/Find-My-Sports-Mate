@@ -19,9 +19,19 @@ namespace DataAccessLayer
 
         public static List<JoinedUser> GetForSuggestion(int suggestionId)
         {
-            using (var db = new MyDbContext())
+            if (suggestionId < 1)
+                throw new DomainException("Invalid suggestion Id");
+
+            try
             {
-                return (from j in db.JoinedUser.Include("User") where j.SuggestionId == suggestionId select j).ToList();
+                using (var db = new MyDbContext())
+                {
+                    return (from j in db.JoinedUser.Include("User") where j.SuggestionId == suggestionId select j).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new DomainException("Could not get joined users for suggestion", e);
             }
         }
     }

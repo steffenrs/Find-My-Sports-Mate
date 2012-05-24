@@ -22,7 +22,7 @@ namespace DataAccessLayer
             }
             catch (Exception e)
             {
-                throw new DomainException("Could not process request", e);
+                throw new DomainException("Could not create suggestion", e);
             } 
         }
 
@@ -40,7 +40,7 @@ namespace DataAccessLayer
             }
             catch (Exception e)
             {
-                throw new DomainException("Could not process request", e);
+                throw new DomainException("Could not fetch suggestion", e);
             }
         }
 
@@ -58,63 +58,88 @@ namespace DataAccessLayer
             }
             catch (Exception e)
             {
-                throw new DomainException("Could not process request", e);
+                throw new DomainException("Could not update suggestion", e);
             }
         }
 
         public static List<Suggestion> GetAllByCreator(int creatorId)
         {
-            using (var db = new MyDbContext())
+            validateId(creatorId);
+
+            try
             {
-                return (from s in db.Suggestion
-                        .Include("Sport")
-                        .Include("JoinedUsers")
-                        .Include("Creator") 
-                        .Include("Location")
-                        where s.CreatorId == creatorId 
-                        select s).ToList();
+                using (var db = new MyDbContext())
+                {
+                    return (from s in db.Suggestion
+                            .Include("Sport")
+                            .Include("JoinedUsers")
+                            .Include("Creator")
+                            .Include("Location")
+                            where s.CreatorId == creatorId
+                            select s).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new DomainException("Could not get suggestions by creator", e);
             }
         }
 
-         public static List<Suggestion> GetByJoinedUser(int userId)
+        public static List<Suggestion> GetByJoinedUser(int userId)
         {
-            using (var db = new MyDbContext())
+            validateId(userId);
+
+            try
             {
-                var query = from s in db.Suggestion
-                            from ju in db.JoinedUser
-                            where ju.UserId == userId
-                            && s.Id == ju.SuggestionId
-                            select new
-                            {
-                                s,
-                                sport = s.Sport,
-                                ju = s.JoinedUsers
-                            };
+                using (var db = new MyDbContext())
+                {
+                    var query = from s in db.Suggestion
+                                from ju in db.JoinedUser
+                                where ju.UserId == userId
+                                && s.Id == ju.SuggestionId
+                                select new
+                                {
+                                    s,
+                                    sport = s.Sport,
+                                    ju = s.JoinedUsers
+                                };
 
-                var suggestions = query.AsEnumerable().Select(m => m.s);
+                    var suggestions = query.AsEnumerable().Select(m => m.s);
 
-                return suggestions.ToList();
+                    return suggestions.ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new DomainException("Could not get suggestions by joined user", e);
             }
         }
 
         public static List<Suggestion> GetAll()
         {
-            using (var db = new MyDbContext())
+            try
             {
-                return (from s in db.Suggestion
-                        .Include("Sport")
-                        .Include("JoinedUsers")
-                        .Include("Creator") 
-                        .Include("Location")
-                        where s.IsClosed == false
-                        select s).ToList();
+                using (var db = new MyDbContext())
+                {
+                    return (from s in db.Suggestion
+                            .Include("Sport")
+                            .Include("JoinedUsers")
+                            .Include("Creator")
+                            .Include("Location")
+                            where s.IsClosed == false
+                            select s).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new DomainException("Could not get all suggestions", e);
             }
         }
 
         private static void validateId(int id)
         {
             if (id < 1)
-                throw new DomainException("Suggestion id cannot be less than 1");
+                throw new DomainException("Invalid suggestion id. Id cannot be less than 1");
         }       
     }
 }

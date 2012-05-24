@@ -46,14 +46,21 @@ namespace DataAccessLayer
 
         public static User GetUserByEmail(string userEmail)
         {
-            var user = new User();
-            using (var db = new MyDbContext())
+            try
             {
-                var dbUser = db.User.Where(u => u.Email == userEmail).First();
-                user = (User)dbUser;
-            }
+                var user = new User();
+                using (var db = new MyDbContext())
+                {
+                    var dbUser = db.User.Where(u => u.Email == userEmail).First();
+                    user = (User)dbUser;
+                }
 
-            return user;
+                return user;
+            }
+            catch (Exception e)
+            {
+                throw new DomainException("Could not fetch user", e);
+            } 
         }
 
         public static User GetUserById(int userId)
