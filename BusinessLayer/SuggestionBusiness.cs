@@ -36,7 +36,7 @@ namespace BusinessLayer
                 if (suggestion.JoinedUsers.Count >= suggestion.MinimumUsers)
                 {
                     suggestion.MostPopularDays = JoinedUserBusiness.GetMostPopularDaysForSuggestion(suggestion.Id);
-                    suggestion.LocationId = LocationBusiness.NearestLocationForUsers(suggestion).Id;
+                    suggestion.LocationId = LocationBusiness.Calculate(suggestion).Id;
 
                     // Close suggestion if max users reached
                     if (suggestion.JoinedUsers.Count == suggestion.MaximumUsers)
@@ -64,7 +64,7 @@ namespace BusinessLayer
         {
             ValidateUserAccess(id, userId);
             Suggestion suggestion = Get(id);
-            suggestion.LocationId = LocationBusiness.NearestLocationForUsers(suggestion).Id;
+            suggestion.LocationId = LocationBusiness.Calculate(suggestion).Id;
             suggestion.IsClosed = true;
             SuggestionBusiness.Update(suggestion, userId);
         }

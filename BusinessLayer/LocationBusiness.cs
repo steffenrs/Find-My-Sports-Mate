@@ -12,29 +12,23 @@ namespace BusinessLayer
 {
     public class LocationBusiness
     {
-        private static string API_KEY = "";
-
-        /// <summary>
-        /// Finds the nearest location for all users that have joined a suggestion
-        /// </summary>
-        /// <param name="suggestion">A suggestion</param>
-        /// <returns>The specific location</returns>
-        public static Location NearestLocationForUsers(Suggestion suggestion)
+        public static Location Calculate(Suggestion suggestion)
         {
             List<Location> locations = DataAccessLayer.LocationAccess.getAll();
             Dictionary<User,List<Element>> distanceElements = new Dictionary<User,List<Element>>();
             
-            /// generate a string of stationary locations that fit the Google Distance API
+            // generate a string of stationary locations that fit the Google Distance API
             string origins = null;
             foreach (Location location in locations)
             {
                 origins += location.Latitude + "," + location.Longitude + "|";
             }
 
+            // Get distances for each users
             foreach (JoinedUser joinedUser in suggestion.JoinedUsers)
             {
                 User user = UserBusiness.Get(joinedUser.UserId);
-                distanceElements.Add(user,GetDistanceBetweenUserAddressAndLocations(user, origins));
+                distanceElements.Add(user,GetDistancesFromGoogle(user, origins));
             }
 
             int[] distances = new int[locations.Count];
@@ -47,22 +41,17 @@ namespace BusinessLayer
                 }
             }
 
+            // select the best location and return it
             int index = Array.IndexOf(distances, distances.Min());
             return locations[index];
         }
 
-        /// <summary>
-        /// Gets the distance between user address and stationary locations by means of the Google Distance API.
-        /// </summary>
-        /// <param name="user">A specific user</param>
-        /// <param name="origins">The stationary locations parsed to a Google Distance API string</param>
-        /// <returns>List of elements</returns>
-        private static List<Element> GetDistanceBetweenUserAddressAndLocations(User user, string origins)
+        private static List<Element> GetDistancesFromGoogle(User user, string origins)
         {
             string address = user.StreetAddress + "+" + user.Area + "+" + user.State;
             var url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins=" + origins +
-                        "&destinations=" + address +
-                        "&mode=driving&language=en&sensor=false";
+                      "&destinations=" + address +
+                      "&mode=driving&language=en&sensor=false";
 
             var request = WebRequest.Create(url);
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -78,13 +67,7 @@ namespace BusinessLayer
                 return (from e in elements.rows select e.elements[0]).ToList();
             }
 
-            //TODO: handle http error message
             return null;
         }
-
-
-
-
-
     }
 }
