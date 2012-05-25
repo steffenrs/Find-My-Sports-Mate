@@ -15,7 +15,7 @@ namespace PresentationLayer
         [CustomAuthorize]
         public ActionResult Index()
         {
-            User currentUser = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name);
+            User currentUser = BusinessLayer.UserBusiness.Get(HttpContext.User.Identity.Name);
             var allSuggestions = SuggestionBusiness.GetAll();
             Suggestion selectedSuggestion = null;
             if (allSuggestions.Count > 0)

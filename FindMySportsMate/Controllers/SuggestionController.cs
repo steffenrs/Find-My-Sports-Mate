@@ -29,7 +29,7 @@ namespace PresentationLayer.Controllers
                     Suggestion suggestion = GetDomainFromViewModel(model);
 
                     // Add creator id
-                    User currentUser = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name);
+                    User currentUser = BusinessLayer.UserBusiness.Get(HttpContext.User.Identity.Name);
                     suggestion.CreatorId = currentUser.Id;
                     suggestion.MostPopularDays = model.Weekdays.ToString();
                     // Create suggestion
@@ -84,7 +84,7 @@ namespace PresentationLayer.Controllers
                     suggestion.Id = model.OriginalId;
 
                     // Validate suggestion with user
-                    int userId = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name).Id;
+                    int userId = BusinessLayer.UserBusiness.Get(HttpContext.User.Identity.Name).Id;
 
                     // Update suggestion
                     BusinessLayer.SuggestionBusiness.Update(suggestion, userId);
@@ -152,7 +152,7 @@ namespace PresentationLayer.Controllers
             try
             {
                 Suggestion suggestion = BusinessLayer.SuggestionBusiness.GetById(id);
-                int userId = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name).Id;
+                int userId = BusinessLayer.UserBusiness.Get(HttpContext.User.Identity.Name).Id;
                 BusinessLayer.SuggestionBusiness.JoinSuggestion(userId, id, weekdays.ToString());
 
                 //get updated location
@@ -172,7 +172,7 @@ namespace PresentationLayer.Controllers
         [CustomAuthorizeAttribute]
         public ActionResult Open(int id)
         {
-            int userId = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name).Id;
+            int userId = BusinessLayer.UserBusiness.Get(HttpContext.User.Identity.Name).Id;
             BusinessLayer.SuggestionBusiness.Open(id, userId);
 
             var model = new DashboardViewModel { AllSuggestions = SuggestionBusiness.GetAll(), OwnedSuggestions = SuggestionBusiness.GetByCreator(userId), JoinedSuggestions = SuggestionBusiness.GetByUser(userId) };
@@ -183,7 +183,7 @@ namespace PresentationLayer.Controllers
         [CustomAuthorizeAttribute]
         public ActionResult Close(int id)
         {
-            int userId = BusinessLayer.UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name).Id;
+            int userId = BusinessLayer.UserBusiness.Get(HttpContext.User.Identity.Name).Id;
             BusinessLayer.SuggestionBusiness.Close(id, userId);
 
             var model = new DashboardViewModel { AllSuggestions = SuggestionBusiness.GetAll(), OwnedSuggestions = SuggestionBusiness.GetByCreator(userId), JoinedSuggestions = SuggestionBusiness.GetByUser(userId) };

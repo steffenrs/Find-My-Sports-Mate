@@ -21,7 +21,7 @@ namespace PresentationLayer
         {
             try
             {
-                User user = BusinessLayer.UserBusiness.GetUserById(Id);
+                User user = BusinessLayer.UserBusiness.Get(Id);
                 UserViewModel viewModel = new UserViewModel
                 {
                     FirstName = user.FirstName,
@@ -63,7 +63,7 @@ namespace PresentationLayer
             {
                 try
                 {
-                    User user = UserBusiness.GetUserByEmail(model.Email);
+                    User user = UserBusiness.Get(model.Email);
                 
 
                     model.Password = CreatePasswordHash(model.Password);
@@ -171,7 +171,7 @@ namespace PresentationLayer
         [CustomAuthorize]
         public ActionResult Edit()
         {
-            User user = UserBusiness.GetUserByEmail(HttpContext.User.Identity.Name);
+            User user = UserBusiness.Get(HttpContext.User.Identity.Name);
             UserViewModel model = new UserViewModel();
             model.Area = user.Area;
             model.BirthDate = user.BirthDate;
@@ -197,7 +197,7 @@ namespace PresentationLayer
         {
             if (ModelState.IsValid)
             {
-                User newUser = BusinessLayer.UserBusiness.GetUserByEmail(model.Email);
+                User newUser = BusinessLayer.UserBusiness.Get(model.Email);
                 newUser.Area = model.Area;
                 newUser.BirthDate = model.BirthDate;
                 newUser.FirstName = model.FirstName;
@@ -239,7 +239,7 @@ namespace PresentationLayer
                 // than return false in certain failure scenarios.
                 try
                 {
-                    User currentUser = UserBusiness.GetUserById((int)Session["UserId"]);
+                    User currentUser = UserBusiness.Get((int)Session["UserId"]);
                     if (model.OldPassword == currentUser.Password)
                     {
                         UserBusiness.Update(newUser);

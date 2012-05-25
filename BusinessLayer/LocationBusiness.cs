@@ -33,7 +33,7 @@ namespace BusinessLayer
 
             foreach (JoinedUser joinedUser in suggestion.JoinedUsers)
             {
-                User user = UserBusiness.GetUserById(joinedUser.UserId);
+                User user = UserBusiness.Get(joinedUser.UserId);
                 distanceElements.Add(user,GetDistanceBetweenUserAddressAndLocations(user, origins));
             }
 
