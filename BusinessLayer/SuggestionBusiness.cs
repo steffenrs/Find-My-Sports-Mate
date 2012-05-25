@@ -35,7 +35,7 @@ namespace BusinessLayer
                 // Find a location and playdays if min users are set
                 if (suggestion.JoinedUsers.Count >= suggestion.MinimumUsers)
                 {
-                    suggestion.MostPopularDays = JoinedUserBusiness.GetMostPopularDaysForSuggestion(suggestion.Id);
+                    suggestion.MostPopularDays = JoinedUserBusiness.GetBestDays(suggestion.Id);
                     suggestion.LocationId = LocationBusiness.Calculate(suggestion).Id;
 
                     // Close suggestion if max users reached

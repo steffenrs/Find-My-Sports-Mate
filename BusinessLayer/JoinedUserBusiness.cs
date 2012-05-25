@@ -9,103 +9,43 @@ namespace BusinessLayer
 {
     public class JoinedUserBusiness
     {
-        public static List<JoinedUser> GetBySuggestion(int id)
+        public static List<JoinedUser> Get(int suggestionId)
         {
-            return JoinedUserAccess.GetForSuggestion(id);
+            return JoinedUserAccess.GetForSuggestion(suggestionId);
         }
 
-        public static String GetMostPopularDaysForSuggestion(int id)
+        public static string GetBestDays(int suggestionId)
         {
-            List<JoinedUser> jUSers = JoinedUserBusiness.GetBySuggestion(id);
+            List<JoinedUser> users = JoinedUserBusiness.Get(suggestionId);
 
-            int[] weekdayVotes = new int[7];
-            foreach(JoinedUser user in jUSers)
+            Dictionary<String, int> votesPerDay = new Dictionary<string, int>();
+
+            foreach (var user in users)
             {
-                String weeklyParticipation = user.Weekdays;
-                weekdayVotes = JoinedUserBusiness.castWeekdayVotes(weeklyParticipation, weekdayVotes);
-            }
-
-            StringBuilder mostPopDays = new StringBuilder();
-            int highestVoteCount = -1;
-
-            for (int pos = 0; pos < weekdayVotes.Length; pos++)
-            {
-                int voteCount = weekdayVotes[pos];
-
-                if (voteCount == highestVoteCount)
+                String[] days = user.Weekdays.Split(',');
+                foreach (var day in days)
                 {
-                    mostPopDays.Append(JoinedUserBusiness.getDayFromPosition(pos) + ", ");
-                }
-                else if (voteCount > highestVoteCount)
-                {
-                    highestVoteCount = voteCount;
-                    mostPopDays.Clear();
-                    mostPopDays.Append(JoinedUserBusiness.getDayFromPosition(pos) + ", ");
+                    int count;
+                    if (votesPerDay.TryGetValue(day, out count))
+                        votesPerDay[day] = count + 1;
+                    else
+                        votesPerDay.Add(day, 1);
                 }
             }
 
-            // Removes last comma in string
-            if (mostPopDays.Length >= 2)
-                mostPopDays.Remove(mostPopDays.Length - 2, 2);
+            int highest = votesPerDay.Max(kvp => kvp.Value);
+            var values = "";
 
-            return mostPopDays.ToString();   
-        }
-
-        private static int[] castWeekdayVotes(String weeklyActivity, int[] week)
-        {
-            String[] days = weeklyActivity.Split(',');
-
-            foreach (String day in days)
+            foreach (var kvp in votesPerDay)
             {
-                switch (day)
-                {
-                    case "Mo":
-                        week[0]++;
-                        break;
-                    case "Tu":
-                        week[1]++;
-                        break;
-                    case "We":
-                        week[2]++;
-                        break;
-                    case "Th":
-                        week[3]++;
-                        break;
-                    case "Fr":
-                        week[4]++;
-                        break;
-                    case "Sa":
-                        week[5]++;
-                        break;
-                    case "Su":
-                        week[6]++;
-                        break;
-                }
+                if (kvp.Value == highest)
+                    values += kvp.Key + ", ";
             }
-            return week;
-        }
 
-        private static String getDayFromPosition(int pos)
-        {
-            switch (pos)
-            {
-                case 0:
-                    return "Mo";
-                case 1:
-                    return "Tu";
-                case 2:
-                    return "We";
-                case 3:
-                    return "Th";
-                case 4:
-                    return "Fr";
-                case 5:
-                    return "Sa";
-                case 6:
-                    return "Su";
-                default:
-                    return "";
-            }
+            if (values.Length >= 2)
+                values = values.Remove(values.Length - 2, 2);
+
+            return values;
         }
     }
 }
