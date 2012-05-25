@@ -11,7 +11,7 @@ namespace PresentationLayer.Controllers
         [CustomAuthorizeAttribute]
         public String GetSports()
         {
-            return BusinessLayer.SportBusiness.GetAllFormattedString();
+            return BusinessLayer.SportBusiness.GetAll();
         }
 
     }

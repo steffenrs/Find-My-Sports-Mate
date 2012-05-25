@@ -18,7 +18,7 @@ namespace BusinessLayer
             DataAccessLayer.SportAccess.Create(suggestionSport);
         }
 
-        public static String GetAllFormattedString()
+        public static String GetAll()
         {
             List<Sport> sports = DataAccessLayer.SportAccess.GetAll();
 
