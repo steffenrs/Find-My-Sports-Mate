@@ -27,6 +27,27 @@ section {
 
 .clear { clear: both; }
 
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
+}
+
 .hidden { display:none; }
 
 .exception-message  
@@ -111,12 +132,14 @@ textarea
 #body
 {
     float: left;
-    width: 100%;
     margin-left: auto;
     margin-right: auto;
     width: 80%;  
     margin-top: 80px;
     margin-left: 80px;
+    position: relative;
+    clear: both;
+    position: relative; 
 }
 
 #header
