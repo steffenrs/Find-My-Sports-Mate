@@ -23,7 +23,7 @@ namespace PresentationLayer
                 if (allSuggestions.Count > 0)
                 {
                     selectedSuggestion = allSuggestions[0];
-                selectedSuggestion.JoinedUsers = JoinedUserBusiness.Get(selectedSuggestion.Id);
+                selectedSuggestion.JoinedUsers = SuggestionBusiness.GetJoinedUsers(selectedSuggestion.Id);
                 }
 
                 var viewModel = new DashboardViewModel()

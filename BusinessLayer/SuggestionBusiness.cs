@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Domain;
+using DataAccessLayer;
 
 namespace BusinessLayer
 {
@@ -35,7 +36,7 @@ namespace BusinessLayer
                 // Find a location and playdays if min users are set
                 if (suggestion.JoinedUsers.Count >= suggestion.MinimumUsers)
                 {
-                    suggestion.MostPopularDays = JoinedUserBusiness.GetBestDays(suggestion.Id);
+                    suggestion.MostPopularDays = SuggestionBusiness.GetBestDays(suggestion.Id);
                     suggestion.LocationId = LocationBusiness.Calculate(suggestion).Id;
 
                     // Close suggestion if max users reached
@@ -94,6 +95,44 @@ namespace BusinessLayer
         public static List<Suggestion> GetByCreator(int userId)
         {
             return DataAccessLayer.SuggestionAccess.GetAllByCreator(userId);
+        }
+
+        public static List<JoinedUser> GetJoinedUsers(int suggestionId)
+        {
+            return JoinedUserAccess.GetForSuggestion(suggestionId);
+        }
+        public static string GetBestDays(int suggestionId)
+        {
+            List<JoinedUser> users = GetJoinedUsers(suggestionId);
+
+            Dictionary<String, int> votesPerDay = new Dictionary<string, int>();
+
+            foreach (var user in users)
+            {
+                String[] days = user.Weekdays.Split(',');
+                foreach (var day in days)
+                {
+                    int count;
+                    if (votesPerDay.TryGetValue(day, out count))
+                        votesPerDay[day] = count + 1;
+                    else
+                        votesPerDay.Add(day, 1);
+                }
+            }
+
+            int highest = votesPerDay.Max(kvp => kvp.Value);
+            var values = "";
+
+            foreach (var kvp in votesPerDay)
+            {
+                if (kvp.Value == highest)
+                    values += kvp.Key + ", ";
+            }
+
+            if (values.Length >= 2)
+                values = values.Remove(values.Length - 2, 2);
+
+            return values;
         }
 
         private static void ValidateUserAccess(int id, int userId)
