@@ -31,16 +31,23 @@ namespace DataAccessLayer
             }
             catch (Exception e)
             {
+                throw new DomainException("Could not update user", e);
             }
-            //database stuff
         }
 
         public static void Register(User user)
         {
-            using (var db = new MyDbContext())
+            try
             {
-                db.User.Add(user);
-                db.SaveChanges();
+                using (var db = new MyDbContext())
+                {
+                    db.User.Add(user);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new DomainException("Could not create user", e);
             }
         }
 
@@ -48,6 +55,9 @@ namespace DataAccessLayer
         {
             try
             {
+                if (userEmail == null || userEmail.Equals(""))
+                    throw new DomainException("Invalid email address");
+
                 var user = new User();
                 using (var db = new MyDbContext())
                 {
@@ -65,12 +75,20 @@ namespace DataAccessLayer
 
         public static User GetUserById(int userId)
         {
-            User user = new User();
-            using (var db = new MyDbContext())
+            try
             {
-                user = db.User.Find(userId);
+                if (userId < 0)
+                    throw new DomainException("Invalid user id");
+
+                using (var db = new MyDbContext())
+                {
+                    return db.User.Find(userId);
+                }
             }
-            return user;
+            catch (Exception e)
+            {
+                throw new DomainException("Could not fetch user", e);
+            }
         }
     }
 }

@@ -15,24 +15,31 @@ namespace PresentationLayer
         [CustomAuthorize]
         public ActionResult Index()
         {
-            User currentUser = BusinessLayer.UserBusiness.Get(HttpContext.User.Identity.Name);
-            var allSuggestions = SuggestionBusiness.GetAll();
-            Suggestion selectedSuggestion = null;
-            if (allSuggestions.Count > 0)
+            try
             {
-                selectedSuggestion = allSuggestions[0];
+                User currentUser = BusinessLayer.UserBusiness.Get(HttpContext.User.Identity.Name);
+                var allSuggestions = SuggestionBusiness.GetAll();
+                Suggestion selectedSuggestion = null;
+                if (allSuggestions.Count > 0)
+                {
+                    selectedSuggestion = allSuggestions[0];
                 selectedSuggestion.JoinedUsers = JoinedUserBusiness.Get(selectedSuggestion.Id);
+                }
+
+                var viewModel = new DashboardViewModel()
+                {
+                    AllSuggestions = allSuggestions,
+                    SelectedSuggestion = selectedSuggestion == null ? null : SuggestionViewModel.FromModel(selectedSuggestion),
+                    JoinedSuggestions = SuggestionBusiness.GetByUser(currentUser.Id),
+                    OwnedSuggestions = SuggestionBusiness.GetByCreator(currentUser.Id)
+                };
+
+                return View(viewModel);
             }
-
-            var viewModel = new DashboardViewModel()
+            catch (Exception e)
             {
-                AllSuggestions = allSuggestions,
-                SelectedSuggestion = selectedSuggestion == null ? null : SuggestionViewModel.FromModel(selectedSuggestion),
-                JoinedSuggestions = SuggestionBusiness.GetByUser(currentUser.Id),
-                OwnedSuggestions = SuggestionBusiness.GetByCreator(currentUser.Id)
-            };
-
-            return View(viewModel);
+                return View("Error", ErrorHelper.ErrorModelForDomainException(e));
+            }
         }
 
     }

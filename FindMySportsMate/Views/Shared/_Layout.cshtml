@@ -24,7 +24,7 @@
     
 <body class="clearfix">
 <div id="header">
-    <div id="title">Find My Sports Mate</div>
+    <div id="title"><img src=@Url.Content("~/Content/images/logo1-wide.png") style="width: 80%" /></div>
     <div class="menu">
         <a href="#">@Html.ActionLink((string)ViewBag.Email, "Edit", "User")</a> | 
         <a href="#">@Html.ActionLink("Dashboard", "Index", "Dashboard")</a> |
@@ -36,5 +36,13 @@
 <div id="body">
     @RenderBody()
 </div>
+
 </body>
+
+<div class="clear"></div>
+
+<div id="footer">
+    <p>This is a QUT-project by N8333734 Simon Stubben, N8333734 Hans Stubben & N8333734 Steffen Stubben. May 2012.</p>
+</div>
+
 </html>

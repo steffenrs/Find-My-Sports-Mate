@@ -10,9 +10,16 @@ namespace DataAccessLayer
     {
         public static List<Location> getAll()
         {
-            using (var db = new MyDbContext())
+            try
             {
-                return db.Location.ToList();
+                using (var db = new MyDbContext())
+                {
+                    return db.Location.ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new DomainException("Could not get all locations", e);
             }
         }
 

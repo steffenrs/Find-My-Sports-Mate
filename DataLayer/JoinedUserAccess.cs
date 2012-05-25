@@ -10,17 +10,24 @@ namespace DataAccessLayer
     {
         public static void Add(JoinedUser joinedUser)
         {
-            using (var db = new MyDbContext())
+            try
             {
-                db.JoinedUser.Add(joinedUser);
-                db.SaveChanges();
+                using (var db = new MyDbContext())
+                {
+                    db.JoinedUser.Add(joinedUser);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new DomainException("Could not add joined user", e);
             }
         }
 
         public static List<JoinedUser> GetForSuggestion(int suggestionId)
         {
-            if (suggestionId < 1)
-                throw new DomainException("Invalid suggestion Id");
+            if (suggestionId < 0)
+                throw new DomainException("Invalid suggestion id");
 
             try
             {

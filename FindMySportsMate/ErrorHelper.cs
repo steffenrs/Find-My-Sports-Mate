@@ -8,13 +8,13 @@ namespace PresentationLayer
 {
     public static class ErrorHelper
     {
-        public static ErrorViewModel ErrorModelForDomainException(DomainException e)
+        public static ErrorViewModel ErrorModelForDomainException(Exception e)
         {
             String innerMessage = "";
             if (e.InnerException != null)
                 innerMessage = e.InnerException.Message;
 
-            ErrorViewModel model = new ErrorViewModel { domainErrorMessage = e.Message, innerErrorMessage = innerMessage };
+            ErrorViewModel model = new ErrorViewModel { errorMessage = e.Message, innerErrorMessage = innerMessage };
             return model;
         }
     }
