@@ -21,9 +21,9 @@ namespace BusinessLayer
             DataAccessLayer.SuggestionAccess.Create(suggestion);
         }
 
-        public static bool JoinSuggestion(int userId, int suggestionId, string weekdays)
+        public static void Join(int userId, int suggestionId, string weekdays)
         {
-            Suggestion suggestion = SuggestionBusiness.GetById(suggestionId);
+            Suggestion suggestion = SuggestionBusiness.Get(suggestionId);
 
             // Join if not closed, not full and not already joined
             if (!suggestion.IsClosed && suggestion.JoinedUsers.Count < suggestion.MaximumUsers && HasUserJoined(userId, suggestion))
@@ -46,17 +46,13 @@ namespace BusinessLayer
 
                     SuggestionBusiness.Update(suggestion, suggestion.CreatorId);
                 }
-
-                return true;
             }
-            else
-                return false;
         }
 
         public static void Open(int id, int userId)
         {
             ValidateUserAccess(id, userId);
-            Suggestion suggestion = GetById(id);
+            Suggestion suggestion = Get(id);
             if (suggestion.JoinedUsers.Count >= suggestion.MaximumUsers)
                 return;
 
@@ -67,7 +63,7 @@ namespace BusinessLayer
         public static void Close(int id, int userId)
         {
             ValidateUserAccess(id, userId);
-            Suggestion suggestion = GetById(id);
+            Suggestion suggestion = Get(id);
             suggestion.LocationId = LocationBusiness.NearestLocationForUsers(suggestion).Id;
             suggestion.IsClosed = true;
             SuggestionBusiness.Update(suggestion, userId);
@@ -85,18 +81,9 @@ namespace BusinessLayer
             return DataAccessLayer.SuggestionAccess.GetAll();
         }
 
-        public static Suggestion GetById(int suggestionId)
+        public static Suggestion Get(int suggestionId)
         {
             return DataAccessLayer.SuggestionAccess.Get(suggestionId);
-        }
-
-        private static void ValidateUserAccess(int id, int userId)
-        {
-            Suggestion suggestion = DataAccessLayer.SuggestionAccess.Get(id);
-            if (userId != suggestion.CreatorId)
-            {
-                throw new DomainException("User is not authorized to edit the suggestion.");
-            }
         }
 
         public static List<Suggestion> GetByUser(int userId)
@@ -109,6 +96,15 @@ namespace BusinessLayer
             return DataAccessLayer.SuggestionAccess.GetAllByCreator(userId);
         }
 
+        private static void ValidateUserAccess(int id, int userId)
+        {
+            Suggestion suggestion = DataAccessLayer.SuggestionAccess.Get(id);
+            if (userId != suggestion.CreatorId)
+            {
+                throw new DomainException("User is not authorized to edit the suggestion.");
+            }
+        }
+    
         private static bool HasUserJoined(int userId, Suggestion suggestion)
         {
             return suggestion.JoinedUsers.FindAll(j => j.UserId == userId).Count == 0;

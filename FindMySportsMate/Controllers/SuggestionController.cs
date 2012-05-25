@@ -52,7 +52,7 @@ namespace PresentationLayer.Controllers
         {
             try
             {
-                Suggestion suggestion = BusinessLayer.SuggestionBusiness.GetById(Id);
+                Suggestion suggestion = BusinessLayer.SuggestionBusiness.Get(Id);
                 EditSuggestionViewModel viewModel = new EditSuggestionViewModel
                 {
                     Title = suggestion.Title,
@@ -132,7 +132,7 @@ namespace PresentationLayer.Controllers
 
             try
             {
-                suggestion = BusinessLayer.SuggestionBusiness.GetById(id);
+                suggestion = BusinessLayer.SuggestionBusiness.Get(id);
                 suggestion.JoinedUsers = BusinessLayer.JoinedUserBusiness.GetBySuggestion(suggestion.Id);
             }
             catch (DomainException e)
@@ -151,12 +151,12 @@ namespace PresentationLayer.Controllers
         {         
             try
             {
-                Suggestion suggestion = BusinessLayer.SuggestionBusiness.GetById(id);
+                Suggestion suggestion = BusinessLayer.SuggestionBusiness.Get(id);
                 int userId = BusinessLayer.UserBusiness.Get(HttpContext.User.Identity.Name).Id;
-                BusinessLayer.SuggestionBusiness.JoinSuggestion(userId, id, weekdays.ToString());
+                BusinessLayer.SuggestionBusiness.Join(userId, id, weekdays.ToString());
 
                 //get updated location
-                suggestion.Location = BusinessLayer.SuggestionBusiness.GetById(id).Location;
+                suggestion.Location = BusinessLayer.SuggestionBusiness.Get(id).Location;
                 suggestion.JoinedUsers = BusinessLayer.JoinedUserBusiness.GetBySuggestion(suggestion.Id);
 
                 var model = new DashboardViewModel { SelectedSuggestion = SuggestionViewModel.FromModel(suggestion) };
