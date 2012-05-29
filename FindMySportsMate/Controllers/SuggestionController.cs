@@ -9,7 +9,7 @@ using PresentationLayer;
 using System.Text.RegularExpressions;
 using BusinessLayer;
 
-namespace PresentationLayer.Controllers
+namespace PresentationLayer
 {
     public class SuggestionController : Controller
     {

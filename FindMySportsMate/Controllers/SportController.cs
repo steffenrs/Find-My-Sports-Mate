@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace PresentationLayer.Controllers
+namespace PresentationLayer
 {
     public class SportController : Controller
     {
