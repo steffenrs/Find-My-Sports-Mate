@@ -40,19 +40,8 @@
                 }
             </ul>
         </div>
-    </div>
-    <div id="suggestions-right-div" style="width: 300px; height:300px">
-        @if (Model.Location != null)
-        {
-            <script>showMap(@Model.Location.Latitude,@Model.Location.Longitude);</script>
-        }
-        else
-        {
-            @Html.Encode("A map will be generated when the minimum users have joined.");
-        }
-    </div>
-    
-    <div style="width:50%">
+
+        <div style="width:50%">
         @{
             int id = Convert.ToInt32(((PresentationLayer.CustomPrincipal)HttpContext.Current.User).UserID);
             if (Model.JoinedUsers.FindAll(m => m.User.Id == id).Count > 0)
@@ -69,6 +58,20 @@
             }
         }
     </div>
+
+    </div>
+    <div id="suggestions-right-div" style="width: 300px; height:300px">
+        @if (Model.Location != null)
+        {
+            <script>showMap(@Model.Location.Latitude,@Model.Location.Longitude);</script>
+        }
+        else
+        {
+            @Html.Encode("A map will be generated when the minimum users have joined.");
+        }
+    </div>
+    
+    
 }
 else
 {

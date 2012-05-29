@@ -30,14 +30,8 @@
                 @Html.PasswordFor(m => m.Password)
                 @Html.ValidationMessageFor(m => m.Password)
             </div>
-
-            <div class="editor-label">
-                @Html.CheckBoxFor(m => m.RememberMe)
-                @Html.LabelFor(m => m.RememberMe)
-            </div>
-
             <p>
-                <input type="submit" value="Log On" />
+                <input type="submit" value="Log In" />
             </p>
 
             <p style="margin-top: 25px">Don't have a user? Register @Html.ActionLink("here", "Register")!</p>
