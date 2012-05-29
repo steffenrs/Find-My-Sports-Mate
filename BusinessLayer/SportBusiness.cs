@@ -13,11 +13,6 @@ namespace BusinessLayer
             return DataAccessLayer.SportAccess.GetOrCreate(name);
         }
 
-        public static void Create(Sport suggestionSport)
-        {
-            DataAccessLayer.SportAccess.Create(suggestionSport);
-        }
-
         public static String GetAll()
         {
             List<Sport> sports = DataAccessLayer.SportAccess.GetAll();

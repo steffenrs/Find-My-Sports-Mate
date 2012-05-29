@@ -36,24 +36,6 @@ namespace DataAccessLayer
             }
         }
 
-        public static void Create(Sport suggestionSport)
-        {
-            try
-            {
-                validateSport(suggestionSport);
-
-                using (var db = new MyDbContext())
-                {
-                    db.Sport.Add(suggestionSport);
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception e)
-            {
-                throw new DomainException("Could not create sport", e);
-            } 
-        }
-
         public static List<Sport> GetAll()
         {
             try

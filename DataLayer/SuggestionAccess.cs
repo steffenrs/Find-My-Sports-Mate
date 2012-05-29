@@ -34,7 +34,13 @@ namespace DataAccessLayer
 
                 using (var db = new MyDbContext())
                 {
-                    return (from s in db.Suggestion.Include("Sport").Include("JoinedUsers").Include("Creator").Include("Location") where s.Id == id select s).First();
+                    return (from s in db.Suggestion
+                                .Include("Sport")
+                                .Include("JoinedUsers")
+                                .Include("Creator")
+                                .Include("Location") 
+                                where s.Id == id 
+                                select s).First();
                 }
             }
             catch (Exception e)
@@ -61,7 +67,7 @@ namespace DataAccessLayer
             }
         }
 
-        public static List<Suggestion> GetAllByCreator(int creatorId)
+        public static List<Suggestion> GetByCreator(int creatorId)
         {
             try
             {

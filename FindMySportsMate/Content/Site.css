@@ -25,6 +25,11 @@ section {
     display: block;
 }
 
+a img
+{
+    border: none;
+}
+
 .clear { clear: both; }
 
 .clearfix:after {
@@ -134,9 +139,9 @@ textarea
     float: left;
     margin-left: auto;
     margin-right: auto;
-    width: 80%;  
+    width: 90%;  
     margin-top: 80px;
-    margin-left: 80px;
+    margin-left: 20px;
     position: relative;
     clear: both;
     position: relative; 

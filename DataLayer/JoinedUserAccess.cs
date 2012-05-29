@@ -24,7 +24,7 @@ namespace DataAccessLayer
             }
         }
 
-        public static List<JoinedUser> GetForSuggestion(int suggestionId)
+        public static List<JoinedUser> Get(int suggestionId)
         {
             if (suggestionId < 0)
                 throw new DomainException("Invalid suggestion id");

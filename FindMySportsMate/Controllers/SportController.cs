@@ -13,6 +13,5 @@ namespace PresentationLayer.Controllers
         {
             return BusinessLayer.SportBusiness.GetAll();
         }
-
     }
 }

@@ -32,6 +32,7 @@ namespace PresentationLayer.Controllers
                     User currentUser = BusinessLayer.UserBusiness.Get(HttpContext.User.Identity.Name);
                     suggestion.CreatorId = currentUser.Id;
                     suggestion.MostPopularDays = model.Weekdays.ToString();
+
                     // Create suggestion
                     BusinessLayer.SuggestionBusiness.Create(suggestion, model.Weekdays.ToString());
                     return RedirectToAction("Index", "Dashboard");

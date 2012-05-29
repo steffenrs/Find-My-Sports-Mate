@@ -100,6 +100,7 @@
   <ItemGroup>
     <Content Include="Content\images\8_em_pencil.png" />
     <Content Include="Content\images\add.png" />
+    <Content Include="Content\images\logo1-wide.png" />
     <Content Include="Content\images\pencil3.png" />
     <Content Include="Content\images\stock_lock.png" />
     <Content Include="Content\images\stock_lock_open.png" />

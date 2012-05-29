@@ -94,12 +94,12 @@ namespace BusinessLayer
 
         public static List<Suggestion> GetByCreator(int userId)
         {
-            return DataAccessLayer.SuggestionAccess.GetAllByCreator(userId);
+            return DataAccessLayer.SuggestionAccess.GetByCreator(userId);
         }
 
         public static List<JoinedUser> GetJoinedUsers(int suggestionId)
         {
-            return JoinedUserAccess.GetForSuggestion(suggestionId);
+            return JoinedUserAccess.Get(suggestionId);
         }
         public static string GetBestDays(int suggestionId)
         {

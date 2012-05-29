@@ -41,13 +41,13 @@ namespace PresentationLayer
         [Required]
         [Display(Name = "Minimum Joined People: ")]
         [DataType(DataType.Text)]
-        [RegularExpression("[2-9][0-9]*", ErrorMessage = "Must be a number above 1")]
+        [RegularExpression("([2-9]|[0-9][0-9]+)", ErrorMessage = "Must be a number above 1")]
         public int MinPeople { get; set; }
 
         [Required]
         [Display(Name = "Maximum Joined People: ")]
         [DataType(DataType.Text)]
-        [RegularExpression("[2-9][0-9]*", ErrorMessage = "Must be a number above 1")]
+        [RegularExpression("([2-9]|[0-9][0-9]+)", ErrorMessage = "Must be a number above 1")]
         [IntegerIsLessThanAttribute("MinPeople")]
         public int MaxPeople { get; set; }
 

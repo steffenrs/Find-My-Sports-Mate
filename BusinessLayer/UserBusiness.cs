@@ -21,12 +21,12 @@ namespace BusinessLayer
 
         public static User Get(string userEmail)
         {
-            return DataAccessLayer.UserAccess.GetUserByEmail(userEmail);
+            return DataAccessLayer.UserAccess.Get(userEmail);
         }
 
         public static User Get(int userId)
         {
-            return DataAccessLayer.UserAccess.GetUserById(userId);
+            return DataAccessLayer.UserAccess.Get(userId);
         }
     }
 }

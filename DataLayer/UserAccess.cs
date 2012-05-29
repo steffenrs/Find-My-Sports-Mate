@@ -51,7 +51,7 @@ namespace DataAccessLayer
             }
         }
 
-        public static User GetUserByEmail(string userEmail)
+        public static User Get(string userEmail)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace DataAccessLayer
             } 
         }
 
-        public static User GetUserById(int userId)
+        public static User Get(int userId)
         {
             try
             {
